@@ -7,9 +7,10 @@ metadata:
   # namespace: argocd
 spec:
   sourceNamespaces:
-  {{- range $namespace, $_ := .namespaces }}
+    - {{ $tenantId | quote }}
+  {{/*{{- range $namespace, $_ := .namespaces }}
     - {{ $namespace | quote }}
-  {{- end }}
+  {{- end }}*/}}
   destinations:
   {{- range $namespace, $_ := .namespaces }}
     - namespace: {{ $namespace | quote }}
