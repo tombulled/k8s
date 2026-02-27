@@ -1,13 +1,15 @@
+
+
+# One AppProject per tenant
+# N namespaces
+  # One limit range per
+  # One Resource quota per
+  # Network policies per
+# RBAC too
 tenants:
-  tom:
+  platform:
     enabled: true
     # quota: {}
     namespaces:
-      argocd:
-        enabled: false
-        annotations:
-          is-cool: true
-        labels:
-          is-app: batman
-    applications:
-
+      argocd: {}
+    applications: {}
