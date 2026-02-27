@@ -1,11 +1,10 @@
-
 tenants:
   tom:
     enabled: true
     # quota: {}
     namespaces:
       argocd:
-        # enabled: false
+        enabled: false
         annotations:
           is-cool: true
         labels:
