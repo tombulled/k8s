@@ -5,6 +5,7 @@ kind: ApplicationSet
 metadata:
   name: {{ $tenantId }}
   # namespace: argocd
-spec: {}
+spec:
+  generators: []
 ---
 {{- end -}}
