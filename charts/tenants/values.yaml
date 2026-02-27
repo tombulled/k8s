@@ -61,6 +61,7 @@ tenants:
     # namespace:
     #   enabled: false
     namespaces:
+      platform: {}
       argocd: {}
       ingress-nginx: {}
     # appset:
