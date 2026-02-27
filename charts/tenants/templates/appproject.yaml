@@ -15,6 +15,14 @@ spec:
     - namespace: {{ $namespace | quote }}
       name: in-cluster
   {{- end }}
-  
+  namespaceResourceBlacklist:
+    - group: ''
+      kind: ResourceQuota
+    - group: ''
+      kind: LimitRange
+    - group: ''
+      kind: NetworkPolicy
+  sourceRepos:
+    - '*'
 ---
 {{- end -}}
