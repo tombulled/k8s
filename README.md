@@ -1,5 +1,11 @@
 # k8s
 
+To install:
+* argo
+* harbor
+* ingress-nginx vs traefik
+* 
+
 ```sh
 K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
 ```
