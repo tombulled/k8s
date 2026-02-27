@@ -61,10 +61,7 @@ tenants:
     # namespace:
     #   enabled: false
     namespaces:
-      foo:
-        enabled: true
-      bar:
-        enabled: false
+      argocd: {}
 
   #   # enabled: true
   #   # quota: {}
