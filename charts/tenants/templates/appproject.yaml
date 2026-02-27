@@ -1,0 +1,9 @@
+{{- $tenants := include "tenants" $ | fromYaml -}}
+{{- range $tenantId, $tenant := $tenants -}}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ $tenantId }}
+  # namespace: argocd
+---
+{{- end -}}

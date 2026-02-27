@@ -5,4 +5,4 @@ configs:
     argocdServerAdminPassword: "$2b$12$tr.kWcGd2HB3TNqJt7F.p.SWYfyjvUnea5mbh5HzAU5Wu1Ey6mk.S"
 
 params:
-  application.namespaces: platform
+  application.namespaces: "*"

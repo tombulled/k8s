@@ -1,0 +1,73 @@
+# argoNamespace: argocd
+
+# namespaceDefaults: {}
+
+tenantDefaults:
+  enabled: true
+  namespace:
+    enabled: true
+    labels: {}
+    annotations: {}
+  project: {}
+  namespaces: {}
+  appset: {}
+  application: {}
+
+# applicationDefaults:
+#   labels:
+#     is-cool: true
+#   annotations:
+#     is-cool: true
+#   deletion:
+#     cascade: true
+#     propagationPolicy: foreground|background
+  # NOTE: Not able to specify `name`, as this is derived from the ID
+  # NOTE: Not able to specify `argoNamespace`, as this is dictated by the tenant
+    # How does this work with a tenant owning multiple namespaces?
+  # NOTE: Not able to specify `project`, as this is dictated by the tenant
+
+
+# By default a tenant `foo` gets:
+# 1. An AppProject called `foo` (in `argocd` namespace)
+# 2. A `foo` namespace
+# 3. A limit range
+# 4. A resource quota
+
+# Thoughts:
+# * Should tenant namespaces be prefixed? e.g. cw-ops, cw-ref, cw-dev
+
+# tesco:
+#   produce:
+#     london:
+#       apps: {}
+
+# groups:
+#   tesco:
+#     groups:
+#       produce:
+      
+
+# One AppProject per tenant
+# One AppSet per tenant
+# N namespaces
+  # One limit range per
+  # One Resource quota per
+  # Network policies per
+# RBAC too
+# Network policies too
+tenants:
+  # platform: {}
+    # enabled: true
+    # namespace:
+    #   enabled: false
+    # namespaces:
+    #   my-extra-namespace: {}
+  #   # enabled: true
+  #   # quota: {}
+  #   # namespaces:
+  #   #   argocd: {}
+  #   # applications:
+  #   #   argocd:
+  foo: {}
+  bar: {}
+

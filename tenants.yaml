@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenants
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: git@github.com:tombulled/k8s.git
+      targetRevision: main
+      path: charts/tenants
+      helm:
+        valueFiles:
+        - values/tenants/values.yaml
+        # - $values/values/tenants/values.yaml
+    # - repoURL: git@github.com:tombulled/k8s.git
+    #   targetRevision: main
+    #   ref: values
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    # syncOptions:
+    # - ServerSideApply=true
