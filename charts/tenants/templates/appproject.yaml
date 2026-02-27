@@ -8,9 +8,6 @@ metadata:
 spec:
   sourceNamespaces:
     - {{ $tenantId | quote }}
-  {{/*{{- range $namespace, $_ := .namespaces }}
-    - {{ $namespace | quote }}
-  {{- end }}*/}}
   destinations:
   {{- range $namespace, $_ := .namespaces }}
     - namespace: {{ $namespace | quote }}
