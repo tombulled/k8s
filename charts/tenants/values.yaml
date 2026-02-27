@@ -56,10 +56,10 @@ tenantDefaults:
 # RBAC too
 # Network policies too
 tenants:
-  # platform: {}
+  platform:
     # enabled: true
-    # namespace:
-    #   enabled: false
+    namespace:
+      enabled: false
     # namespaces:
     #   my-extra-namespace: {}
   #   # enabled: true
@@ -69,5 +69,4 @@ tenants:
   #   # applications:
   #   #   argocd:
   foo: {}
-  bar: {}
 
