@@ -13,7 +13,7 @@ spec:
       path: charts/tenants
       helm:
         valueFiles:
-        - values/tenants/values.yaml
+        - ../../values/tenants/values.yaml
         # - $values/values/tenants/values.yaml
     # - repoURL: git@github.com:tombulled/k8s.git
     #   targetRevision: main
