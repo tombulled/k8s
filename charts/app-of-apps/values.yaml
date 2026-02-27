@@ -1,0 +1,14 @@
+
+tenants:
+  tom:
+    enabled: true
+    # quota: {}
+    namespaces:
+      argocd:
+        # enabled: false
+        annotations:
+          is-cool: true
+        labels:
+          is-app: batman
+    applications:
+
