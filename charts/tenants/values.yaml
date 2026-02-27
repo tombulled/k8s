@@ -62,6 +62,7 @@ tenants:
     #   enabled: false
     namespaces:
       argocd: {}
+      ingress-nginx: {}
 
   #   # enabled: true
   #   # quota: {}
