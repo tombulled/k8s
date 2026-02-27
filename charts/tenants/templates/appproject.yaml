@@ -10,5 +10,11 @@ spec:
   {{- range $namespace, $_ := .namespaces }}
     - {{ $namespace | quote }}
   {{- end }}
+  destinations:
+  {{- range $namespace, $_ := .namespaces }}
+    - namespace: {{ $namespace | quote }}
+      name: in-cluster
+  {{- end }}
+  
 ---
 {{- end -}}
