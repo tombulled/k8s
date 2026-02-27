@@ -10,7 +10,9 @@ spec:
   template:
     metadata: {}
     spec:
-      project: default # required
-      destination: {}
+      project: {{ $tenantId }}
+      destination:
+        name: in-cluster
+        namespace: {{ $tenantId }}
 ---
 {{- end -}}
