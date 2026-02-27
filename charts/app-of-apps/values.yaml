@@ -1,4 +1,13 @@
-
+applicationDefaults:
+  name: ""
+  argoNamespace: argocd
+  labels:
+    is-cool: true
+  annotations:
+    is-cool: true
+  deletion:
+    cascade: true
+    propagationPolicy: foreground|background
 
 # One AppProject per tenant
 # N namespaces
@@ -12,4 +21,6 @@ tenants:
     # quota: {}
     namespaces:
       argocd: {}
-    applications: {}
+    applications:
+      argocd:
+

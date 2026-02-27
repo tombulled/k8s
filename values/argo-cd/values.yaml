@@ -3,3 +3,6 @@ configs:
     # Password generated using: python3 -c "import bcrypt,sys; print(bcrypt.hashpw(sys.stdin.read().strip().encode(), bcrypt.gensalt()).decode())" <<< "admin"
     # Note: `bcrypt` can be installed using: python3 -m pip install bcrypt
     argocdServerAdminPassword: "$2b$12$tr.kWcGd2HB3TNqJt7F.p.SWYfyjvUnea5mbh5HzAU5Wu1Ey6mk.S"
+
+params:
+  application.namespaces: platform
