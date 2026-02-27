@@ -10,6 +10,7 @@ spec:
   template:
     metadata: {}
     spec:
+      project: default # required
       destination: {}
 ---
 {{- end -}}
