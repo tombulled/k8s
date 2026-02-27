@@ -24,5 +24,8 @@ spec:
       kind: NetworkPolicy
   sourceRepos:
     - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
 ---
 {{- end -}}
