@@ -7,5 +7,6 @@ metadata:
   # namespace: argocd
 spec:
   generators: []
+  template: {}
 ---
 {{- end -}}
