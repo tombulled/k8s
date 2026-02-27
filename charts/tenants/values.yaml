@@ -63,6 +63,12 @@ tenants:
     namespaces:
       argocd: {}
       ingress-nginx: {}
+    # appset:
+    #   generators:
+    #     - list:
+    #         elements: []
+    #         template:
+              
 
   #   # enabled: true
   #   # quota: {}
