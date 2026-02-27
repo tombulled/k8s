@@ -1,11 +1,10 @@
 {{- $tenants := include "tenants" $ | fromYaml -}}
 {{- range $tenantId, $tenant := $tenants -}}
-{{- with .namespace -}}
-{{- if .enabled -}}
+{{- range $namespaceId, $namespace := .namespaces -}}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $tenantId }}
+  name: {{ $namespaceId }}
   {{- with .annotations }}
   annotations: {{- . | toYaml | nindent 4 }}
   {{- end }}
@@ -13,6 +12,5 @@ metadata:
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
 ---
-{{- end -}}
 {{- end -}}
 {{- end -}}

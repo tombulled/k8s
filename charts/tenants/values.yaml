@@ -9,7 +9,7 @@ tenantDefaults:
     labels: {}
     annotations: {}
   project: {}
-  namespaces: {}
+  # namespaces: {}
   appset: {}
   application: {}
 
@@ -58,15 +58,19 @@ tenantDefaults:
 tenants:
   platform:
     # enabled: true
-    namespace:
-      enabled: false
-    # namespaces:
-    #   my-extra-namespace: {}
+    # namespace:
+    #   enabled: false
+    namespaces:
+      foo:
+        enabled: true
+      bar:
+        enabled: false
+
   #   # enabled: true
   #   # quota: {}
   #   # namespaces:
   #   #   argocd: {}
   #   # applications:
   #   #   argocd:
-  foo: {}
+  other-tenant: {}
 
