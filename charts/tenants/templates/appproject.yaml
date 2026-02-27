@@ -5,6 +5,8 @@ kind: AppProject
 metadata:
   name: {{ $tenantId }}
   # namespace: argocd
-spec: {}
+spec:
+  sourceNamespaces:
+  - {{ $tenantId }}
 ---
 {{- end -}}
