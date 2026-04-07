@@ -1,0 +1,8 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: foo # TODO
+  namespace: foo # TODO
+spec:
+  generators: [] # TODO
+  # ...

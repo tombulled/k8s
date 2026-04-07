@@ -1,0 +1,14 @@
+# defaults: {}
+
+applications:
+  foo: # <-- application "id"
+    ### metadata ###
+    name: foo # <-- defaults to application ID for apps & filename for appset
+    namespace: argocd # <-- defaults to argocd? defaults to release namespace?
+    # deletionPropagationPolicy: foreground | background | orphan # <-- defaults to foreground
+    # labels: {}
+    # annotations: {}
+    # ### spec ###
+    # project: foo # <-- defaults to "default"
+    # source:
+    #   repoURL: https://github.com/argoproj/argocd-example-apps.git

@@ -1,0 +1,10 @@
+{{- range $applicationId, $application := .Values.applications -}}
+{{- $applicationName := .name | default $applicationId -}}
+{{- $applicationNamespace := .namespace | default "argocd" -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $applicationName | quote }}
+  namespace: {{ $applicationNamespace | quote }}
+{{- end -}}
