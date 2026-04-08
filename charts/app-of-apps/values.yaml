@@ -5,10 +5,17 @@ applications:
     ### metadata ###
     name: foo # <-- defaults to application ID for apps & filename for appset
     namespace: argocd # <-- defaults to argocd? defaults to release namespace?
-    # deletionPropagationPolicy: foreground | background | orphan # <-- defaults to foreground
-    # labels: {}
-    # annotations: {}
+    deletion:
+      cascade: true # <-- defaults to false
+      propagationPolicy: foreground # | background # <-- defaults to foreground
+    annotations:
+      is-cool: "true"
+    labels:
+      likes-fish: "false"
     # ### spec ###
-    # project: foo # <-- defaults to "default"
+    project: default # <-- defaults to "default"
+    destination:
+      name: in-cluster # <-- defaults to "in-cluster"
+      namespace: foo
     # source:
     #   repoURL: https://github.com/argoproj/argocd-example-apps.git

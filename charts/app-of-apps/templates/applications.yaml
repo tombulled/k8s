@@ -7,4 +7,35 @@ kind: Application
 metadata:
   name: {{ $applicationName | quote }}
   namespace: {{ $applicationNamespace | quote }}
+  {{- if .deletion.cascade }}
+  finalizers:
+    {{- with .deletion.propagationPolicy }}
+    {{- if eq . "foreground" }}
+    - resources-finalizer.argocd.argoproj.io
+    {{- else if eq . "background" }}
+    - resources-finalizer.argocd.argoproj.io/background
+    {{- else }}
+      {{- fail (printf "Unrecognised deletion propagation policy: '%s'" .) }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- with .annotations }}
+  annotations: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .labels }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+spec:
+  project: {{ .project }}
+  destination:
+    {{- if .destination.server | quote }}
+    server: {{ .destination.server | quote }}
+    {{- else if .destination.name }}
+    name: {{ .destination.name | quote }}
+    {{- else }}
+      {{- fail "Target cluster name or server URL must be set" }}
+    {{- end }}
+    {{- with .namespace }}
+    namespace: {{ . | quote }}
+    {{- end }}
 {{- end -}}
