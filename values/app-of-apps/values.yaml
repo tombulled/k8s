@@ -8,6 +8,11 @@ defaults:
     automated:
       prune: true
       selfHeal: true
+  sourcesObject:
+    values:
+      repoURL: git@github.com:tombulled/k8s.git
+      targetRevision: main
+      ref: values
 
 applications:
   ingress-nginx:
@@ -21,7 +26,7 @@ applications:
         helm:
           valueFiles:
             - $values/values/ingress-nginx/values.yaml
-      values:
-        repoURL: git@github.com:tombulled/k8s.git
-        targetRevision: main
-        ref: values
+      # values:
+      #   repoURL: git@github.com:tombulled/k8s.git
+      #   targetRevision: main
+      #   ref: values
