@@ -47,4 +47,5 @@ applicationSets:
     generators: []
     template:
       metadata: {}
-      spec: {}
+      spec:
+        project: default
