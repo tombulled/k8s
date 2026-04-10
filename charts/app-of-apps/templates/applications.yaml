@@ -2,23 +2,27 @@
 {{- $applicationName := .name | default $applicationId -}}
 {{- $applicationNamespace := .namespace | default "argocd" -}}
 {{- $applicationInfo := (include "applicationInfo" (dict "list" .info "dict" .infoObject) | fromYaml).info -}}
+{{- $applicationFinalizers := .finalizers | default list -}}
+{{- if .deletion.cascade -}}
+  {{- $propagationPolicy := .deletion.propagationPolicy | default "foreground" -}}
+  {{- with $propagationPolicy -}}
+    {{- if eq . "foreground" -}}
+      {{- $applicationFinalizers = append $applicationFinalizers "resources-finalizer.argocd.argoproj.io" -}}
+    {{- else if eq . "background" -}}
+      {{- $applicationFinalizers = append $applicationFinalizers "resources-finalizer.argocd.argoproj.io/background" -}}
+    {{- else -}}
+      {{- fail (printf "Unrecognised deletion propagation policy: '%s'" .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $applicationName | quote }}
   namespace: {{ $applicationNamespace | quote }}
-  {{- if .deletion.cascade }}
-  finalizers:
-    {{- with .deletion.propagationPolicy }}
-    {{- if eq . "foreground" }}
-    - resources-finalizer.argocd.argoproj.io
-    {{- else if eq . "background" }}
-    - resources-finalizer.argocd.argoproj.io/background
-    {{- else }}
-      {{- fail (printf "Unrecognised deletion propagation policy: '%s'" .) }}
-    {{- end }}
-    {{- end }}
+  {{- with $applicationFinalizers }}
+  finalizers: {{ . | toYaml | nindent 4 }}
   {{- end }}
   {{- with .annotations }}
   annotations: {{- . | toYaml | nindent 4 }}

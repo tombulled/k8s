@@ -5,9 +5,11 @@ applications:
     ### metadata ###
     name: foo # <-- defaults to application ID for apps & filename for appset
     namespace: argocd # <-- defaults to argocd? defaults to release namespace?
+    finalizers:
+      - "my-custom-finalizer"
     deletion:
       cascade: true # <-- defaults to false
-      propagationPolicy: foreground # | background # <-- defaults to foreground
+      propagationPolicy: ~ # foreground # | background # <-- defaults to foreground
     annotations:
       is-cool: "true"
     labels:
@@ -35,12 +37,6 @@ applications:
         # Name and namespace are optional. If specified, they must match exactly, these are not glob patterns.
         name: my-deployment
         namespace: my-namespace
-    # ignoreDifferencesObject:
-    #   deployment-foo:
-    #     group: apps
-    #     kind: Deployment
-    #     jsonPointers:
-    #       - /spec/replicas
     info:
       - name: "Example"
         value: "https://example.com"
@@ -63,3 +59,5 @@ applications:
     syncPolicy:
       syncOptionsObject: # takes precedence
         validate: true
+
+# applicationSets: {}
