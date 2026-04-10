@@ -45,4 +45,7 @@ applications:
 applicationSets:
   core:
     generators: []
-    template: {}
+    template:
+      metadata:
+        labels:
+          foo: bar
