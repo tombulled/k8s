@@ -1,7 +1,6 @@
 {{- range $applicationId, $application := .Values.applications -}}
 {{- $applicationName := .name | default $applicationId -}}
 {{- $applicationNamespace := .namespace | default "argocd" -}}
-# {{- $applicationInfo := (include "applicationInfo" (dict "list" .info "dict" .infoObject) | fromYaml).info -}}
 {{- $applicationFinalizers := .finalizers | default list -}}
 {{- if .deletion.cascade -}}
   {{- $propagationPolicy := .deletion.propagationPolicy | default "foreground" -}}
