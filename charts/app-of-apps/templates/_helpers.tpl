@@ -1,7 +1,7 @@
 {{- define "applicationSpec" -}}
 {{- end -}}
 
-{{- define "syncPolicy" -}}
+{{- define "patcher.syncOptionsObject" -}}
 {{- /* Build Sync Options Dictionary */ -}}
 {{- $syncOptionsDict := dict -}}
 {{- range $syncOption := .syncOptions | default list }}
@@ -20,31 +20,8 @@
 {{- end }}
 
 {{- /* Patch Sync Policy */ -}}
-{{- $_ := unset . "syncOptionsObject" -}}
 {{- $_ := set . "syncOptions" $syncOptionsList -}}
-
-{{- /* Output Sync Policy */ -}}
-{{ . | toYaml }}
 {{- end -}}
-
-# {{- define "applicationInfo" -}}
-# {{- $infoList := get . "list" | default list -}}
-# {{- $infoDict := get . "dict" | default dict -}}
-# {{- $info := dict }}
-# {{- range $item := $infoList }}
-# {{- $_ := set $info ($item.name) $item }}
-# {{- end }}
-# {{- range $key, $val := $infoDict }}
-# {{- $name := $key | snakecase | replace "_" " " | title }}
-# {{- $obj := dict "name" $name "value" $val }}
-# {{- $_ := set $info $name $obj }}
-# {{- end }}
-# {{- $output := list }}
-# {{- range $_, $val := $info }}
-# {{- $output = append $output $val }}
-# {{- end }}
-# info: {{- $output | toYaml | nindent 2 }}
-# {{- end -}}
 
 {{- define "patcher.infoObject" -}}
   {{- with .infoObject -}}

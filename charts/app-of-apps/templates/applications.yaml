@@ -17,6 +17,7 @@
 {{- end -}}
 {{- include "patcher.sourcesObject" . }}
 {{- include "patcher.infoObject" . }}
+{{- include "patcher.syncOptionsObject" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -54,6 +55,6 @@ spec:
   source: {{- . | toYaml | nindent 4 }}
   {{- end }}
   {{- with .syncPolicy }}
-  syncPolicy: {{- include "syncPolicy" . | nindent 4 }}
+  syncPolicy: {{- . | toYaml | nindent 4 }}
   {{- end }}
 {{- end -}}
