@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: git@github.com:tombulled/k8s.git
+      targetRevision: main
+      path: charts/app-of-apps
+      helm:
+        valueFiles:
+        - ../../values/app-of-apps/values.yaml
+        # - $values/values/app-of-apps/values.yaml
+    # - repoURL: git@github.com:tombulled/k8s.git
+    #   targetRevision: main
+    #   ref: values
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    # syncOptions:
+    # - ServerSideApply=true
