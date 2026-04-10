@@ -1,8 +1,18 @@
+{{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: foo # TODO
-  namespace: foo # TODO
+  name: {{ .name | default $applicationSetId }}
+  {{- with .namespace }}
+  namespace: {{ . }}
+  {{- end }}
+  {{- with .annotations }}
+  annotations: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .labels }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
 spec:
-  generators: [] # TODO
-  # ...
+  generators: []
+{{- end -}}

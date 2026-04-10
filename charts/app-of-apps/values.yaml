@@ -99,4 +99,11 @@ applications:
         validate: true
   bar: {}
 
-# applicationSets: {}
+applicationSets:
+  foo:
+    name: foo
+    namespace: foo
+    annotations:
+      foo: bar
+    labels:
+      foo: bar
