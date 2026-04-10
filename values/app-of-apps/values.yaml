@@ -49,3 +49,4 @@ applicationSets:
       metadata: {}
       spec:
         project: default
+        destination: {}
