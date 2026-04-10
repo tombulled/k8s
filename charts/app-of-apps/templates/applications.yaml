@@ -28,6 +28,9 @@ metadata:
   {{- end }}
 spec:
   project: {{ .project }}
+  {{- with .ignoreDifferences }}
+  ignoreDifferences: {{- . | toYaml | nindent 4 }}
+  {{- end }}
   destination:
     {{- if .destination.server | quote }}
     server: {{ .destination.server | quote }}

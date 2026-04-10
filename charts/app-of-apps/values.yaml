@@ -17,7 +17,30 @@ applications:
     destination:
       name: in-cluster # <-- defaults to "in-cluster"
       namespace: foo
-    # ignoreDifferences: [] # TODO
+    ignoreDifferences:
+      # for the specified json pointers
+      - group: apps
+        kind: Deployment
+        jsonPointers:
+          - /spec/replicas
+      - kind: ConfigMap
+        jqPathExpressions:
+          # Example: Ignore changes to a specific key inside a ConfigMap
+          - '.data["config.yaml"]'
+      # for the specified managedFields managers
+      - group: "*"
+        kind: "*"
+        managedFieldsManagers:
+          - kube-controller-manager
+        # Name and namespace are optional. If specified, they must match exactly, these are not glob patterns.
+        name: my-deployment
+        namespace: my-namespace
+    # ignoreDifferencesObject:
+    #   deployment-foo:
+    #     group: apps
+    #     kind: Deployment
+    #     jsonPointers:
+    #       - /spec/replicas
     info:
       - name: "Example"
         value: "https://example.com"
