@@ -14,6 +14,14 @@ applicationDefaults:
       targetRevision: main
       ref: values
 
+applicationSetDefaults:
+  generators: []
+  template:
+    metadata: {}
+    spec:
+      project: default
+      destination: {}
+
 applications:
   argo-cd:
     destination:
@@ -42,14 +50,6 @@ applications:
           valueFiles:
             - $values/values/ingress-nginx/values.yaml
 
-applicationSetDefaults:
-  generators: []
-  template:
-    metadata: {}
-    spec:
-      project: default
-      destination: {}
-
 applicationSets:
   core:
     generators:
@@ -65,8 +65,3 @@ applicationSets:
           revision: main
           files:
             - path: "apps/*.yaml"
-    # template:
-    #   metadata: {} # required
-    #   spec:
-    #     project: default # required
-    #     destination: {} # required
