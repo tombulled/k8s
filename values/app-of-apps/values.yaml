@@ -15,6 +15,21 @@ defaults:
       ref: values
 
 applications:
+  argo-cd:
+    destination:
+      namespace: argocd
+    sourcesObject:
+      main:
+        repoURL: https://argoproj.github.io/argo-helm
+        chart: argo-cd
+        targetRevision: 9.4.3
+        helm:
+          valueFiles:
+          - $values/values/argo-cd/values.yaml
+    syncPolicy:
+      syncOptionsObject:
+        serverSideApply: true
+
   ingress-nginx:
     destination:
       namespace: ingress-nginx
@@ -26,7 +41,3 @@ applications:
         helm:
           valueFiles:
             - $values/values/ingress-nginx/values.yaml
-      # values:
-      #   repoURL: git@github.com:tombulled/k8s.git
-      #   targetRevision: main
-      #   ref: values
