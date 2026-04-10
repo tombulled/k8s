@@ -8,7 +8,7 @@
 
 {{- range $path, $_ := $patchers -}}
 {{- $patcher := (split "." (base $path))._0 -}}
-{{ printf "{{- include \"application.patcher.%s\" . -}}" $patcher }}
+{{ printf "{{- template \"application.patcher.%s\" . -}}" $patcher }}
 {{ end }}
 
 {{ $.Files.Get "files/application-template.yaml" }}
