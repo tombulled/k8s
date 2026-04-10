@@ -18,9 +18,7 @@ spec:
   {{- if ne .applyNestedSelectors nil }}
   applyNestedSelectors: {{ .applyNestedSelectors }}
   {{- end }}
-  {{- with .generators }}
-  generators: {{- . | toYaml | nindent 4 }}
-  {{- end }}
+  generators: {{ ternary (.generators | toYaml | nindent 4) (list) (not (empty .generators)) }}
   {{- if ne .goTemplate nil }}
   goTemplate: {{ .goTemplate }}
   {{- end }}
