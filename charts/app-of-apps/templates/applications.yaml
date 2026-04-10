@@ -1,14 +1,10 @@
 {{- range $applicationId, $applicationData := .Values.applications -}}
 {{- $applicationData = mustMergeOverwrite (deepCopy $.Values.defaults) (deepCopy .) -}}
 {{- with $applicationData }}
-{{- include "application.patcher.sources-object" . }}
-{{- include "application.patcher.info-object" . }}
-{{- include "application.patcher.sync-options-object" . }}
-{{- include "application.patcher.deletion" . }}
 {{- $_ := set . "name" (.name | default $applicationId) }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-{{ tpl ($.Files.Get "files/application-template.yaml") . }}
+{{ tpl (include "application-template" $) . }}
 {{- end -}}
 {{- end -}}
