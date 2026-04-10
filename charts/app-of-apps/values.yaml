@@ -12,10 +12,31 @@ applications:
       is-cool: "true"
     labels:
       likes-fish: "false"
-    # ### spec ###
+    ### spec ###
     project: default # <-- defaults to "default"
     destination:
       name: in-cluster # <-- defaults to "in-cluster"
       namespace: foo
-    # source:
-    #   repoURL: https://github.com/argoproj/argocd-example-apps.git
+    # ignoreDifferences: [] # TODO
+    info:
+      - name: "Example"
+        value: "https://example.com"
+    infoObject:
+      sourceRepo: "some-repo"
+      example: other-example
+    revisionHistoryLimit: 0 # <-- defaults to 10
+    sourceHydrator:
+      drySource:
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+        targetRevision: HEAD
+        path: guestbook
+        # helm, kustomize, directory, and plugin fields are available here.
+        # See the source.helm, source.kustomize, source.directory, and source.plugin sections above for details.
+      syncSource:
+        targetBranch: env/prod
+        path: guestbook-hydrated
+    # source: {} # TODO
+    # sources: [] # TODO
+    syncPolicy:
+      syncOptionsObject: # takes precedence
+        validate: true

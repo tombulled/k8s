@@ -1,6 +1,7 @@
 {{- range $applicationId, $application := .Values.applications -}}
 {{- $applicationName := .name | default $applicationId -}}
 {{- $applicationNamespace := .namespace | default "argocd" -}}
+{{- $applicationInfo := (include "applicationInfo" (dict "list" .info "dict" .infoObject) | fromYaml).info -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -38,4 +39,16 @@ spec:
     {{- with .namespace }}
     namespace: {{ . | quote }}
     {{- end }}
+  {{- if ne .revisionHistoryLimit nil }}
+  revisionHistoryLimit: {{ .revisionHistoryLimit }}
+  {{- end }}
+  {{- with .syncPolicy }}
+  syncPolicy: {{- include "syncPolicy" . | nindent 4 }}
+  {{- end }}
+  {{- with .sourceHydrator }}
+  sourceHydrator: {{- . | toYaml | nindent 4}}
+  {{- end }}
+  {{- with $applicationInfo }}
+  info: {{- $applicationInfo | toYaml | nindent 4 }}
+  {{- end }}
 {{- end -}}
