@@ -60,5 +60,6 @@ applicationSets:
           files:
             - path: "apps/*.yaml"
     template:
+      metadata: {}
       spec:
         project: default
