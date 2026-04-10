@@ -48,4 +48,5 @@ spec:
   {{- with $applicationInfo }}
   info: {{- $applicationInfo | toYaml | nindent 4 }}
   {{- end }}
+  TEMP-TEST: {{- (include "patcher.sources" . | fromYaml).sources | toYaml | nindent 4 }}
 {{- end -}}

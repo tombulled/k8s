@@ -45,3 +45,19 @@
 {{- end }}
 info: {{- $output | toYaml | nindent 2 }}
 {{- end -}}
+
+{{- define "patcher.sources" -}}
+{{- $sources := list -}}
+{{- if .sourcesObject -}}
+{{- range $sourceId, $source := .sourcesObject -}}
+{{ $_ := set . "ref" (.ref | default $sourceId) -}}
+{{ $_ := set . "name" (.name | default $sourceId) -}}
+{{- $sources = append $sources $source -}}
+{{- end -}}
+{{- else if .sources -}}
+{{- $sources = .sources -}}
+{{- else if .source -}}
+{{- $sources = list .source -}}
+{{- end -}}
+# sources: {{- $sources | toYaml | nindent 2 }}
+{{- end -}}
