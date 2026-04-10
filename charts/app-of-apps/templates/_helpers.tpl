@@ -22,7 +22,11 @@
 
     {{- /* Patch Sync Policy */ -}}
     {{- $_ := unset . "syncOptionsObject" -}}
-    {{- $_ := set . "syncOptions" $syncOptionsList -}}
+    {{- if $syncOptionsList -}}
+      {{- $_ := set . "syncOptions" $syncOptionsList -}}
+    {{- else -}}
+      {{- $_ := unset . "syncOptions" -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 
