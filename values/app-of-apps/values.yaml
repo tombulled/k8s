@@ -45,3 +45,4 @@ applications:
 applicationSets:
   core:
     generators: []
+    template: {}
