@@ -45,7 +45,7 @@ spec:
   sourceHydrator: {{- . | toYaml | nindent 4}}
   {{- end }}
   {{- with .sources }}
-  source: {{- . | toYaml | nindent 4 }}
+  sources: {{- . | toYaml | nindent 4 }}
   {{- end }}
   {{- with .syncPolicy }}
   syncPolicy: {{- . | toYaml | nindent 4 }}
