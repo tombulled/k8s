@@ -42,25 +42,31 @@ applications:
           valueFiles:
             - $values/values/ingress-nginx/values.yaml
 
-# applicationSetDefaults:
-#   generators: []
-#   template:
-#     metadata: {}
-#     spec:
-#       project: default
-#       destination: {}
+applicationSetDefaults:
+  generators: []
+  template:
+    metadata: {}
+    spec:
+      project: default
+      destination: {}
 
 applicationSets:
   core:
-    goTemplate: true
     generators:
       - git:
           repoURL: git@github.com:tombulled/k8s.git
           revision: main
           files:
             - path: "apps/*.yaml"
-    template:
-      metadata: {} # required
-      spec:
-        project: default # required
-        destination: {} # required
+  bar:
+    generators:
+      - git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: main
+          files:
+            - path: "apps/*.yaml"
+    # template:
+    #   metadata: {} # required
+    #   spec:
+    #     project: default # required
+    #     destination: {} # required

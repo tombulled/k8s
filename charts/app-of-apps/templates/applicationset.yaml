@@ -1,4 +1,6 @@
 {{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
+{{- $applicationSetData = mustMergeOverwrite (deepCopy $.Values.applicationSetDefaults) (deepCopy $applicationSetData) -}}
+{{- with $applicationSetData -}}
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -19,9 +21,7 @@ spec:
   applyNestedSelectors: {{ .applyNestedSelectors }}
   {{- end }}
   generators: {{ ternary (.generators | toYaml | nindent 4) (list) (not (empty .generators)) }}
-  {{- if ne .goTemplate nil }}
-  goTemplate: {{ .goTemplate }}
-  {{- end }}
+  goTemplate: true
   {{- with .goTemplateOptions }}
   goTemplateOptions: {{- . | toYaml | nindent 4 }}
   {{- end }}
@@ -40,13 +40,10 @@ spec:
   {{- with .template }}
   template: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with .templatePatch }}
-  templatePatchACTUAL: |
-    {{- . | nindent 4 }}
-  {{- end }}
   templatePatch: |
     {{/* Default the application name to the application's ID (the filename without extension) */ -}}
     {{ "{{- $applicationId := (.path.filename | split \".\")._0 -}}" }}
     {{ "{{- $_ := set . \"name\" (.name | default $applicationId) -}}" }}
     {{ include "application-template" $ | nindent 4 }}
+{{- end -}}
 {{- end -}}
