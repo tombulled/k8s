@@ -1,6 +1,6 @@
-{{- range $applicationId, $application := .Values.applications -}}
-{{- $applicationName := .name | default $applicationId -}}
-{{- $applicationNamespace := .namespace | default "argocd" -}}
+{{- range $applicationId, $applicationData := .Values.applications -}}
+{{- $applicationData = mustMergeOverwrite (deepCopy $.Values.defaults) (deepCopy .) -}}
+{{- with $applicationData }}
 {{- include "patcher.sourcesObject" . }}
 {{- include "patcher.infoObject" . }}
 {{- include "patcher.syncOptionsObject" . }}
@@ -9,8 +9,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $applicationName | quote }}
-  namespace: {{ $applicationNamespace | quote }}
+  name: {{ .name | default $applicationId }}
+  {{- with .namespace }}
+  namespace: {{ . }}
+  {{- end -}}
   {{- with .finalizers }}
   finalizers: {{ . | toYaml | nindent 4 }}
   {{- end }}
@@ -48,4 +50,5 @@ spec:
   {{- with .syncPolicy }}
   syncPolicy: {{- . | toYaml | nindent 4 }}
   {{- end }}
+{{- end -}}
 {{- end -}}

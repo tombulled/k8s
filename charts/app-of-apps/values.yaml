@@ -1,10 +1,11 @@
-# defaults: {}
+defaults:
+  namespace: argocd
 
 applications:
-  foo: # <-- application "id"
+  foo: # <-- application "id"false
     ### metadata ###
     name: foo # <-- defaults to application ID for apps & filename for appset
-    namespace: argocd # <-- defaults to argocd? defaults to release namespace?
+    # namespace: ~ # <-- defaults to argocd? defaults to release namespace?
     finalizers:
       - "my-custom-finalizer"
     deletion:
