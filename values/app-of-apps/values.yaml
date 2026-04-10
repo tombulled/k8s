@@ -46,6 +46,5 @@ applicationSets:
   core:
     generators: []
     template:
-      metadata:
-        labels:
-          foo: bar
+      metadata: {}
+      spec: {}
