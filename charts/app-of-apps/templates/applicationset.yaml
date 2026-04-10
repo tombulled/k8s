@@ -37,6 +37,9 @@ spec:
   {{- with .syncPolicy }}
   syncPolicy: {{- . | toYaml | nindent 4 }}
   {{- end }}
+  {{- with .template }}
+  template: {{- . | toYaml | nindent 4 }}
+  {{- end }}
   {{- with .templatePatch }}
   templatePatch: |
     {{- . | nindent 4 }}
