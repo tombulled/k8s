@@ -1,4 +1,5 @@
-# project: default
+destination:
+  namespace: ingress-nginx
 
 sourcesObject:
   main:
@@ -7,20 +8,4 @@ sourcesObject:
     chart: ingress-nginx
     helm:
       valueFiles:
-        - $values/values/ingress-nginx/values.yaml
-  # values:
-  #   repoURL: git@github.com:tombulled/k8s.git
-  #   targetRevision: main
-  #   ref: values
-
-destination:
-  namespace: ingress-nginx
-  # name: in-cluster
-
-# syncPolicy:
-#   automated:
-#     prune: true
-#     selfHeal: true
-
-# deletion:
-#   cascade: true
+        - $values/values/ingress-nginx/values.yamlain

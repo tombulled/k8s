@@ -58,10 +58,3 @@ applicationSets:
           revision: main
           files:
             - path: "apps/*.yaml"
-  bar:
-    generators:
-      - git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: main
-          files:
-            - path: "apps/*.yaml"
