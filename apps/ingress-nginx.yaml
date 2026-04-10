@@ -1,13 +1,5 @@
 project: default
-deletion:
-  cascade: true
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
-destination:
-  namespace: ingress-nginx
-  name: in-cluster
+
 sourcesObject:
   main:
     repoURL: https://kubernetes.github.io/ingress-nginx
@@ -20,3 +12,15 @@ sourcesObject:
     repoURL: git@github.com:tombulled/k8s.git
     targetRevision: main
     ref: values
+
+destination:
+  namespace: ingress-nginx
+  name: in-cluster
+
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+
+deletion:
+  cascade: true

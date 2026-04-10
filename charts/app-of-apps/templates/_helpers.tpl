@@ -1,4 +1,20 @@
-{{- define "patcher.syncOptionsObject" -}}
+{{- define "application-template" -}}
+{{- $patchers := $.Files.Glob "files/patchers/*.tpl" -}}
+
+{{- range $path, $_ := $patchers -}}
+{{ cat "{{- /* " $path " */ -}}" }}
+{{ $.Files.Get $path }}
+{{ end }}
+
+{{- range $path, $_ := $patchers -}}
+{{- $patcher := (split "." (base $path))._0 -}}
+{{ printf "{{- include \"application.patcher.%s\" . -}}" $patcher }}
+{{ end }}
+
+{{ $.Files.Get "files/application-template.yaml" }}
+{{- end -}}
+
+{{- define "application.patcher.sync-options-object" -}}
   {{- with .syncPolicy -}}
     {{- /* Build Sync Options Dictionary */ -}}
     {{- $syncOptionsDict := dict -}}
@@ -27,7 +43,7 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "patcher.infoObject" -}}
+{{- define "application.patcher.info-object" -}}
   {{- with .infoObject -}}
     {{- $info := $.info | default list -}}
 
@@ -42,7 +58,7 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "patcher.sourcesObject" -}}
+{{- define "application.patcher.sources-object" -}}
   {{- with .sourcesObject -}}
     {{- $sources := $.sources | default list -}}
 
@@ -57,7 +73,7 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "patcher.deletion" -}}
+{{- define "application.patcher.deletion" -}}
   {{- with .deletion -}}
     {{- if .cascade -}}
       {{- $finalizers := $.finalizers | default list -}}

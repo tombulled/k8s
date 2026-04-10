@@ -45,5 +45,7 @@ spec:
     {{- . | nindent 4 }}
   {{- end }}
   templatePatch: |
+    {{ "{{- $applicationId := (.path.filename | split \".\")._0 -}}" }}
+    {{ "{{- $_ := set . \"name\" (.name | default $applicationId) -}}" }}
     {{- $.Files.Get "files/application-template.yaml" | nindent 4 }}
 {{- end -}}
