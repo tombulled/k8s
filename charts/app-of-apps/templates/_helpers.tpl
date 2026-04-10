@@ -1,6 +1,6 @@
 {{- define "application-template" -}}
 {{ "{{- /* Apply defaults */ -}}" }}
-{{ join "" (list "{{- $defaults := `" ($.Values.defaults | toJson) "` | fromJson -}}") }}
+{{ join "" (list "{{- $defaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
 {{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
 
 {{ $patchers := $.Files.Glob "files/patchers/*.tpl" }}

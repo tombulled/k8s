@@ -1,4 +1,4 @@
-defaults:
+applicationDefaults:
   project: default
   deletion:
     cascade: true

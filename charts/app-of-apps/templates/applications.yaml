@@ -1,10 +1,7 @@
 {{- range $applicationId, $applicationData := .Values.applications -}}
-{{- $applicationData = mustMergeOverwrite (deepCopy $.Values.defaults) (deepCopy .) -}}
-{{- with $applicationData }}
 {{- $_ := set . "name" (.name | default $applicationId) }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 {{ tpl (include "application-template" $) . }}
-{{- end -}}
 {{- end -}}
