@@ -1,17 +1,24 @@
 {{- define "application-template" -}}
-{{- $patchers := $.Files.Glob "files/patchers/*.tpl" -}}
+{{ "{{- /* Apply defaults */ -}}" }}
+{{ join "" (list "{{- $defaults := `" ($.Values.defaults | toJson) "` | fromJson -}}") }}
+{{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
+
+{{ $patchers := $.Files.Glob "files/patchers/*.tpl" }}
 
 {{- range $path, $_ := $patchers -}}
-{{ cat "{{- /* " $path " */ -}}" }}
+{{ join "" (list "{{- /* " $path " */ -}}") }}
 {{ $.Files.Get $path }}
 {{ end }}
 
-{{- range $path, $_ := $patchers -}}
-{{- $patcher := (split "." (base $path))._0 -}}
-{{ printf "{{- template \"application.patcher.%s\" . -}}" $patcher }}
+{{- "{{- with $applicationData -}}" }}
+
+{{ range $path, $_ := $patchers }}
+{{- $patcher := (split "." (base $path))._0 }}
+{{- printf "{{- template \"application.patcher.%s\" . -}}" $patcher }}
 {{ end }}
 
 {{ $.Files.Get "files/application-template.yaml" }}
+{{ "{{- end -}}" }}
 {{- end -}}
 
 {{- define "applicationset.patcher.goTemplateOptionsObject" -}}

@@ -1,4 +1,4 @@
-project: default
+# project: default
 
 sourcesObject:
   main:
@@ -8,19 +8,19 @@ sourcesObject:
     helm:
       valueFiles:
         - $values/values/ingress-nginx/values.yaml
-  values:
-    repoURL: git@github.com:tombulled/k8s.git
-    targetRevision: main
-    ref: values
+  # values:
+  #   repoURL: git@github.com:tombulled/k8s.git
+  #   targetRevision: main
+  #   ref: values
 
 destination:
   namespace: ingress-nginx
-  name: in-cluster
+  # name: in-cluster
 
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
+# syncPolicy:
+#   automated:
+#     prune: true
+#     selfHeal: true
 
-deletion:
-  cascade: true
+# deletion:
+#   cascade: true

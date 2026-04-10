@@ -45,6 +45,7 @@ spec:
     {{- . | nindent 4 }}
   {{- end }}
   templatePatch: |
+    {{/* Default the application name to the application's ID (the filename without extension) */ -}}
     {{ "{{- $applicationId := (.path.filename | split \".\")._0 -}}" }}
     {{ "{{- $_ := set . \"name\" (.name | default $applicationId) -}}" }}
     {{ include "application-template" $ | nindent 4 }}
