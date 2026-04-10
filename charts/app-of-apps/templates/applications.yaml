@@ -35,17 +35,7 @@ spec:
   {{- with .ignoreDifferences }}
   ignoreDifferences: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  destination:
-    {{- if .destination.server | quote }}
-    server: {{ .destination.server | quote }}
-    {{- else if .destination.name }}
-    name: {{ .destination.name | quote }}
-    {{- else }}
-      {{- fail "Target cluster name or server URL must be set" }}
-    {{- end }}
-    {{- with .namespace }}
-    namespace: {{ . | quote }}
-    {{- end }}
+  destination: {{- .destination | toYaml | nindent 4 }}
   {{- if ne .revisionHistoryLimit nil }}
   revisionHistoryLimit: {{ .revisionHistoryLimit }}
   {{- end }}
