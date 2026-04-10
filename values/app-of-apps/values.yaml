@@ -22,33 +22,33 @@ applicationSetDefaults:
       project: default
       destination: {}
 
-applications:
-  argo-cd:
-    destination:
-      namespace: argocd
-    sourcesObject:
-      main:
-        repoURL: https://argoproj.github.io/argo-helm
-        chart: argo-cd
-        targetRevision: 9.4.3
-        helm:
-          valueFiles:
-            - $values/values/argo-cd/values.yaml
-    syncPolicy:
-      syncOptionsObject:
-        serverSideApply: true
+# applications:
+#   argo-cd:
+#     destination:
+#       namespace: argocd
+#     sourcesObject:
+#       main:
+#         repoURL: https://argoproj.github.io/argo-helm
+#         chart: argo-cd
+#         targetRevision: 9.4.3
+#         helm:
+#           valueFiles:
+#             - $values/values/argo-cd/values.yaml
+#     syncPolicy:
+#       syncOptionsObject:
+#         serverSideApply: true
 
-  ingress-nginx:
-    destination:
-      namespace: ingress-nginx
-    sourcesObject:
-      main:
-        repoURL: https://kubernetes.github.io/ingress-nginx
-        targetRevision: 4.14.3
-        chart: ingress-nginx
-        helm:
-          valueFiles:
-            - $values/values/ingress-nginx/values.yaml
+#   ingress-nginx:
+#     destination:
+#       namespace: ingress-nginx
+#     sourcesObject:
+#       main:
+#         repoURL: https://kubernetes.github.io/ingress-nginx
+#         targetRevision: 4.14.3
+#         chart: ingress-nginx
+#         helm:
+#           valueFiles:
+#             - $values/values/ingress-nginx/values.yaml
 
 applicationSets:
   core:
