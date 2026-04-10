@@ -41,3 +41,7 @@ applications:
         helm:
           valueFiles:
             - $values/values/ingress-nginx/values.yaml
+
+applicationSets:
+  core:
+    generators: []
