@@ -15,6 +15,7 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
+{{- include "patcher.sourcesObject" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -31,22 +32,27 @@ metadata:
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
 spec:
-  project: {{ .project }}
+  destination: {{- .destination | toYaml | nindent 4 }}
   {{- with .ignoreDifferences }}
   ignoreDifferences: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  destination: {{- .destination | toYaml | nindent 4 }}
+  {{- with $applicationInfo }}
+  info: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  project: {{ .project }}
   {{- if ne .revisionHistoryLimit nil }}
   revisionHistoryLimit: {{ .revisionHistoryLimit }}
   {{- end }}
-  {{- with .syncPolicy }}
-  syncPolicy: {{- include "syncPolicy" . | nindent 4 }}
+  {{- with .source }}
+  source: {{- . | toYaml | nindent 4 }}
   {{- end }}
   {{- with .sourceHydrator }}
   sourceHydrator: {{- . | toYaml | nindent 4}}
   {{- end }}
-  {{- with $applicationInfo }}
-  info: {{- $applicationInfo | toYaml | nindent 4 }}
+  {{- with .sources }}
+  source: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  TEMP-TEST: {{- (include "patcher.sources" . | fromYaml).sources | toYaml | nindent 4 }}
+  {{- with .syncPolicy }}
+  syncPolicy: {{- include "syncPolicy" . | nindent 4 }}
+  {{- end }}
 {{- end -}}
