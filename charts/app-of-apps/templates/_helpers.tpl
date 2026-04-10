@@ -1,6 +1,3 @@
-{{- define "applicationSpec" -}}
-{{- end -}}
-
 {{- define "patcher.syncOptionsObject" -}}
   {{- with .syncPolicy -}}
     {{- /* Build Sync Options Dictionary */ -}}
