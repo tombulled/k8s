@@ -1,1 +1,0 @@
-{{- tpl (.Files.Get "files/application-template.yaml") (dict "name" "bob") -}}

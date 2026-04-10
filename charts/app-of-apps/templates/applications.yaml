@@ -5,9 +5,10 @@
 {{- include "patcher.infoObject" . }}
 {{- include "patcher.syncOptionsObject" . }}
 {{- include "patcher.deletion" . }}
+{{- $_ := set . "name" (.name | default $applicationId) }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-{{- tpl (.Files.Get "files/application-template.yaml") . -}}
+{{ tpl ($.Files.Get "files/application-template.yaml") . }}
 {{- end -}}
 {{- end -}}
