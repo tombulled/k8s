@@ -21,14 +21,18 @@ metadata:
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
 spec:
-  destination: {{- .destination | toYaml | nindent 4 }}
+  {{- with .destination }}
+  destination: {{- . | toYaml | nindent 4 }}
+  {{- end -}}
   {{- with .ignoreDifferences }}
   ignoreDifferences: {{- . | toYaml | nindent 4 }}
   {{- end }}
   {{- with .info }}
   info: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  project: {{ .project }}
+  {{- with .project }}
+  project: {{ . }}
+  {{- end -}}
   {{- if ne .revisionHistoryLimit nil }}
   revisionHistoryLimit: {{ .revisionHistoryLimit }}
   {{- end }}

@@ -96,5 +96,6 @@ applications:
 
       syncOptionsObject: # takes precedence
         validate: true
+  bar: {}
 
 # applicationSets: {}
