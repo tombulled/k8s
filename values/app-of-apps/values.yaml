@@ -52,14 +52,28 @@ applicationSetDefaults:
 
 applicationSets:
   core:
+    goTemplate: true
+    # goTemplateOptions: ["missingkey=error"]
     generators:
       - git:
           repoURL: git@github.com:tombulled/k8s.git
           revision: main
-          directories:
-            - path: "*"
+          files:
+            - path: "apps/*.yaml"
     template:
-      metadata: {}
+      metadata:
+        # name: "{{.path.basename}}"
+        labels:
+          path-path: "{{.path.path}}"
+          path-basename: "{{.path.basename}}"
+          path-basename-normalised: "{{.path.basenameNormalized}}"
+          path-filename: "{{.path.filename}}"
+          path-filename-normalised: "{{.path.filenameNormalized}}"
+          name: "{{.name}}"
       spec:
         project: default
         destination: {}
+    templatePatch: |
+      {{- $applicationId := (.path.filename | split ".")._0 -}}
+      metadata:
+        name: {{ .name | default $applicationId }}
