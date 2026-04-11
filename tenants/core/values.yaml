@@ -1,28 +1,29 @@
-applicationDefaults:
-  project: default
-  deletion:
-    cascade: true
-  destination:
-    name: in-cluster
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-  sourcesObject:
-    values:
-      repoURL: git@github.com:tombulled/k8s.git
-      targetRevision: main
-      ref: values
-
-applications:
-  ingress-nginx:
+app-of-apps:
+  applicationDefaults:
+    project: default
+    deletion:
+      cascade: true
     destination:
-      namespace: ingress-nginx
+      name: in-cluster
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
     sourcesObject:
-      main:
-        repoURL: https://kubernetes.github.io/ingress-nginx
-        targetRevision: 4.14.3
-        chart: ingress-nginx
-        helm:
-          valueFiles:
-            - $values/values/ingress-nginx/values.yaml
+      values:
+        repoURL: git@github.com:tombulled/k8s.git
+        targetRevision: main
+        ref: values
+
+  applications:
+    ingress-nginx:
+      destination:
+        namespace: ingress-nginx
+      sourcesObject:
+        main:
+          repoURL: https://kubernetes.github.io/ingress-nginx
+          targetRevision: 4.14.3
+          chart: ingress-nginx
+          helm:
+            valueFiles:
+              - $values/values/ingress-nginx/values.yaml

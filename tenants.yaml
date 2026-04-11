@@ -22,7 +22,7 @@ spec:
       sources:
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
-          path: charts/app-of-apps
+          path: charts/tenant
           helm:
             valueFiles:
               - "$k8s/tenants/{{.values.tenant}}/values.yaml"
