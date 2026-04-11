@@ -25,7 +25,10 @@ spec:
           path: charts/app-of-apps
           helm:
             valueFiles:
-              - ../../values/app-of-apps/values.yaml
+              - "$k8s/tenants/{{.values.tenant}}/values.yaml"
+        - repoURL: git@github.com:tombulled/k8s.git
+          targetRevision: main
+          ref: k8s
       destination:
         name: in-cluster
         namespace: argocd
