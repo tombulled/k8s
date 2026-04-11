@@ -9,7 +9,7 @@ spec:
         repoURL: git@github.com:tombulled/k8s.git
         revision: HEAD
         files:
-          - path: "tenants/*.yaml"
+          - path: "tenants/*"
         values:
           tenant: '{{.path.filename}}'
   goTemplate: true
