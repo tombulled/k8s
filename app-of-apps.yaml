@@ -14,10 +14,6 @@ spec:
       helm:
         valueFiles:
         - ../../values/app-of-apps/values.yaml
-        # - $values/values/app-of-apps/values.yaml
-    # - repoURL: git@github.com:tombulled/k8s.git
-    #   targetRevision: main
-    #   ref: values
   destination:
     name: in-cluster
     namespace: argocd
@@ -25,5 +21,3 @@ spec:
     automated:
       prune: false
       selfHeal: true
-    # syncOptions:
-    # - ServerSideApply=true
