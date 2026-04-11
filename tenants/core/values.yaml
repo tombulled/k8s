@@ -15,15 +15,19 @@ app-of-apps:
         targetRevision: main
         ref: values
 
-  applications:
-    ingress-nginx:
-      destination:
-        namespace: ingress-nginx
-      sourcesObject:
-        main:
-          repoURL: https://kubernetes.github.io/ingress-nginx
-          targetRevision: 4.14.3
-          chart: ingress-nginx
-          helm:
-            valueFiles:
-              - $values/values/ingress-nginx/values.yaml
+  applicationSetDefaults:
+    generators: []
+    template:
+      metadata: {}
+      spec:
+        project: default
+        destination: {}
+
+  applicationSets:
+    core:
+      generators:
+        - git:
+            repoURL: git@github.com:tombulled/k8s.git
+            revision: main
+            files:
+              - path: "apps/*.yaml"
