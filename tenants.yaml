@@ -8,10 +8,10 @@ spec:
     - git:
         repoURL: git@github.com:tombulled/k8s.git
         revision: HEAD
-        files:
+        directories:
           - path: "tenants/*"
         values:
-          tenant: '{{.path.filename}}'
+          tenant: "{{.path.basename}}"
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
@@ -19,4 +19,17 @@ spec:
       name: "tenant-{{.values.tenant}}"
     spec:
       project: default
-      destination: {}
+      sources:
+        - repoURL: git@github.com:tombulled/k8s.git
+          targetRevision: main
+          path: charts/app-of-apps
+          helm:
+            valueFiles:
+              - ../../values/app-of-apps/values.yaml
+      destination:
+        name: in-cluster
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
