@@ -20,7 +20,7 @@ namespaces:
   ingress-nginx: {}
   argocd: {}
 
-app-of-apps:
+app-of-apps: # extra source so 'app-of-apps' prefix not needed?
   applicationSets:
     core:
       generators:
@@ -29,3 +29,29 @@ app-of-apps:
             revision: main
             files:
               - path: "apps/core/*.yaml"
+
+# TODO:
+#   * Refactor `tenant` chart to support deploying n projects, n namespaces & n applicationSets
+#     * Resources should support a `namePrefix` (should be nullable)
+#   * Every tenant should get a 'main' project, appset, and maybe namespace for free
+#   * `applicationSets` should be top-level config, so either merge `app-of-apps` with `tenants`, or add `app-of-apps`
+#     as an extra app source instead of a chart dependency
+#   * Should the `main` project auto-magically populate its list of `destinations` from `.Values.namespaces`?
+#     * If so, how does this work with n projects?
+
+# projects: # multiple? prefixed with tenant name? eg. pf-ops, pf-ref, pf-dev
+#   ops: {}
+#   ref: {}
+#   dev: {}
+#
+# namespaces:
+#   foo: {}
+#
+# applicationSets: # only one? appset name should ideally match the tenant name! - can always use multiple generators. Prefix name with tenant name?
+#   foo: {}
+#
+# ^ every tenant gets a 'main' project and a 'main' appset for free
+
+# # projectDefaults: {} # needs: namePrefix
+# # namespaceDefaults: {} # needs: namePrefix
+# # applicationSetDefaults: {} # needs: namePrefix
