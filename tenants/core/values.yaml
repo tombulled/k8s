@@ -1,22 +1,22 @@
-projects:
-  core:
-    description: "Project for Tenant: core"
-    finalizers:
-      # Finalizer that ensures that project is not deleted until it is not referenced by any application
-      - resources-finalizer.argocd.argoproj.io
-    sourceRepos:
-      - "*" # git@github.com:tombulled/k8s.git?
-    destinations:
-      - namespace: ingress-nginx
-        server: https://kubernetes.default.svc
-      - namespace: argocd
-        server: https://kubernetes.default.svc
-    clusterResourceWhitelist: []
-    namespaceResourceBlacklist: []
-    namespaceResourceWhitelist: []
-    roles: []
-    syncWindows: []
-    sourceNamespaces: []
+project:
+  name: core
+  description: "Project for Tenant: core"
+  finalizers:
+    # Finalizer that ensures that project is not deleted until it is not referenced by any application
+    - resources-finalizer.argocd.argoproj.io
+  sourceRepos:
+    - "*" # git@github.com:tombulled/k8s.git?
+  destinations:
+    - namespace: ingress-nginx
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist: []
+  namespaceResourceBlacklist: []
+  namespaceResourceWhitelist: []
+  roles: []
+  syncWindows: []
+  sourceNamespaces: []
 
 namespaces:
   ingress-nginx: {}
