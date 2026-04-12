@@ -1,0 +1,38 @@
+project:
+  finalizers:
+    # Finalizer that ensures that project is not deleted until it is not referenced by any application
+    - resources-finalizer.argocd.argoproj.io
+  sourceRepos:
+    - "*" # git@github.com:tombulled/k8s.git?
+  destinations: []
+  clusterResourceWhitelist: []
+  namespaceResourceBlacklist: []
+  namespaceResourceWhitelist: []
+  roles: []
+  syncWindows: []
+  sourceNamespaces: []
+
+app-of-apps:
+  applicationDefaults:
+    # project: default
+    deletion:
+      cascade: true
+    destination:
+      name: in-cluster
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    sourcesObject:
+      values:
+        repoURL: git@github.com:tombulled/k8s.git
+        targetRevision: main
+        ref: values
+
+  applicationSetDefaults:
+    generators: []
+    template:
+      metadata: {}
+      spec:
+        # project: default
+        destination: {}
