@@ -1,12 +1,17 @@
-{{- range $namespaceId, $namespace := .Values.namespaces -}}
+{{- range $id, $data := .Values.namespaces -}}
+{{- $data = mustMergeOverwrite (deepCopy $.Values.namespaceDefaults) (deepCopy $data) }}
+{{- $name := $data.name | default $id }}
+{{- if $data.namePrefix }}
+{{- $name = printf "%s-%s" $data.namePrefix $name }}
+{{- end }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $namespaceId }}
-  {{- with .annotations }}
+  name: {{ $name }}
+  {{- with $data.annotations }}
   annotations: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with .labels }}
+  {{- with $data.labels }}
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
 ---
