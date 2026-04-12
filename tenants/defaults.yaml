@@ -14,7 +14,6 @@ project:
 
 app-of-apps:
   applicationDefaults:
-    # project: default
     deletion:
       cascade: true
     destination:
@@ -28,11 +27,3 @@ app-of-apps:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
         ref: values
-
-  applicationSetDefaults:
-    generators: []
-    template:
-      metadata: {}
-      spec:
-        # project: default
-        destination: {}

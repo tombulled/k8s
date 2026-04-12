@@ -1,6 +1,11 @@
 applicationDefaults: {}
 
-applicationSetDefaults: {}
+applicationSetDefaults:
+  generators: []
+  template:
+    metadata: {}
+    spec:
+      destination: {}
 
 applications: {}
 
