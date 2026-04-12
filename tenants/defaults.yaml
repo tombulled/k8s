@@ -11,7 +11,7 @@ project:
     - group: rbac.authorization.k8s.io
       kind: ClusterRoleBinding
     - group: admissionregistration.k8s.io
-      kind: ValidatingWebhook
+      kind: ValidatingWebhookConfiguration
     - group: networking.k8s.io
       kind: IngressClass
   namespaceResourceBlacklist: []
