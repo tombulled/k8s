@@ -1,6 +1,6 @@
 {{- range $id, $data := .Values.projects }}
 {{- $data = mustMergeOverwrite (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
-{{- $data = tpl ($data | toYaml) .Values | fromYaml -}}
+{{- $data = tpl ($data | toYaml) $.Values | fromYaml -}}
 {{- $name := $data.name | default $id }}
 {{- if $data.namePrefix }}
 {{- $name = printf "%s-%s" $data.namePrefix $name }}

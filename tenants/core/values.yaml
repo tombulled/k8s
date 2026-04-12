@@ -1,5 +1,5 @@
-projectDefaults:
-  namePrefix: ~
+# projectDefaults:
+#   namePrefix: ~
 
 projects:
   main:
@@ -24,6 +24,7 @@ namespaceDefaults:
   namePrefix: ~
 
 namespaces:
+  # TODO: Disable main namespace
   ingress-nginx: {}
   argocd: {}
 
