@@ -24,7 +24,7 @@ spec:
   permitOnlyProjectScopedClusters: {{ .permitOnlyProjectScopedClusters }}
   {{- end }}
   {{- with .description }}
-  description: {{ . }}
+  description: {{ . | quote }}
   {{- end }}
   {{- with .sourceRepos }}
   sourceRepos: {{- . | toYaml | nindent 4 }}
