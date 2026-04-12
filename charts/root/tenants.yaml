@@ -37,6 +37,9 @@ spec:
                   template:
                     spec:
                       project: "{{.values.tenant}}"
+                applicationSets:
+                  main:
+                    name: "{{.values.tenant}}"
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
           ref: k8s

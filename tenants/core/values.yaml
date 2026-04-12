@@ -33,7 +33,7 @@ namespaces:
 app-of-apps: # extra source so 'app-of-apps' prefix not needed?
   applicationSets:
     main:
-      name: core # TODO: This name should be templated/defaulted in some way
+      # name: core # TODO: This name should be templated/defaulted in some way
       generators:
         - git:
             repoURL: git@github.com:tombulled/k8s.git
