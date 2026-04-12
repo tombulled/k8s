@@ -1,4 +1,7 @@
 {{- range $id, $data := .Values.namespaces -}}
+{{- if eq $data nil -}}
+{{- continue -}}
+{{- end -}}
 {{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
 {{- if not $enabled }}
 {{- continue }}
