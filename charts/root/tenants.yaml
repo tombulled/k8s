@@ -31,6 +31,8 @@ spec:
               tenant:
                 name: "{{.values.tenant}}"
               app-of-apps:
+                metadata:
+                  tenant: "{{.values.tenant}}"
                 applicationSetDefaults:
                   template:
                     spec:
