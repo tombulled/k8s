@@ -1,3 +1,6 @@
+projectDefaults:
+  namePrefix: ~
+
 projects:
   main:
     destinations: # TODO: Infer me from .namespaces
@@ -16,6 +19,9 @@ projects:
         kind: IngressClass
       - group: apiextensions.k8s.io
         kind: CustomResourceDefinition
+
+namespaceDefaults:
+  namePrefix: ~
 
 namespaces:
   ingress-nginx: {}
