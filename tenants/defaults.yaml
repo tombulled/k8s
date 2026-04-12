@@ -1,8 +1,8 @@
-tenant:
-  name: ~ # populated by appset
+metadata:
+  tenant: ~ # populated by appset
 
 projectDefaults:
-  namePrefix: "{{.tenant.name}}"
+  namePrefix: "{{.tenant}}"
   finalizers:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
@@ -19,18 +19,18 @@ projectDefaults:
 projects:
   main:
     namePrefix: ~
-    name: "{{.tenant.name}}"
+    name: "{{.tenant}}"
     destinations:
-      - namespace: "{{.tenant.name}}"
+      - namespace: "{{.tenant}}"
         name: in-cluster
 
 namespaceDefaults:
-  namePrefix: "{{.tenant.name}}"
+  namePrefix: "{{.tenant}}"
 
 namespaces:
   main:
     namePrefix: ~
-    name: "{{.tenant.name}}"
+    name: "{{.tenant}}"
 
 app-of-apps:
   applicationDefaults:
