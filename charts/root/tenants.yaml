@@ -32,16 +32,6 @@ spec:
                 tenant: "{{.values.tenant}}"
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
-          path: charts/app-of-apps
-          helm:
-            valueFiles:
-              - "$k8s/tenants/defaults.yaml"
-              - "$k8s/tenants/{{.values.tenant}}/values.yaml"
-            valuesObject:
-              metadata:
-                tenant: "{{.values.tenant}}"
-        - repoURL: git@github.com:tombulled/k8s.git
-          targetRevision: main
           ref: k8s
       destination:
         name: in-cluster

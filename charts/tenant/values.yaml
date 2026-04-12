@@ -5,3 +5,14 @@ projects: {}
 
 namespaceDefaults: {}
 namespaces: {}
+
+applicationDefaults: {}
+applications: {}
+
+applicationSetDefaults:
+  generators: []
+  template:
+    metadata: {}
+    spec:
+      destination: {}
+applicationSets: {}
