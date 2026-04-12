@@ -35,4 +35,4 @@ applicationSets:
           repoURL: git@github.com:tombulled/k8s.git
           revision: main
           files:
-            - path: "apps/core/*.yaml" # TODO: template tenant name here
+            - path: "apps/{{.tenant}}/*.yaml"
