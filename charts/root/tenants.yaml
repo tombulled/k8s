@@ -30,6 +30,8 @@ spec:
             valuesObject:
               metadata:
                 tenant: "{{.values.tenant}}"
+                clusterId: t1-dev
+                clusterType: dev
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
           ref: k8s

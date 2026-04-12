@@ -6,5 +6,5 @@ applicationSets:
           revision: main
           files:
             - path: "apps/{{.tenant}}/type-all/*.yaml"
-            - path: "apps/{{.tenant}}/type-dev/*.yaml"
-            - path: "apps/{{.tenant}}/t1-dev/*.yaml"
+            - path: "apps/{{.tenant}}/type-{{.clusterType}}/*.yaml"
+            - path: "apps/{{.tenant}}/{{.clusterId}}/*.yaml"
