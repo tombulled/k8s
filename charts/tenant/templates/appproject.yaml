@@ -1,4 +1,8 @@
 {{- range $id, $data := .Values.projects }}
+{{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
+{{- if not $enabled }}
+{{- continue }}
+{{- end }}
 {{- $data = mustMergeOverwrite (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
 {{- $data = tpl ($data | toYaml) $.Values | fromYaml -}}
 {{- $name := $data.name | default $id }}
