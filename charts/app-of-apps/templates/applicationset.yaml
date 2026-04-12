@@ -1,12 +1,17 @@
 {{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
 {{- $applicationSetData = mustMergeOverwrite (deepCopy $.Values.applicationSetDefaults) (deepCopy $applicationSetData) -}}
+{{- $name := $applicationSetData.name | default $applicationSetId }}
+{{- if $applicationSetData.namePrefix }}
+{{- $name = printf "%s-%s" $applicationSetData.namePrefix $name }}
+{{- end }}
 {{- with $applicationSetData -}}
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
+{{- include "applicationset.patcher.namePrefix" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: {{ .name | default $applicationSetId }}
+  name: {{ $name }}
   {{- with .namespace }}
   namespace: {{ . }}
   {{- end }}

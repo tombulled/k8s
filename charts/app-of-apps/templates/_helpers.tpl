@@ -40,3 +40,9 @@
     {{- $_ := set $ "goTemplateOptions" $goTemplateOptions -}}
   {{- end -}}
 {{- end -}}
+
+{{- define "applicationset.patcher.namePrefix" -}}
+  {{- with .namePrefix -}}
+    {{- $_ := set $ "name" (printf "%s-%s" . $.name) -}}
+  {{- end -}}
+{{- end -}}
