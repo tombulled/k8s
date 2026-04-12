@@ -30,6 +30,11 @@ spec:
             valuesObject:
               tenant:
                 name: "{{.values.tenant}}"
+              app-of-apps:
+                applicationSetDefaults:
+                  template:
+                    spec:
+                      project: "{{.values.tenant}}"
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
           ref: k8s
