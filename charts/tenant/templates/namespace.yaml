@@ -1,0 +1,13 @@
+{{- range $namespaceId, $namespace := .Values.namespaces -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespaceId }}
+  {{- with .annotations }}
+  annotations: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .labels }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+---
+{{- end -}}

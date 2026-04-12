@@ -1,3 +1,6 @@
+namespaces:
+  ingress-nginx: {}
+
 app-of-apps:
   applicationDefaults:
     project: default
