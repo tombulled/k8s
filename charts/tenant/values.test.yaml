@@ -1,0 +1,14 @@
+# tenant:
+#   name: "wibbly-wobbly"
+
+projectDefaults:
+  namePrefix: "wibbly-wobbly"
+
+projects:
+  main:
+    namePrefix: ~
+    name: "wibbly-wobbly"
+
+  ops: {}
+  ref: {}
+  dev: {}
