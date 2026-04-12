@@ -1,1 +1,0 @@
-values: {{- .Values | toYaml | nindent 2 -}}
