@@ -31,7 +31,7 @@ namespaces:
 
 app-of-apps:
   applicationDefaults:
-    project: "{{.tenant.name}}"
+    # project: "{{.tenant.name}}"
     deletion:
       cascade: true
     destination:
@@ -46,7 +46,7 @@ app-of-apps:
         targetRevision: main
         ref: values
 
-  applicationSetDefaults:
-    template:
-      spec:
-        project: "{{.tenant.name}}"
+  # applicationSetDefaults:
+  #   template:
+  #     spec:
+  #       project: "{{.tenant.name}}"

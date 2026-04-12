@@ -28,6 +28,12 @@ namespaces:
   argocd: {}
 
 app-of-apps: # extra source so 'app-of-apps' prefix not needed?
+  applicationDefaults:
+    project: core # TODO: This shouldn't need to be here!
+  applicationSetDefaults:
+    template:
+      spec:
+        project: core # TODO: This shouldn't need to be here!
   applicationSets:
     core:
       generators:
