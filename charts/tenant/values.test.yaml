@@ -12,3 +12,15 @@ projects:
   ops: {}
   ref: {}
   dev: {}
+
+namespaceDefaults:
+  namePrefix: "wibbly-wobbly"
+
+namespaces:
+  main:
+    namePrefix: ~
+    name: "wibbly-wobbly"
+
+  ops: {}
+  ref: {}
+  dev: {}
