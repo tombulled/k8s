@@ -1,4 +1,8 @@
 {{- range $id, $data := .Values.namespaces -}}
+{{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
+{{- if not $enabled }}
+{{- continue }}
+{{- end }}
 {{- $data = mustMergeOverwrite (deepCopy $.Values.namespaceDefaults) (deepCopy $data) }}
 {{- $data = tpl ($data | toYaml) $.Values | fromYaml -}}
 {{- $name := $data.name | default $id }}

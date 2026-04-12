@@ -24,7 +24,8 @@ namespaceDefaults:
   namePrefix: ~
 
 namespaces:
-  # TODO: Disable main namespace
+  main:
+    enabled: false
   ingress-nginx: {}
   argocd: {}
 
