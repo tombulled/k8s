@@ -5,17 +5,7 @@ project:
   sourceRepos:
     - "*" # git@github.com:tombulled/k8s.git?
   destinations: []
-  clusterResourceWhitelist:
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRole
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRoleBinding
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-    - group: networking.k8s.io
-      kind: IngressClass
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
+  clusterResourceWhitelist: []
   namespaceResourceBlacklist: []
   namespaceResourceWhitelist: []
   roles: []
