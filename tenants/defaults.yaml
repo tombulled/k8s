@@ -36,6 +36,7 @@ app-of-apps:
       cascade: true
     destination:
       name: in-cluster
+      namespace: "{{.tenant}}"
     syncPolicy:
       automated:
         prune: true
