@@ -50,3 +50,12 @@ app-of-apps:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
         ref: values
+  applicationSetDefaults:
+    namePrefix: "{{.tenant}}"
+    template:
+      spec:
+        project: "{{.tenant}}"
+  applicationSets:
+    main:
+      namePrefix: ~
+      name: "{{.tenant}}"
