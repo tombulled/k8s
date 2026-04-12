@@ -1,3 +1,7 @@
+projects:
+  core:
+    description: "some desc"
+
 namespaces:
   ingress-nginx: {}
 
