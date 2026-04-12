@@ -31,8 +31,12 @@ namespaces:
   argocd: {}
 
 app-of-apps: # extra source so 'app-of-apps' prefix not needed?
+  metadata:
+    tenant: core
   applicationDefaults:
     project: core # TODO: This shouldn't need to be here!
+    annotations:
+      tenant-name: "{{.tenant}}"
   applicationSetDefaults:
     template:
       spec:
