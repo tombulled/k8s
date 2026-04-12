@@ -1,0 +1,13 @@
+tenant:
+  name: "wibbly"
+
+projects: {}
+
+namespaceDefaults:
+  namePrefix: "{{.tenant.name}}"
+
+namespaces:
+  main:
+    namePrefix: ~
+    name: "{{.tenant.name}}"
+  dev: {}

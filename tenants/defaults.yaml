@@ -1,27 +1,37 @@
+tenant:
+  name: ~ # populated by appset
+
 projectDefaults:
+  namePrefix: "{{.values.tenant}}"
   finalizers:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
     - "*" # git@github.com:tombulled/k8s.git?
-  destinations: []
-  clusterResourceWhitelist: []
-  namespaceResourceBlacklist: []
-  namespaceResourceWhitelist: []
-  roles: []
-  syncWindows: []
-  sourceNamespaces: []
+  # destinations: []
+  # clusterResourceWhitelist: []
+  # namespaceResourceBlacklist: []
+  # namespaceResourceWhitelist: []
+  # roles: []
+  # syncWindows: []
+  # sourceNamespaces: []
 
 projects:
   main:
     namePrefix: ~
+    name: "{{.tenant.name}}"
+
+namespaceDefaults:
+  namePrefix: "{{.tenant.name}}"
 
 namespaces:
   main:
     namePrefix: ~
+    name: "{{.tenant.name}}"
 
 app-of-apps:
   applicationDefaults:
+    project: "{{.tenant.name}}"
     deletion:
       cascade: true
     destination:
@@ -35,3 +45,8 @@ app-of-apps:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
         ref: values
+
+  applicationSetDefaults:
+    template:
+      spec:
+        project: "{{.tenant.name}}"

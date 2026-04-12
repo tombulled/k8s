@@ -28,26 +28,8 @@ spec:
               - "$k8s/tenants/defaults.yaml"
               - "$k8s/tenants/{{.values.tenant}}/values.yaml"
             valuesObject:
-              projectDefaults:
-                namePrefix: "{{.values.tenant}}"
-              projects:
-                main:
-                  name: "{{.values.tenant}}"
-              namespaceDefaults:
-                namePrefix: "{{.values.tenant}}"
-              namespaces:
-                main:
-                  name: "{{.values.tenant}}"
-              project:
+              tenant:
                 name: "{{.values.tenant}}"
-                description: "Project for Tenant: {{.values.tenant}}"
-              app-of-apps:
-                applicationDefaults:
-                  project: "{{.values.tenant}}"
-                applicationSetDefaults:
-                  template:
-                    spec:
-                      project: "{{.values.tenant}}"
         - repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
           ref: k8s

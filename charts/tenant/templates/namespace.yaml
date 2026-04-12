@@ -1,5 +1,6 @@
 {{- range $id, $data := .Values.namespaces -}}
 {{- $data = mustMergeOverwrite (deepCopy $.Values.namespaceDefaults) (deepCopy $data) }}
+{{- $data = tpl ($data | toYaml) .Values | fromYaml -}}
 {{- $name := $data.name | default $id }}
 {{- if $data.namePrefix }}
 {{- $name = printf "%s-%s" $data.namePrefix $name }}
