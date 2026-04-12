@@ -3,10 +3,10 @@ name: tenant
 description: Tenant helm chart
 type: application
 version: 0.1.0
-dependencies:
-  - name: app-of-apps
-    version: 0.1.0
-    repository: file://../app-of-apps
-  # - name: argocd-apps
-  #   version: 2.0.4
-  #   repository: https://argoproj.github.io/argo-helm
+# dependencies:
+#   - name: app-of-apps
+#     version: 0.1.0
+#     repository: file://../app-of-apps
+#   - name: argocd-apps
+#     version: 2.0.4
+#     repository: https://argoproj.github.io/argo-helm
