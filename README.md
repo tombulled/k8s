@@ -15,6 +15,15 @@ helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --versi
 ```
 
 ```sh
+kubectl -n argocd create secret generic github-ssh --from-literal=url=git@github.com:tombulled --from-file=sshPrivateKey=$HOME/.ssh/id_rsa
+kubectl -n argocd label secret github-ssh argocd.argoproj.io/secret-type=repo-creds
+```
+
+```sh
+kubectl apply -f root.yaml
+```
+
+```sh
 helm uninstall argo-cd -n argocd
 ```
 
@@ -28,13 +37,4 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ```sh
 helm upgrade --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd -f values/argo-cd/values.yaml
-```
-
-```sh
-kubectl apply -f argo-cd.yaml
-```
-
-```sh
-kubectl -n argocd create secret generic github-ssh --from-literal=url=git@github.com:tombulled --from-file=sshPrivateKey=$HOME/.ssh/id_rsa
-kubectl -n argocd label secret github-ssh argocd.argoproj.io/secret-type=repo-creds
 ```

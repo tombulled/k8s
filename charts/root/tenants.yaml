@@ -33,8 +33,10 @@ spec:
               app-of-apps:
                 metadata:
                   tenant: "{{.values.tenant}}"
+                applicationDefaults:
+                  namePrefix: "{{.values.tenant}}"
                 applicationSetDefaults:
-                  namePrefix: "{{.tenant}}"
+                  namePrefix: "{{.values.tenant}}"
                   template:
                     spec:
                       project: "{{.values.tenant}}"
