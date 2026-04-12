@@ -3,6 +3,14 @@
 {{ join "" (list "{{- $defaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
 {{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
 
+{{ "{{- /* Template metadata */ -}}" }}
+{{ join "" (list "{{- $metadata := `" ($.Values.metadata | toJson) "` | fromJson -}}") }}
+{{ "{{- $applicationDataString := $applicationData | toYaml -}}" }}
+{{ "{{- range $key, $val := $metadata -}}" }}
+{{ "{{- $applicationDataString = $applicationDataString | replace (printf \"{{.%s}}\" $key) $val -}}" }}
+{{ "{{- end -}}" }}
+{{ "{{- $applicationData = $applicationDataString | fromYaml -}}" }}
+
 {{ $patchers := $.Files.Glob "files/patchers/*.tpl" }}
 
 {{- range $path, $_ := $patchers -}}
