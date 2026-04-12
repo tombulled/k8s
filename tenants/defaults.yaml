@@ -1,4 +1,4 @@
-project:
+projectDefaults:
   finalizers:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
@@ -11,6 +11,14 @@ project:
   roles: []
   syncWindows: []
   sourceNamespaces: []
+
+projects:
+  main:
+    namePrefix: ~
+
+namespaces:
+  main:
+    namePrefix: ~
 
 app-of-apps:
   applicationDefaults:

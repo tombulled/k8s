@@ -28,6 +28,16 @@ spec:
               - "$k8s/tenants/defaults.yaml"
               - "$k8s/tenants/{{.values.tenant}}/values.yaml"
             valuesObject:
+              projectDefaults:
+                namePrefix: "wibbly-wobbly"
+              projects:
+                main:
+                  name: "wibbly-wobbly"
+              namespaceDefaults:
+                namePrefix: "wibbly-wobbly"
+              namespaces:
+                main:
+                  name: "wibbly-wobbly"
               project:
                 name: "{{.values.tenant}}"
                 description: "Project for Tenant: {{.values.tenant}}"
