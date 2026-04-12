@@ -1,42 +1,40 @@
-# projectDefaults:
-#   namePrefix: ~
+projectDefaults:
+  namePrefix: ~
 
-# namespaceDefaults:
-#   namePrefix: ~
+namespaceDefaults:
+  namePrefix: ~
 
-# projects:
-#   main:
-#     destinations: # TODO: Infer me from .namespaces?
-#       - namespace: ingress-nginx
-#         name: in-cluster
-#       - namespace: argocd
-#         name: in-cluster
-#     clusterResourceWhitelist:
-#       - group: rbac.authorization.k8s.io
-#         kind: ClusterRole
-#       - group: rbac.authorization.k8s.io
-#         kind: ClusterRoleBinding
-#       - group: admissionregistration.k8s.io
-#         kind: ValidatingWebhookConfiguration
-#       - group: networking.k8s.io
-#         kind: IngressClass
-#       - group: apiextensions.k8s.io
-#         kind: CustomResourceDefinition
+projects:
+  main:
+    destinations: # TODO: Infer me from .namespaces?
+      - namespace: ingress-nginx
+        name: in-cluster
+      - namespace: argocd
+        name: in-cluster
+    clusterResourceWhitelist:
+      - group: rbac.authorization.k8s.io
+        kind: ClusterRole
+      - group: rbac.authorization.k8s.io
+        kind: ClusterRoleBinding
+      - group: admissionregistration.k8s.io
+        kind: ValidatingWebhookConfiguration
+      - group: networking.k8s.io
+        kind: IngressClass
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
 
-# namespaces:
-#   main:
-#     enabled: false
+namespaces:
+  main:
+    enabled: false
 
-#   ingress-nginx: {}
-#   argocd: {}
+  ingress-nginx: {}
+  argocd: {}
 
 app-of-apps: # extra source so 'app-of-apps' prefix not needed?
   metadata:
     tenant: core
   applicationDefaults:
-    project: "{{.tenant}}" # TODO: This shouldn't need to be here!
-    # annotations:
-    #   tenant-name: "{{.tenant}}"
+    project: "{{.tenant}}"
   # applicationSetDefaults:
   #   template:
   #     spec:
