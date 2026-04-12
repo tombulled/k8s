@@ -34,13 +34,13 @@ app-of-apps: # extra source so 'app-of-apps' prefix not needed?
   metadata:
     tenant: core
   applicationDefaults:
-    project: core # TODO: This shouldn't need to be here!
-    annotations:
-      tenant-name: "{{.tenant}}"
+    project: "{{.tenant}}" # TODO: This shouldn't need to be here!
+    # annotations:
+    #   tenant-name: "{{.tenant}}"
   applicationSetDefaults:
     template:
       spec:
-        project: core # TODO: This shouldn't need to be here!
+        project: "{{.tenant}}" # TODO: This shouldn't need to be here!
   applicationSets:
     core:
       generators:
@@ -48,4 +48,4 @@ app-of-apps: # extra source so 'app-of-apps' prefix not needed?
             repoURL: git@github.com:tombulled/k8s.git
             revision: main
             files:
-              - path: "apps/core/*.yaml"
+              - path: "apps/{{.tenant}}/*.yaml"
