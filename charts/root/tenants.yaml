@@ -9,7 +9,7 @@ spec:
         repoURL: git@github.com:tombulled/k8s.git
         revision: HEAD
         directories:
-          - path: "tenants/*"
+          - path: "tenants/*/*"
         values:
           tenant: "{{.path.basename}}"
   goTemplate: true
@@ -24,9 +24,17 @@ spec:
           targetRevision: main
           path: charts/tenant
           helm:
+            ignoreMissingValueFiles: true
             valueFiles:
               - "$k8s/tenants/defaults.yaml"
-              - "$k8s/tenants/{{.values.tenant}}/values.yaml"
+              - "$k8s/tenants/defaults-type-dev.yaml"
+              - "$k8s/tenants/defaults-t1-dev.yaml"
+              - "$k8s/tenants/type-all/{{.values.tenant}}/values.yaml"
+              - "$k8s/tenants/type-all/{{.values.tenant}}/values-type-dev.yaml"
+              - "$k8s/tenants/type-all/{{.values.tenant}}/values-t1-dev.yaml"
+              - "$k8s/tenants/type-dev/{{.values.tenant}}/values.yaml"
+              - "$k8s/tenants/type-dev/{{.values.tenant}}/values-t1-dev.yaml"
+              - "$k8s/tenants/t1-dev/{{.values.tenant}}/values.yaml"
             valuesObject:
               metadata:
                 tenant: "{{.values.tenant}}"
