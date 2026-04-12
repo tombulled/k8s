@@ -20,6 +20,9 @@ projects:
   main:
     namePrefix: ~
     name: "{{.tenant.name}}"
+    destinations:
+      - namespace: "{{.tenant.name}}"
+        name: in-cluster
 
 namespaceDefaults:
   namePrefix: "{{.tenant.name}}"
