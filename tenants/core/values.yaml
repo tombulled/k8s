@@ -36,4 +36,4 @@ app-of-apps: # extra source so 'app-of-apps' prefix not needed?
             repoURL: git@github.com:tombulled/k8s.git
             revision: main
             files:
-              - path: "apps/core/*.yaml"
+              - path: "apps/core/*.yaml" # TODO: template tenant name here
