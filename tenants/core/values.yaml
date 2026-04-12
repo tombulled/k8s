@@ -18,6 +18,7 @@ project:
 
 namespaces:
   ingress-nginx: {}
+  argocd: {}
 
 app-of-apps:
   applicationSets:
