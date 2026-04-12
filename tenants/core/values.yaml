@@ -1,9 +1,9 @@
 project:
   destinations: # TODO: Infer me from .namespaces
     - namespace: ingress-nginx
-      server: https://kubernetes.default.svc
+      name: in-cluster
     - namespace: argocd
-      server: https://kubernetes.default.svc
+      name: in-cluster
   clusterResourceWhitelist:
     - group: rbac.authorization.k8s.io
       kind: ClusterRole
