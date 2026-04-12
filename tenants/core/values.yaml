@@ -15,34 +15,11 @@ project:
       kind: IngressClass
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
+
 namespaces:
   ingress-nginx: {}
 
 app-of-apps:
-  applicationDefaults:
-    project: default
-    deletion:
-      cascade: true
-    destination:
-      name: in-cluster
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
-    sourcesObject:
-      values:
-        repoURL: git@github.com:tombulled/k8s.git
-        targetRevision: main
-        ref: values
-
-  applicationSetDefaults:
-    generators: []
-    template:
-      metadata: {}
-      spec:
-        project: default
-        destination: {}
-
   applicationSets:
     core:
       generators:
