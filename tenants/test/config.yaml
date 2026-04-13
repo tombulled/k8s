@@ -1,0 +1,49 @@
+t1-dev: true
+# type-dev: true
+
+# ##########
+
+# deployTo:
+#   - t1-dev
+#   - type-dev
+#   - type-all
+
+# #########
+
+# by-id:
+#   t1-dev: true
+
+# by-type:
+#   dev: true
+
+# ###########
+
+# ids:
+#   t1-dev: false
+
+# regions:
+#   us-east: true
+
+# ##########
+
+# # clusterSelector:
+
+# # aws example
+# cluster:
+#   name: my-cluster
+#   region: us-east-2
+#   availabilityZone: us-east-2a
+
+# # cluster:
+# #   id: t1-ops
+# #   site: prim
+# #   region: us-east
+# #   type: ops
+
+# deployTo:
+#   site:
+#     t1-ops: true
+#   site:
+#     prim: false
+#   region:
+#     us-east: false

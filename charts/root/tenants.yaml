@@ -8,10 +8,16 @@ spec:
     - git:
         repoURL: git@github.com:tombulled/k8s.git
         revision: HEAD
-        directories:
-          - path: "tenants/*/*"
+        files:
+          - path: "tenants/*/config.yaml"
         values:
           tenant: "{{.path.basename}}"
+      selector:
+        matchExpressions:
+          - key: t1-dev
+            operator: In
+            values:
+              - "true"
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
