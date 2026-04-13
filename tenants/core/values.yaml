@@ -26,7 +26,7 @@ projects:
 namespaces:
   main: ~
   ingress-nginx: {}
-  argocd: {}
+  # argocd: {}
 
 applicationSets:
   main:
