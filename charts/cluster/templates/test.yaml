@@ -1,3 +1,7 @@
+{{- define "assert" -}}
+{{- if not . -}}f{{- end -}}
+{{- end -}}
+
 {{- define "check" -}}
   {{- $metadata := .Values.metadata | default dict -}}
   {{- $deployTo := .Values.deployTo | default dict -}}
@@ -5,7 +9,7 @@
   {{- $matchExpressions := $deployTo.matchExpressions | default dict -}}
 
   {{- range $key, $val := $matchLabels -}}
-    {{- if ne (index $metadata $key) $val -}}f{{- end -}}
+    {{- template "assert" (eq (index $metadata $key) $val) -}}
   {{- end -}}
 
   {{- range $expression := $matchExpressions -}}
