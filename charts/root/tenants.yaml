@@ -5,72 +5,72 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    # - matrix:
-    #     generators:
-    #       - list:
-    #           elements:
-    #             - key: id
-    #               value: t1-dev
-    #             - key: type
-    #               value: dev
       - git:
-          repoURL: git@github.com:tombulled/k8s.git # finds 100x tenants
+          repoURL: git@github.com:tombulled/k8s.git
           revision: HEAD
           files:
             - path: "tenants/*/config.yaml"
           values:
             tenant: "{{.path.basename}}"
-            keepMe: '{{index .deployTo.matchLabels "type"}}' 
-            # keepMe: |
-            #   {{- define "assert" -}}
-            #   {{- if not . -}}f{{- end -}}
-            #   {{- end -}}
+            keepMe: |
+              {{- define "assert" -}}
+              {{- if not . -}}f{{- end -}}
+              {{- end -}}
 
-            #   {{- define "check" -}}
-            #     {{- range $key, $val := (.matchLabels | default dict) -}}
-            #       {{- template "assert" (eq (index $metadata $key) $val) -}}
-            #     {{- end -}}
+              {{- define "check" -}}
+                {{- $metadata := dict "id" "t1-dev" "type" "dev" }}
 
-            #     {{- range $expression := (.matchExpressions | default list) -}}
-            #       {{- $metadataVal := index $metadata $expression.key -}}
-            #       {{- $exists := ne $metadataVal nil -}}
+                {{- range $key, $val := (.matchLabels | default dict) -}}
+                  {{- template "assert" (eq (index $metadata $key) $val) -}}
+                {{- end -}}
 
-            #       {{- if eq $expression.operator "In" -}}
-            #         {{- $in := false -}}
-            #         {{- range $value := .values -}}
-            #           {{- if eq $value $metadataVal -}}
-            #             {{- $in = true -}}
-            #           {{- end -}}
-            #         {{- end -}}
-            #         {{- template "assert" $in -}}
-            #       {{- else if eq $expression.operator "NotIn" -}}
-            #         {{- range $value := .values -}}
-            #           {{- template "assert" (ne $value $metadataVal) -}}
-            #         {{- end -}}
-            #       {{- else if eq $expression.operator "Exists" -}}
-            #         {{- template "assert" $exists -}}
-            #       {{- else if eq $expression.operator "DoesNotExist" -}}
-            #         {{- template "assert" (not $exists) -}}
-            #       {{- else -}}
-            #         {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
-            #       {{- end -}}
-            #     {{- end -}}
-            #   {{- end -}}
+                {{- range $expression := (.matchExpressions | default list) -}}
+                  {{- $metadataVal := index $metadata $expression.key -}}
+                  {{- $exists := ne $metadataVal nil -}}
 
-            #   {{- template "check" (.deployTo | default dict) -}}
+                  {{- if eq $expression.operator "In" -}}
+                    {{- $in := false -}}
+                    {{- range $value := .values -}}
+                      {{- if eq $value $metadataVal -}}
+                        {{- $in = true -}}
+                      {{- end -}}
+                    {{- end -}}
+                    {{- template "assert" $in -}}
+                  {{- else if eq $expression.operator "NotIn" -}}
+                    {{- range $value := .values -}}
+                      {{- template "assert" (ne $value $metadataVal) -}}
+                    {{- end -}}
+                  {{- else if eq $expression.operator "Exists" -}}
+                    {{- template "assert" $exists -}}
+                  {{- else if eq $expression.operator "DoesNotExist" -}}
+                    {{- template "assert" (not $exists) -}}
+                  {{- else -}}
+                    {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+
+              {{- template "check" (.deployTo | default dict) -}}
+
+              {{- $_ := set . "keepMe" "hack" }}
+            test: t
         selector:
+        #   matchLabels:
+        #     values.keepMe: ""
           matchExpressions:
-            - key: deployTo.type-dev
+            - key: hack
               operator: In
               values:
-                - "true"
-                # - ""
-                # - nil
+                - "hack"
+          #       # - ""
+          #       # - nil
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
     metadata:
       name: "tenant-{{.values.tenant}}"
+      annotations:
+        keep: "{{.values.keepMe}}"
     spec:
       project: default
       sources:
