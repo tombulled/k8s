@@ -17,21 +17,21 @@
     {{- $exists := ne $metadataVal nil -}}
 
     {{- if eq $expression.operator "In" -}}
-      {{- $any := false -}}
+      {{- $in := false -}}
       {{- range $value := .values -}}
         {{- if eq $value $metadataVal -}}
-          {{- $any = true -}}
+          {{- $in = true -}}
         {{- end -}}
       {{- end -}}
-      {{- if not $any -}}f{{- end -}}
+      {{- template "assert" $in -}}
     {{- else if eq $expression.operator "NotIn" -}}
       {{- range $value := .values -}}
-        {{- if eq $value $metadataVal -}}f{{- end -}}
+        {{- template "assert" (ne $value $metadataVal) -}}
       {{- end -}}
     {{- else if eq $expression.operator "Exists" -}}
-      {{- if not $exists -}}f{{- end -}}
+      {{- template "assert" $exists -}}
     {{- else if eq $expression.operator "DoesNotExist" -}}
-      {{- if $exists -}}f{{- end -}}
+      {{- template "assert" (not $exists) -}}
     {{- else -}}
       {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
     {{- end -}}

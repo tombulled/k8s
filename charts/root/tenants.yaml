@@ -21,7 +21,42 @@ spec:
           values:
             tenant: "{{.path.basename}}"
             keepMe: |
-              TODO
+              {{- define "assert" -}}
+              {{- if not . -}}f{{- end -}}
+              {{- end -}}
+
+              {{- define "check" -}}
+                {{- range $key, $val := (.matchLabels | default dict) -}}
+                  {{- template "assert" (eq (index $metadata $key) $val) -}}
+                {{- end -}}
+
+                {{- range $expression := (.matchExpressions | default list) -}}
+                  {{- $metadataVal := index $metadata $expression.key -}}
+                  {{- $exists := ne $metadataVal nil -}}
+
+                  {{- if eq $expression.operator "In" -}}
+                    {{- $in := false -}}
+                    {{- range $value := .values -}}
+                      {{- if eq $value $metadataVal -}}
+                        {{- $in = true -}}
+                      {{- end -}}
+                    {{- end -}}
+                    {{- template "assert" $in -}}
+                  {{- else if eq $expression.operator "NotIn" -}}
+                    {{- range $value := .values -}}
+                      {{- template "assert" (ne $value $metadataVal) -}}
+                    {{- end -}}
+                  {{- else if eq $expression.operator "Exists" -}}
+                    {{- template "assert" $exists -}}
+                  {{- else if eq $expression.operator "DoesNotExist" -}}
+                    {{- template "assert" (not $exists) -}}
+                  {{- else -}}
+                    {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+
+              {{- template "check" (.deployTo | default dict) -}}
         selector:
           matchExpressions:
             - key: deployTo.type-dev
