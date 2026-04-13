@@ -1,4 +1,10 @@
 t1-dev: true
+t1-ops: "true"
+
+deployTo:
+  t1-dev: true
+  t1-ops: "true"
+
 # type-dev: true
 
 # ##########
