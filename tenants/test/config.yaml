@@ -1,9 +1,43 @@
-t1-dev: true
-t1-ops: "true"
-
 deployTo:
   t1-dev: true
   t1-ops: "true"
+
+clusters:
+  t1-dev:
+    id: t1-dev
+    type/dev: true
+    type/ops: false
+  
+# id/t1-dev
+# type/dev
+# all
+
+all=true AND type.dev!=false AND id.t1-dev!=false
+type.dev=true AND id.t1-dev!=false
+id.t1-dev=true
+
+id=t1-dev OR type=dev OR all
+
+deployment:
+
+matchClusters:
+  type-mgmt: "true"
+  type-dev: "true"
+
+matchClusters:
+  type-all: "true"
+
+id -> true
+
+deployTo:
+  matchLabels:
+    type: dev
+
+  matchExpressions:
+    - key: id
+      operator: NotIn
+      values:
+        - t1-dev
 
 # type-dev: true
 

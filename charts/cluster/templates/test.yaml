@@ -1,0 +1,39 @@
+{{- define "check" -}}
+  {{- $metadata := .Values.metadata | default dict -}}
+  {{- $deployTo := .Values.deployTo | default dict -}}
+  {{- $matchLabels := $deployTo.matchLabels | default dict -}}
+  {{- $matchExpressions := $deployTo.matchExpressions | default dict -}}
+
+  {{- range $key, $val := $matchLabels -}}
+    {{- if ne (index $metadata $key) $val -}}f{{- end -}}
+  {{- end -}}
+
+  {{- range $expression := $matchExpressions -}}
+    {{- $metadataVal := index $metadata $expression.key -}}
+    {{- $exists := ne $metadataVal nil -}}
+
+    {{- if eq $expression.operator "In" -}}
+      {{- $any := false -}}
+      {{- range $value := .values -}}
+        {{- if eq $value $metadataVal -}}
+          {{- $any = true -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if not $any -}}f{{- end -}}
+    {{- else if eq $expression.operator "NotIn" -}}
+      {{- range $value := .values -}}
+        {{- if eq $value $metadataVal -}}f{{- end -}}
+      {{- end -}}
+    {{- else if eq $expression.operator "Exists" -}}
+      {{- if not $exists -}}f{{- end -}}
+    {{- else if eq $expression.operator "DoesNotExist" -}}
+      {{- if $exists -}}f{{- end -}}
+    {{- else -}}
+      {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+output: {{ include "check" $ | quote }}
+
+# In, NotIn, Exists, and DoesNotExist

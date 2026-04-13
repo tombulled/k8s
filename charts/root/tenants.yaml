@@ -5,19 +5,31 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: git@github.com:tombulled/k8s.git
-        revision: HEAD
-        files:
-          - path: "tenants/*/config.yaml"
-        values:
-          tenant: "{{.path.basename}}"
-      selector:
-        matchExpressions:
-          - key: t1-dev
-            operator: In
-            values:
-              - "true"
+    # - matrix:
+    #     generators:
+    #       - list:
+    #           elements:
+    #             - key: id
+    #               value: t1-dev
+    #             - key: type
+    #               value: dev
+      - git:
+          repoURL: git@github.com:tombulled/k8s.git # finds 100x tenants
+          revision: HEAD
+          files:
+            - path: "tenants/*/config.yaml"
+          values:
+            tenant: "{{.path.basename}}"
+            keepMe: |
+              TODO
+        selector:
+          matchExpressions:
+            - key: deployTo.type-dev
+              operator: In
+              values:
+                - "true"
+                # - ""
+                # - nil
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
