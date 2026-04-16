@@ -5,11 +5,27 @@ metadata:
   namespace: argocd
 spec:
   generators:
-      - git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: HEAD
-          files:
-            - path: "apps/test-2/*/values*.yaml"
+    - merge:
+        mergeKeys:
+          - values.selector
+        generators:
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "apps/test-2/*/values.yaml"
+              values:
+                selector: "{{.path.path}}"
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "apps/test-2/*/values-type-dev.yaml"
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "apps/test-2/*/values-t1-dev.yaml"
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
@@ -20,7 +36,7 @@ spec:
       sources: []
       destination:
         name: in-cluster
-        namespace: default
+        namespace: "{{.namespace}}"
       syncPolicy:
         automated:
           prune: true
