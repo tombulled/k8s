@@ -10,13 +10,7 @@ spec:
   sources:
     - repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
-      path: charts/tenant
-      helm:
-        valueFiles:
-          - $k8s/values/root/values.yaml
-    - repoURL: git@github.com:tombulled/k8s.git
-      targetRevision: main
-      ref: k8s
+      path: charts/root
   destination:
     name: in-cluster
     namespace: argocd

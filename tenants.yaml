@@ -23,6 +23,7 @@ spec:
               files:
                 - path: "tenants/*/config.yaml"
               values:
+                # tenant: "{{.path.basename}}"
                 mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
           - git:
               repoURL: git@github.com:tombulled/k8s.git
