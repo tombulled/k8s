@@ -21,11 +21,15 @@ spec:
               revision: HEAD
               files:
                 - path: "apps/test-2/*/values-type-dev.yaml"
+              values:
+                selector: "{{.path.path}}"
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
                 - path: "apps/test-2/*/values-t1-dev.yaml"
+              values:
+                selector: "{{.path.path}}"
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
