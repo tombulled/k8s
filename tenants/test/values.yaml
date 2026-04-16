@@ -11,26 +11,32 @@ applicationSets:
     generators:
       - merge:
           mergeKeys:
-            - values.selector
+            - mergeKey
           generators:
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test-2/*/values.yaml"
+                  - path: "apps/test/*/values.yaml"
                 values:
-                  selector: "{{.path.path}}"
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test-2/*/values-type-dev.yaml"
+                  - path: "apps/test/*/values-type-dev.yaml"
                 values:
-                  selector: "{{.path.path}}"
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test-2/*/values-t1-dev.yaml"
+                  - path: "apps/test/*/values-t1-dev.yaml"
                 values:
-                  selector: "{{.path.path}}"
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+        selector:
+          matchExpressions:
+            - key: enabled
+              operator: NotIn
+              values:
+                - "false"

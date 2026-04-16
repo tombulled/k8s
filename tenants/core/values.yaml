@@ -30,9 +30,41 @@ namespaces:
 
 applicationSets:
   main:
+    # generators:
+    #   - git:
+    #       repoURL: git@github.com:tombulled/k8s.git
+    #       revision: main
+    #       files:
+    #         - path: "apps/{{.tenant}}/*.yaml"
     generators:
-      - git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: main
-          files:
-            - path: "apps/{{.tenant}}/*.yaml"
+      - merge:
+          mergeKeys:
+            - mergeKey
+          generators:
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/core/*/values.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/core/*/values-type-dev.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/core/*/values-t1-dev.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+        selector:
+          matchExpressions:
+            - key: enabled
+              operator: NotIn
+              values:
+                - "false"
