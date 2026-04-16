@@ -1,9 +1,9 @@
-deployTo:
-  matchLabels:
-    type: dev
+# deployTo:
+#   matchLabels:
+#     type: dev
 
-  matchExpressions:
-    - key: id
-      operator: NotIn
-      values:
-        - t1-ops
+#   matchExpressions:
+#     - key: id
+#       operator: NotIn
+#       values:
+#         - t1-ops

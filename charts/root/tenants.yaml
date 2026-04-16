@@ -5,65 +5,98 @@ metadata:
   namespace: argocd
 spec:
   generators:
-      - git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: HEAD
-          files:
-            - path: "tenants/*/config.yaml"
-          values:
-            tenant: "{{.path.basename}}"
-            keepMe: |
-              {{- $metadata := dict "id" "t1-dev" "type" "dev" }}
-              {{- $valid := true }}
+    - merge:
+        mergeKeys:
+          - values.selector
+        generators:
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "tenants/*/config.yaml"
+              values:
+                tenant: "{{.path.basename}}"
+                selector: "{{.path.path}}"
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "tenants/*/config-type-dev.yaml"
+              values:
+                selector: "{{.path.path}}"
+          - git:
+              repoURL: git@github.com:tombulled/k8s.git
+              revision: HEAD
+              files:
+                - path: "tenants/*/config-t1-dev.yaml"
+              values:
+                selector: "{{.path.path}}"
+        # selector:
+        #   matchLabels:
+        #     # keepMe: "true"
+        #     enabled: "true"
+  # generators:
+  #     - git:
+  #         repoURL: git@github.com:tombulled/k8s.git
+  #         revision: HEAD
+  #         files:
+  #           - path: "tenants/*/config.yaml"
+  #         values:
+  #           tenant: "{{.path.basename}}"
+  #           keepMe: |
+  #             {{- $metadata := dict "id" "t1-dev" "type" "dev" }}
+  #             {{- $valid := true }}
 
-              {{- range $key, $val := (dig "deployTo" "matchLabels" dict .) -}}
-                {{- if ne (index $metadata $key) $val -}}
-                  {{- $valid = false -}}
-                {{- end -}}
-              {{- end -}}
+  #             {{- range $key, $val := (dig "deployTo" "matchLabels" dict .) -}}
+  #               {{- if ne (index $metadata $key) $val -}}
+  #                 {{- $valid = false -}}
+  #               {{- end -}}
+  #             {{- end -}}
 
-              {{- range $expression := (dig "deployTo" "matchExpressions" list .) -}}
-                {{- $metadataVal := index $metadata $expression.key -}}
-                {{- $exists := ne $metadataVal nil -}}
+  #             {{- range $expression := (dig "deployTo" "matchExpressions" list .) -}}
+  #               {{- $metadataVal := index $metadata $expression.key -}}
+  #               {{- $exists := ne $metadataVal nil -}}
 
-                {{- if eq $expression.operator "In" -}}
-                  {{- $in := false -}}
-                  {{- range $value := .values -}}
-                    {{- if eq $value $metadataVal -}}
-                      {{- $in = true -}}
-                    {{- end -}}
-                  {{- end -}}
-                  {{- if not $in -}}
-                    {{- $valid = false -}}
-                  {{- end -}}
-                {{- else if eq $expression.operator "NotIn" -}}
-                  {{- range $value := .values -}}
-                    {{- if eq $value $metadataVal -}}
-                      {{- $valid = false -}}
-                    {{- end -}}
-                  {{- end -}}
-                {{- else if eq $expression.operator "Exists" -}}
-                  {{- if not $exists -}}
-                    {{- $valid = false -}}
-                  {{- end -}}
-                {{- else if eq $expression.operator "DoesNotExist" -}}
-                  {{- if $exists -}}
-                    {{- $valid = false -}}
-                  {{- end -}}
-                {{- else -}}
-                  {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
-                {{- end -}}
-              {{- end -}}
+  #               {{- if eq $expression.operator "In" -}}
+  #                 {{- $in := false -}}
+  #                 {{- range $value := .values -}}
+  #                   {{- if eq $value $metadataVal -}}
+  #                     {{- $in = true -}}
+  #                   {{- end -}}
+  #                 {{- end -}}
+  #                 {{- if not $in -}}
+  #                   {{- $valid = false -}}
+  #                 {{- end -}}
+  #               {{- else if eq $expression.operator "NotIn" -}}
+  #                 {{- range $value := .values -}}
+  #                   {{- if eq $value $metadataVal -}}
+  #                     {{- $valid = false -}}
+  #                   {{- end -}}
+  #                 {{- end -}}
+  #               {{- else if eq $expression.operator "Exists" -}}
+  #                 {{- if not $exists -}}
+  #                   {{- $valid = false -}}
+  #                 {{- end -}}
+  #               {{- else if eq $expression.operator "DoesNotExist" -}}
+  #                 {{- if $exists -}}
+  #                   {{- $valid = false -}}
+  #                 {{- end -}}
+  #               {{- else -}}
+  #                 {{- fail (printf "Invalid operator: %s" $expression.operator) -}}
+  #               {{- end -}}
+  #             {{- end -}}
 
-              {{- $_ := set . "keepMe" $valid }}
-        selector:
-          matchLabels:
-            keepMe: "true"
+  #             {{- $_ := set . "keepMe" $valid }}
+  #       selector:
+  #         matchLabels:
+  #           keepMe: "true"
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   template:
     metadata:
       name: "tenant-{{.values.tenant}}"
+      annotations:
+        TEMPORARY-PATH: "{{.path.path}}"
     spec:
       project: default
       sources:
