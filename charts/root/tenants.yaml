@@ -97,8 +97,8 @@ spec:
   template:
     metadata:
       name: "tenant-{{.values.tenant}}"
-      annotations:
-        TEMPORARY-PATH: "{{.path.path}}"
+      # annotations:
+      #   TEMPORARY-PATH: "{{.path.path}}"
     spec:
       project: default
       sources:
@@ -111,12 +111,19 @@ spec:
               - "$k8s/tenants/defaults.yaml"
               - "$k8s/tenants/defaults-type-dev.yaml"
               - "$k8s/tenants/defaults-t1-dev.yaml"
-              - "$k8s/tenants/type-all/{{.values.tenant}}/values.yaml"
-              - "$k8s/tenants/type-all/{{.values.tenant}}/values-type-dev.yaml"
-              - "$k8s/tenants/type-all/{{.values.tenant}}/values-t1-dev.yaml"
-              - "$k8s/tenants/type-dev/{{.values.tenant}}/values.yaml"
-              - "$k8s/tenants/type-dev/{{.values.tenant}}/values-t1-dev.yaml"
-              - "$k8s/tenants/t1-dev/{{.values.tenant}}/values.yaml"
+              - "$k8s/{{.path.path}}/values.yaml"
+              - "$k8s/{{.path.path}}/values-type-dev.yaml"
+              - "$k8s/{{.path.path}}/values-t1-dev.yaml"
+            # valueFiles:
+            #   - "$k8s/tenants/defaults.yaml"
+            #   - "$k8s/tenants/defaults-type-dev.yaml"
+            #   - "$k8s/tenants/defaults-t1-dev.yaml"
+            #   - "$k8s/tenants/type-all/{{.values.tenant}}/values.yaml"
+            #   - "$k8s/tenants/type-all/{{.values.tenant}}/values-type-dev.yaml"
+            #   - "$k8s/tenants/type-all/{{.values.tenant}}/values-t1-dev.yaml"
+            #   - "$k8s/tenants/type-dev/{{.values.tenant}}/values.yaml"
+            #   - "$k8s/tenants/type-dev/{{.values.tenant}}/values-t1-dev.yaml"
+            #   - "$k8s/tenants/t1-dev/{{.values.tenant}}/values.yaml"
             valuesObject:
               metadata:
                 tenant: "{{.values.tenant}}"
