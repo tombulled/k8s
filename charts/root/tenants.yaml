@@ -7,34 +7,35 @@ spec:
   generators:
     - merge:
         mergeKeys:
-          - values.selector
+          - mergeKey
         generators:
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
-                - path: "tenants/*/config.yaml"
+                - path: "tenants/*/values.yaml"
               values:
-                tenant: "{{.path.basename}}"
-                selector: "{{.path.path}}"
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
-                - path: "tenants/*/config-type-dev.yaml"
+                - path: "tenants/*/values-type-dev.yaml"
               values:
-                selector: "{{.path.path}}"
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
-                - path: "tenants/*/config-t1-dev.yaml"
+                - path: "tenants/*/values-t1-dev.yaml"
               values:
-                selector: "{{.path.path}}"
-        # selector:
-        #   matchLabels:
-        #     # keepMe: "true"
-        #     enabled: "true"
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
+      selector:
+        matchExpressions:
+          - key: enabled
+            operator: NotIn
+            values:
+              - "false"
   # generators:
   #     - git:
   #         repoURL: git@github.com:tombulled/k8s.git

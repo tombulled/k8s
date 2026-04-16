@@ -15,43 +15,40 @@ spec:
               files:
                 - path: "apps/*/*/values.yaml"
               values:
-                mergeKey: "{{ $_ := set . \"mergeKey\" .path.path }}"
-                # selector: "{{ }}"
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
                 - path: "apps/*/*/values-type-dev.yaml"
               values:
-                mergeKey: "{{ $_ := set . \"mergeKey\" .path.path }}"
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
           - git:
               repoURL: git@github.com:tombulled/k8s.git
               revision: HEAD
               files:
                 - path: "apps/*/*/values-t1-dev.yaml"
               values:
-                mergeKey: "{{ $_ := set . \"mergeKey\" .path.path }}"
-        selector:
-          # matchLabels:
-          #   enabled: "true"
-          matchExpressions:
-            - key: enabled
-              operator: In
-              values:
-                - ""
-                - "true"
-
+                mergeKey: '{{ $_ := set . "mergeKey" .path.path }}'
+      selector:
+        matchExpressions:
+          - key: enabled
+            operator: NotIn
+            values:
+              - "false"
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   template:
     metadata:
-      name: "some-app"
+      name: 'some-app-{{.path.path}}-{{.path.filename}}-{{.enabled | default "default"}}'
+      annotations:
+        enabled: "{{.enabled}}"
+        namespace: "{{.namespace}}"
     spec:
       project: default
       sources: []
       destination:
         name: in-cluster
-        namespace: argocd # default # "{{.namespace}}"
+        namespace: '{{.namespace | default "default"}}'
       syncPolicy:
         automated:
           prune: true
