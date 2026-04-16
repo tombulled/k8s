@@ -1,2 +1,79 @@
+metadata: 
+  clusterId: t1-dev
+  clusterType: dev
+
+applicationDefaults:
+  namePrefix: tenant
+  # name: "{{.values.tenant}}" # FIXME
+  sourcesObject:
+    main:
+      repoURL: git@github.com:tombulled/k8s.git
+      targetRevision: main
+      path: charts/tenant
+      helm:
+        ignoreMissingValueFiles: true
+        valueFiles:
+          - "$k8s/tenants/defaults.yaml"
+          - "$k8s/tenants/defaults-type-{{.clusterType}}.yaml"
+          - "$k8s/tenants/defaults-{{.clusterId}}.yaml"
+          - "$k8s/{{.path.path}}/values.yaml"
+          - "$k8s/{{.path.path}}/values-type-{{.clusterType}}.yaml"
+          - "$k8s/{{.path.path}}/values-{{.clusterId}}.yaml"
+        valuesObject:
+        #   metadata:
+        #     # tenant: "{{.values.tenant}}"
+            clusterId: "{{.clusterId}}"
+            clusterType: "{{.clusterType}}"
+    k8s:
+      repoURL: git@github.com:tombulled/k8s.git
+      targetRevision: main
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+
 applicationSets:
-  tenants: {}
+  tenants:
+    generators:
+      - merge:
+          mergeKeys:
+            - mergeKey
+          generators:
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                directories:
+                  - path: "tenants/*"
+                values:
+                  tenant: '{{ "{{.path.basename}}" }}'
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "tenants/*/config.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "tenants/*/config-type-dev.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "tenants/*/config-t1-dev.yaml"
+                values:
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+        selector:
+          matchExpressions:
+            - key: enabled
+              operator: NotIn
+              values:
+                - "false"

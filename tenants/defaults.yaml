@@ -32,7 +32,6 @@ namespaces:
     namePrefix: ~
     name: "{{.tenant}}"
 
-### app of apps ###
 applicationDefaults:
   namePrefix: "{{.tenant}}"
   project: "{{.tenant}}"
@@ -50,11 +49,13 @@ applicationDefaults:
       repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
       ref: values
+
 applicationSetDefaults:
   namePrefix: "{{.tenant}}"
   template:
     spec:
       project: "{{.tenant}}"
+
 applicationSets:
   main:
     namePrefix: ~
