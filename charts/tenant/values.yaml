@@ -15,4 +15,5 @@ applicationSetDefaults:
     metadata: {}
     spec:
       destination: {}
+      project: default
 applicationSets: {}
