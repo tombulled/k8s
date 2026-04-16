@@ -1,7 +1,7 @@
-### TODO: Support This? ###
-deployTo:
-  matchLabels:
-    type: dev
+# ### TODO: Support This? ###
+# deployTo:
+#   matchLabels:
+#     type: dev
 
 sourcesObject:
   main:
