@@ -1,6 +1,6 @@
-enabled: false
-version: 0.1.2
-name: foo
+# enabled: false
+# version: 0.1.2
+# name: foo
 
 # deployTo:
 #   matchLabels:
