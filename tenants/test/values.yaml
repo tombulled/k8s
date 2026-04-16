@@ -1,10 +1,36 @@
 applicationSets:
   main:
+    # generators:
+    #   - git:
+    #       repoURL: git@github.com:tombulled/k8s.git
+    #       revision: main
+    #       files:
+    #         - path: "apps/{{.tenant}}/type-all/*.yaml"
+    #         - path: "apps/{{.tenant}}/type-{{.clusterType}}/*.yaml"
+    #         - path: "apps/{{.tenant}}/{{.clusterId}}/*.yaml"
     generators:
-      - git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: main
-          files:
-            - path: "apps/{{.tenant}}/type-all/*.yaml"
-            - path: "apps/{{.tenant}}/type-{{.clusterType}}/*.yaml"
-            - path: "apps/{{.tenant}}/{{.clusterId}}/*.yaml"
+      - merge:
+          mergeKeys:
+            - values.selector
+          generators:
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/test-2/*/values.yaml"
+                values:
+                  selector: "{{.path.path}}"
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/test-2/*/values-type-dev.yaml"
+                values:
+                  selector: "{{.path.path}}"
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "apps/test-2/*/values-t1-dev.yaml"
+                values:
+                  selector: "{{.path.path}}"
