@@ -17,21 +17,21 @@ applicationSets:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test/*/values.yaml"
+                  - path: "apps/{{.tenant}}/*/values.yaml"
                 values:
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test/*/values-type-dev.yaml"
+                  - path: "apps/{{.tenant}}/*/values-type-dev.yaml"
                 values:
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "apps/test/*/values-t1-dev.yaml"
+                  - path: "apps/{{.tenant}}/*/values-t1-dev.yaml"
                 values:
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
         selector:

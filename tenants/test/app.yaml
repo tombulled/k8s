@@ -1,0 +1,13 @@
+name: foo
+
+enabled: true
+
+sources:
+  main:
+    repoURL:
+    targetRevision:
+    valuesObject: {}
+  syncPolicy:
+    automated:
+      prune:
+      selfHeal:
