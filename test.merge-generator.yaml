@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test-merge-generator
+  namespace: argocd
+spec:
+  generators:
+      - git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: HEAD
+          files:
+            - path: "apps/test-2/*/values*.yaml"
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  template:
+    metadata:
+      name: "some-app"
+    spec:
+      project: default
+      sources: []
+      destination:
+        name: in-cluster
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

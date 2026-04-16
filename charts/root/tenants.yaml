@@ -64,8 +64,6 @@ spec:
   template:
     metadata:
       name: "tenant-{{.values.tenant}}"
-      annotations:
-        keep: "{{.keepMe}}"
     spec:
       project: default
       sources:

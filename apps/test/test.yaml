@@ -1,3 +1,8 @@
+### TODO: Support This? ###
+deployTo:
+  matchLabels:
+    type: dev
+
 sourcesObject:
   main:
     repoURL: git@github.com:tombulled/k8s.git
