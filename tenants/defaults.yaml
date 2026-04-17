@@ -27,6 +27,7 @@ namespaces:
 
 applicationDefaults:
   namePrefix: "{{.metadata.tenant}}"
+  namespace: "{{.metadata.tenant}}"
   project: "{{.metadata.tenant}}"
   deletion:
     cascade: true
