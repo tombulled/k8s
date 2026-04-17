@@ -14,16 +14,16 @@ applicationDefaults:
         ignoreMissingValueFiles: true
         valueFiles:
           - "$k8s/tenants/defaults.yaml"
-          - "$k8s/tenants/defaults-type-{{.clusterType}}.yaml"
-          - "$k8s/tenants/defaults-{{.clusterId}}.yaml"
+          - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
+          - "$k8s/tenants/defaults-{{.metadata.clusterId}}.yaml"
           - "$k8s/{{.path.path}}/values.yaml"
-          - "$k8s/{{.path.path}}/values-type-{{.clusterType}}.yaml"
-          - "$k8s/{{.path.path}}/values-{{.clusterId}}.yaml"
+          - "$k8s/{{.path.path}}/values-type-{{.metadata.clusterType}}.yaml"
+          - "$k8s/{{.path.path}}/values-{{.metadata.clusterId}}.yaml"
         valuesObject:
         #   metadata:
         #     # tenant: "{{.values.tenant}}"
-            clusterId: "{{.clusterId}}"
-            clusterType: "{{.clusterType}}"
+            clusterId: "{{.metadata.clusterId}}"
+            clusterType: "{{.metadata.clusterType}}"
     k8s:
       repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main

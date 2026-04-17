@@ -3,11 +3,23 @@
 {{ join "" (list "{{- $defaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
 {{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
 
-{{ "{{- /* Template metadata */ -}}" }}
+{{ "{{- /* Set metadata */ -}}" }}
 {{ join "" (list "{{- $metadata := `" ($.Values.metadata | toJson) "` | fromJson -}}") }}
+{{ "{{- $_ := set $applicationData \"metadata\" ($metadata | default dict) -}}" }}
+
+{{ "{{- /* Template values */ -}}" }}
 {{ "{{- $applicationDataString := $applicationData | toYaml -}}" }}
-{{ "{{- range $key, $val := $metadata -}}" }}
-{{ "{{- $applicationDataString = $applicationDataString | replace (printf \"{{.%s}}\" $key) $val -}}" }}
+{{ "{{- range $match := regexFindAll \"{{ *\\\\..*? *}}\" $applicationDataString -1 -}}" }}
+{{ "{{- $keys := substr 2 (int (sub (len $match) 2)) $match | trim | substr 1 -1 | splitList \".\" -}}" }}
+{{ "{{- $obj := $applicationData -}}" }}
+{{ "{{- range $key := $keys -}}" }}
+{{ "{{- if or (not $obj) (ne (kindOf $obj) \"map\") -}}" }}
+{{ "{{- $obj = \"\" -}}" }}
+{{ "{{- break -}}" }}
+{{ "{{- end -}}" }}
+{{ "{{- $obj = get $obj $key -}}" }}
+{{ "{{- end -}}" }}
+{{ "{{- $applicationDataString = replace $match ($obj | default \"\") $applicationDataString -}}" }}
 {{ "{{- end -}}" }}
 {{ "{{- $applicationData = $applicationDataString | fromYaml -}}" }}
 
