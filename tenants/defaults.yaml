@@ -2,7 +2,7 @@ metadata:
   tenant: ~ # populated by appset
 
 projectDefaults:
-  namePrefix: "{{.tenant}}"
+  namePrefix: "{{.metadata.tenant}}"
   finalizers:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
@@ -19,27 +19,27 @@ projectDefaults:
 projects:
   main:
     namePrefix: ~
-    name: "{{.tenant}}"
+    name: "{{.metadata.tenant}}"
     destinations:
-      - namespace: "{{.tenant}}"
+      - namespace: "{{.metadata.tenant}}"
         name: in-cluster
 
 namespaceDefaults:
-  namePrefix: "{{.tenant}}"
+  namePrefix: "{{.metadata.tenant}}"
 
 namespaces:
   main:
     namePrefix: ~
-    name: "{{.tenant}}"
+    name: "{{.metadata.tenant}}"
 
 applicationDefaults:
-  namePrefix: "{{.tenant}}"
-  project: "{{.tenant}}"
+  namePrefix: "{{.metadata.tenant}}"
+  project: "{{.metadata.tenant}}"
   deletion:
     cascade: true
   destination:
     name: in-cluster
-    namespace: "{{.tenant}}"
+    namespace: "{{.metadata.tenant}}"
   syncPolicy:
     automated:
       prune: true
@@ -51,12 +51,12 @@ applicationDefaults:
       ref: values
 
 applicationSetDefaults:
-  namePrefix: "{{.tenant}}"
+  namePrefix: "{{.metadata.tenant}}"
   template:
     spec:
-      project: "{{.tenant}}"
+      project: "{{.metadata.tenant}}"
 
 applicationSets:
   main:
     namePrefix: ~
-    name: "{{.tenant}}"
+    name: "{{.metadata.tenant}}"
