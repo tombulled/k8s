@@ -6,3 +6,6 @@ configs:
 
   params:
     application.namespaces: "*"
+    applicationsetcontroller.namespaces: "*"
+    applicationsetcontroller.allowed.scm.providers: git@github.com:tombulled/k8s.git
+    applicationsetcontroller.tokenref.strict.mode: "true"
