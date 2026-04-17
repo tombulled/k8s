@@ -2,10 +2,11 @@ metadata:
   clusterId: t1-dev
   clusterType: dev
 
-projectDefaults:
-  description: "Project with name: {{.name}}"
+namespaceDefaults:
+  annotations:
+    description: "namespace with name: {{.name}}"
 
-projects:
+namespaces:
   wibble: {}
 
 applicationDefaults:
