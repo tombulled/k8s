@@ -1,5 +1,7 @@
 {{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
 {{- if eq $applicationSetData nil -}}{{- continue -}}{{- end -}}
+{{- $enabled := ternary $applicationSetData.enabled true (ne $applicationSetData.enabled nil) }}
+{{- if not $enabled }}{{- continue }}{{- end }}
 {{- $applicationSetData = mustMergeOverwrite (deepCopy $.Values.applicationSetDefaults) (deepCopy $applicationSetData) -}}
 {{- $applicationSetData = tpl ($applicationSetData | toYaml) (dict "metadata" $.Values.metadata) | fromYaml -}}
 {{- $name := $applicationSetData.name | default $applicationSetId }}

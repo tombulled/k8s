@@ -54,5 +54,6 @@ applicationSetDefaults:
 
 applicationSets:
   main:
+    enabled: false
     namePrefix: ~
     name: "{{.metadata.tenant}}"
