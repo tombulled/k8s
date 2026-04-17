@@ -56,5 +56,4 @@ applicationSets:
   main:
     namePrefix: ~
     name: "{{.metadata.tenant}}"
-    # enabled: false
     namespace: "{{.metadata.tenant}}"

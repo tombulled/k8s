@@ -29,6 +29,7 @@ namespaces:
 
 applicationSets:
   main:
+    namespace: ~
     generators:
       - merge:
           mergeKeys:
