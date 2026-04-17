@@ -65,6 +65,9 @@
       {{- continue -}}
     {{- end -}}
 
+    {{- $values := $xGit.values | default dict -}}
+    {{- $_ := set $values "mergeKey" (printf "{{ $_ := set . \"mergeKey\" .%s }}" ($xGit.mergeKey | default "path.path")) -}}
+
     {{- $gitGenerators := list -}}
 
     {{- range $valueFile := $xGit.valueFiles | default list -}}
@@ -77,9 +80,7 @@
               "path" (printf "%s/%s" $xGit.path $valueFile)
             )
           )
-          "values" (dict
-            "mergeKey" (printf "{{ $_ := set . \"mergeKey\" .%s }}" ($xGit.mergeKey | default "path.path"))
-          )
+          "values" $values
         )
       ) -}}
 

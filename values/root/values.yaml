@@ -42,6 +42,8 @@ applicationSets:
             - values.yaml
             - values-type-{{.metadata.clusterType}}.yaml
             - values-{{.metadata.clusterId}}.yaml
+          values:
+            tenant: '{{ "{{.path.basename}}" }}'
         selector:
           matchExpressions:
             - key: enabled
