@@ -2,6 +2,12 @@ metadata:
   clusterId: t1-dev
   clusterType: dev
 
+projectDefaults:
+  description: "Project with name: {{.name}}"
+
+projects:
+  wibble: {}
+
 applicationDefaults:
   namePrefix: tenant
   sourcesObject:

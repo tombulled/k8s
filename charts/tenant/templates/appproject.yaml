@@ -1,14 +1,13 @@
 {{- range $id, $data := .Values.projects }}
-{{- if eq $data nil -}}
-{{- continue -}}
-{{- end -}}
+{{- if eq $data nil -}}{{- continue -}}{{- end -}}
 {{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
-{{- if not $enabled }}
-{{- continue }}
-{{- end }}
-{{- $data = mustMergeOverwrite (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
-{{- $data = tpl ($data | toYaml) (dict "metadata" $.Values.metadata) | fromYaml -}}
-{{- $name := $data.name | default $id }}
+{{- if not $enabled }}{{- continue }}{{- end }}
+{{- $data = mustMergeOverwrite (dict "metadata" $.Values.metadata) (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
+{{- if eq $data.name nil -}}
+{{- $_ := set $data "name" $id -}}
+{{- end -}}
+{{- $data = tpl ($data | toYaml) $data | fromYaml -}}
+{{- $name := $data.name }}
 {{- if $data.namePrefix }}
 {{- $name = printf "%s-%s" $data.namePrefix $name }}
 {{- end }}
