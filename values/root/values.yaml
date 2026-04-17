@@ -32,33 +32,16 @@ applicationDefaults:
 
 applicationSets:
   tenants:
-    generators:
-      - merge:
-          mergeKeys:
-            - mergeKey
-          generators:
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "tenants/*/values.yaml"
-                values:
-                  tenant: '{{ "{{.path.basename}}" }}'
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "tenants/*/values-type-dev.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "tenants/*/values-t1-dev.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+    generatorsObject:
+      main:
+        x-git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: HEAD
+          path: "tenants/*"
+          valueFiles:
+            - values.yaml
+            - values-type-{{.metadata.clusterType}}.yaml
+            - values-{{.metadata.clusterId}}.yaml
         selector:
           matchExpressions:
             - key: enabled

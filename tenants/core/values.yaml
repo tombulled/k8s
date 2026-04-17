@@ -30,35 +30,3 @@ namespaces:
 applicationSets:
   main:
     namespace: ~
-    # generators:
-    #   - merge:
-    #       mergeKeys:
-    #         - mergeKey
-    #       generators:
-    #         - git:
-    #             repoURL: git@github.com:tombulled/k8s.git
-    #             revision: HEAD
-    #             files:
-    #               - path: "apps/{{.metadata.tenant}}/*/values.yaml"
-    #             values:
-    #               mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-    #         - git:
-    #             repoURL: git@github.com:tombulled/k8s.git
-    #             revision: HEAD
-    #             files:
-    #               - path: "apps/{{.metadata.tenant}}/*/values-type-{{.metadata.clusterType}}.yaml"
-    #             values:
-    #               mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-    #         - git:
-    #             repoURL: git@github.com:tombulled/k8s.git
-    #             revision: HEAD
-    #             files:
-    #               - path: "apps/{{.metadata.tenant}}/*/values-{{.metadata.clusterId}}.yaml"
-    #             values:
-    #               mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-    #     selector:
-    #       matchExpressions:
-    #         - key: enabled
-    #           operator: NotIn
-    #           values:
-    #             - "false"
