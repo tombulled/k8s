@@ -40,18 +40,10 @@ applicationSets:
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
-                directories:
-                  - path: "tenants/*"
-                values:
-                  tenant: '{{ "{{.path.basename}}" }}'
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
                 files:
                   - path: "tenants/*/values.yaml"
                 values:
-                  # tenant: '{{ "{{.path.basename}}" }}'
+                  tenant: '{{ "{{.path.basename}}" }}'
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
