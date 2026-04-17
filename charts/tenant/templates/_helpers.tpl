@@ -56,8 +56,10 @@
 {{- end -}}
 
 {{- define "applicationset.patcher.xGitGenerator" -}}
+  {{- $xGitKey := "x-git" -}}
+
   {{- range $generator := (.generators | default list) -}}
-    {{- $xGit := get $generator "x-git" -}}
+    {{- $xGit := get $generator $xGitKey -}}
 
     {{- if not $xGit -}}
       {{- continue -}}
@@ -84,12 +86,21 @@
       {{- $gitGenerators = append $gitGenerators $gitGenerator -}}
     {{- end -}}
 
-    {{- $merge := (dict
-      "mergeKeys" (list "mergeKey")
-      "generators" $gitGenerators
-    ) -}}
+    {{- $generatorType := "" -}}
+    {{- $generatorData := dict -}}
 
-    {{- $_ := unset $generator "x-git" -}}
-    {{- $_ := set $generator "merge" $merge -}}
+    {{- if eq (len $gitGenerators) 1 -}}
+      {{- $generatorType = "git" -}}
+      {{- $generatorData = get (index $gitGenerators 0) "git" -}}
+    {{- else -}}
+      {{- $generatorType = "merge" -}}
+      {{- $generatorData = (dict
+        "mergeKeys" (list "mergeKey")
+        "generators" $gitGenerators
+      ) -}}
+    {{- end -}}
+
+    {{- $_ := unset $generator $xGitKey -}}
+    {{- $_ := set $generator $generatorType $generatorData -}}
   {{- end -}}
 {{- end -}}

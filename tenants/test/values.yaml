@@ -8,8 +8,8 @@ applicationSets:
           path: "apps/{{.metadata.tenant}}/*"
           valueFiles:
             - values.yaml
-            - values-type-{{.metadata.clusterType}}.yaml
-            - values-{{.metadata.clusterId}}.yaml
+            # - values-type-{{.metadata.clusterType}}.yaml
+            # - values-{{.metadata.clusterId}}.yaml
         selector:
           matchExpressions:
             - key: enabled
