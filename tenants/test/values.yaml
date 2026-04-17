@@ -1,13 +1,48 @@
+app:
+  enabled: true
+  sourcesObject:
+    main:
+      targetRevision: dev
+
+
+
+### app ###
+enabled: true
+namePrefix: tenant
+sourcesObject:
+  main:
+    repoURL: git@github.com:tombulled/k8s.git
+    targetRevision: main
+    path: charts/tenant
+    helm:
+      ignoreMissingValueFiles: true
+      valueFiles:
+        - "$k8s/tenants/defaults.yaml"
+        - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
+        - "$k8s/tenants/defaults-{{.metadata.clusterId}}.yaml"
+        - "$k8s/{{.path.path}}/values.yaml"
+        - "$k8s/{{.path.path}}/values-type-{{.metadata.clusterType}}.yaml"
+        - "$k8s/{{.path.path}}/values-{{.metadata.clusterId}}.yaml"
+      valuesObject:
+        metadata:
+          tenant: "{{.values.tenant}}"
+          clusterId: "{{.metadata.clusterId}}"
+          clusterType: "{{.metadata.clusterType}}"
+  k8s:
+    repoURL: git@github.com:tombulled/k8s.git
+    targetRevision: main
+destination:
+  name: in-cluster
+  namespace: argocd
+syncPolicy:
+  automated:
+    prune: false
+    selfHeal: true
+
+
+### chart ###
 applicationSets:
   main:
-    # generators:
-    #   - git:
-    #       repoURL: git@github.com:tombulled/k8s.git
-    #       revision: main
-    #       files:
-    #         - path: "apps/{{.metadata.tenant}}/type-all/*.yaml"
-    #         - path: "apps/{{.metadata.tenant}}/type-{{.clusterType}}/*.yaml"
-    #         - path: "apps/{{.metadata.tenant}}/{{.clusterId}}/*.yaml"
     generators:
       - merge:
           mergeKeys:

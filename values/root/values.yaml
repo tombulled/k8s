@@ -1,7 +1,3 @@
-metadata:
-  clusterId: t1-dev
-  clusterType: dev
-
 applicationDefaults:
   namePrefix: tenant
   sourcesObject:
@@ -53,21 +49,22 @@ applicationSets:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "tenants/*/config.yaml"
+                  - path: "tenants/*/values.yaml"
+                values:
+                  # tenant: '{{ "{{.path.basename}}" }}'
+                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+            - git:
+                repoURL: git@github.com:tombulled/k8s.git
+                revision: HEAD
+                files:
+                  - path: "tenants/*/values-type-dev.yaml"
                 values:
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
             - git:
                 repoURL: git@github.com:tombulled/k8s.git
                 revision: HEAD
                 files:
-                  - path: "tenants/*/config-type-dev.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "tenants/*/config-t1-dev.yaml"
+                  - path: "tenants/*/values-t1-dev.yaml"
                 values:
                   mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
         selector:

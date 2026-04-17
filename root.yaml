@@ -14,6 +14,10 @@ spec:
       helm:
         valueFiles:
           - $k8s/values/root/values.yaml
+        valuesObject:
+          metadata:
+            clusterId: t1-dev
+            clusterType: dev
     - repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
       ref: k8s
@@ -22,5 +26,5 @@ spec:
     namespace: argocd
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true

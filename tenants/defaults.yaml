@@ -7,14 +7,7 @@ projectDefaults:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
-    - "*" # git@github.com:tombulled/k8s.git?
-  # destinations: []
-  # clusterResourceWhitelist: []
-  # namespaceResourceBlacklist: []
-  # namespaceResourceWhitelist: []
-  # roles: []
-  # syncWindows: []
-  # sourceNamespaces: []
+    - "*"
 
 projects:
   main:
