@@ -42,3 +42,15 @@
     {{- $_ := set $ "name" (printf "%s-%s" . $.name) -}}
   {{- end -}}
 {{- end -}}
+
+{{- define "applicationset.patcher.generatorsObject" -}}
+  {{- with .generatorsObject -}}
+    {{- $generators := $.generators | default list -}}
+
+    {{- range $generatorId, $generator := . -}}
+      {{- $generators = append $generators $generator -}}
+    {{- end -}}
+
+    {{- $_ := set $ "generators" $generators -}}
+  {{- end -}}
+{{- end -}}
