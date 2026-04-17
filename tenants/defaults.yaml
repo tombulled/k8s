@@ -57,3 +57,19 @@ applicationSets:
     namePrefix: ~
     name: "{{.metadata.tenant}}"
     namespace: "{{.metadata.tenant}}"
+    generatorsObject:
+      main:
+        x-git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: HEAD
+          path: "apps/{{.metadata.tenant}}/*"
+          valueFiles:
+            - values.yaml
+            - values-type-{{.metadata.clusterType}}.yaml
+            - values-{{.metadata.clusterId}}.yaml
+        selector:
+          matchExpressions:
+            - key: enabled
+              operator: NotIn
+              values:
+                - "false"
