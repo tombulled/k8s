@@ -1,6 +1,6 @@
 {{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
 {{- $applicationSetData = mustMergeOverwrite (deepCopy $.Values.applicationSetDefaults) (deepCopy $applicationSetData) -}}
-{{- $applicationSetData = tpl ($applicationSetData | toYaml) $.Values.metadata | fromYaml -}}
+{{- $applicationSetData = tpl ($applicationSetData | toYaml) (dict "metadata" $.Values.metadata) | fromYaml -}}
 {{- $name := $applicationSetData.name | default $applicationSetId }}
 {{- if $applicationSetData.namePrefix }}
 {{- $name = printf "%s-%s" $applicationSetData.namePrefix $name }}

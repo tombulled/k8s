@@ -7,7 +7,7 @@
 {{- continue }}
 {{- end }}
 {{- $data = mustMergeOverwrite (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
-{{- $data = tpl ($data | toYaml) $.Values.metadata | fromYaml -}}
+{{- $data = tpl ($data | toYaml) (dict "metadata" $.Values.metadata) | fromYaml -}}
 {{- $name := $data.name | default $id }}
 {{- if $data.namePrefix }}
 {{- $name = printf "%s-%s" $data.namePrefix $name }}
