@@ -26,16 +26,9 @@ projects:
 namespaces:
   main: ~
   ingress-nginx: {}
-  # argocd: {}
 
 applicationSets:
   main:
-    # generators:
-    #   - git:
-    #       repoURL: git@github.com:tombulled/k8s.git
-    #       revision: main
-    #       files:
-    #         - path: "apps/{{.metadata.tenant}}/*.yaml"
     generators:
       - merge:
           mergeKeys:
