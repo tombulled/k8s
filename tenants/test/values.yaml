@@ -1,58 +1,15 @@
-# generators:
-#   - x-git:
-#       repoURL: git@github.com:tombulled/k8s.git
-#       revision: HEAD
-#       path: "apps/{{.metadata.tenant}}/*"
-#       valueFiles:
-#         - values.yaml
-#         - values-type-{{.metadata.clusterType}}.yaml
-#         - values-{{.metadata.clusterId}}.yaml
-#       # Not often configured:
-#       mergeKey: path.path
-
-# generators:
-#   - some-custom-generator:
-#       repoURL: git@github.com:tombulled/k8s.git
-#       revision: HEAD
-#       files:
-#         - "apps/{{.metadata.tenant}}/*/values.yaml"
-#       mergeKey: path.path
-#     selector:
-#       matchExpressions:
-#         - key: enabled
-#           operator: NotIn
-#           values:
-#             - "false"
-
 applicationSets:
   main:
     generatorsObject:
       main:
-        merge:
-          mergeKeys:
-            - mergeKey
-          generators:
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "apps/{{.metadata.tenant}}/*/values.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "apps/{{.metadata.tenant}}/*/values-type-{{.metadata.clusterType}}.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
-            - git:
-                repoURL: git@github.com:tombulled/k8s.git
-                revision: HEAD
-                files:
-                  - path: "apps/{{.metadata.tenant}}/*/values-{{.metadata.clusterId}}.yaml"
-                values:
-                  mergeKey: '{{ "{{ $_ := set . \"mergeKey\" .path.path }}" }}'
+        x-git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: HEAD
+          path: "apps/{{.metadata.tenant}}/*"
+          valueFiles:
+            - values.yaml
+            - values-type-{{.metadata.clusterType}}.yaml
+            - values-{{.metadata.clusterId}}.yaml
         selector:
           matchExpressions:
             - key: enabled

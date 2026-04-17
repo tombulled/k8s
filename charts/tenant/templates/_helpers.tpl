@@ -54,3 +54,42 @@
     {{- $_ := set $ "generators" $generators -}}
   {{- end -}}
 {{- end -}}
+
+{{- define "applicationset.patcher.xGitGenerator" -}}
+  {{- range $generator := (.generators | default list) -}}
+    {{- $xGit := get $generator "x-git" -}}
+
+    {{- if not $xGit -}}
+      {{- continue -}}
+    {{- end -}}
+
+    {{- $gitGenerators := list -}}
+
+    {{- range $valueFile := $xGit.valueFiles | default list -}}
+      {{- $gitGenerator := (dict
+        "git" (dict
+          "repoURL" $xGit.repoURL
+          "revision" $xGit.revision
+          "files" (list
+            (dict
+              "path" (printf "%s/%s" $xGit.path $valueFile)
+            )
+          )
+          "values" (dict
+            "mergeKey" (printf "{{ $_ := set . \"mergeKey\" .%s }}" ($xGit.mergeKey | default "path.path"))
+          )
+        )
+      ) -}}
+
+      {{- $gitGenerators = append $gitGenerators $gitGenerator -}}
+    {{- end -}}
+
+    {{- $merge := (dict
+      "mergeKeys" (list "mergeKey")
+      "generators" $gitGenerators
+    ) -}}
+
+    {{- $_ := unset $generator "x-git" -}}
+    {{- $_ := set $generator "merge" $merge -}}
+  {{- end -}}
+{{- end -}}

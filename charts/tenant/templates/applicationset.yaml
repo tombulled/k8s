@@ -12,6 +12,7 @@
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
 {{- include "applicationset.patcher.namePrefix" . }}
 {{- include "applicationset.patcher.generatorsObject" . }}
+{{- include "applicationset.patcher.xGitGenerator" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
