@@ -2,13 +2,6 @@ metadata:
   clusterId: t1-dev
   clusterType: dev
 
-namespaceDefaults:
-  annotations:
-    description: "namespace with name: {{.name}}"
-
-namespaces:
-  wibble: {}
-
 applicationDefaults:
   namePrefix: tenant
   sourcesObject:
