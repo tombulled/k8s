@@ -1,3 +1,8 @@
+applications:
+  apps:
+    namePrefix: ~
+    namespace: "{{.metadata.tenant}}"
+
 applicationSets:
   main: ~
 
