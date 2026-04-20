@@ -17,6 +17,7 @@
 
 {{- range $id, $_ := .Values.applicationSets -}}
 {{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.applicationSetDefaults) | fromYaml -}}
+{{- if not $data -}}{{- continue -}}{{- end -}}
 {{- with $data -}}
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
 {{- include "applicationset.patcher.generatorsObject" . }}

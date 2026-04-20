@@ -23,6 +23,7 @@
 
 {{- range $id, $_ := .Values.projects }}
 {{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
+{{- if not $data -}}{{- continue -}}{{- end -}}
 {{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
 {{- $spec := include "filter" (dict "data" $data "keys" $specKeys) | fromYaml }}
 ---
