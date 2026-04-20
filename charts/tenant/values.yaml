@@ -13,23 +13,17 @@ commonDefaults:
 ### </TODO> ###
 
 projectDefaults: {}
-projects:
-  foo: {}
-  bar:
-    annotations:
-      name: bob
-    description: bob
+projects: {}
 
 namespaceDefaults: {}
-namespaces:
-  foo: {}
-  bar:
-    annotations:
-      name: bob
-    # description: bob
+namespaces: {}
 
 applicationDefaults: {}
-applications: {}
+  # name: not-foo
+applications:
+  foo: {}
+  bar:
+    name: def-bar
 
 applicationSetDefaults:
   template:

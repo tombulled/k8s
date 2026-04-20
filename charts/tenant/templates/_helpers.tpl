@@ -3,6 +3,9 @@
 {{ join "" (list "{{- $defaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
 {{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
 
+{{ "{{- /* Set the application name if unspecified */ -}}"}}
+{{ "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}"}}
+
 {{ "{{- /* Set metadata */ -}}" }}
 {{ join "" (list "{{- $metadata := `" ($.Values.metadata | toJson) "` | fromJson -}}") }}
 {{ "{{- $_ := set $applicationData \"metadata\" ($metadata | default dict) -}}" }}

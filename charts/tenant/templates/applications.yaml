@@ -1,5 +1,5 @@
-{{- range $applicationId, $applicationData := .Values.applications -}}
-{{- $_ := set . "name" (.name | default $applicationId) }}
+{{- range $id, $_ := .Values.applications -}}
+{{- $_ := set . "id" $id }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
