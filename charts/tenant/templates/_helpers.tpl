@@ -40,12 +40,6 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "applicationset.patcher.namePrefix" -}}
-  {{- with .namePrefix -}}
-    {{- $_ := set $ "name" (printf "%s-%s" . $.name) -}}
-  {{- end -}}
-{{- end -}}
-
 {{- define "applicationset.patcher.generatorsObject" -}}
   {{- with .generatorsObject -}}
     {{- $generators := $.generators | default list -}}
@@ -137,7 +131,7 @@
 
     {{- /* If a name prefix was configured, update the name to use the configured prefix */ -}}
     {{- with $data.namePrefix }}
-      {{- $_ = set $data "name" (printf "%s-%s" . $data.name) }}
+      {{- $_ := set $data "name" (printf "%s-%s" . $data.name) }}
     {{- end }}
 
     {{- /* Finally, output the new resource data */ -}}

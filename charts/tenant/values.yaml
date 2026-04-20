@@ -19,11 +19,7 @@ namespaceDefaults: {}
 namespaces: {}
 
 applicationDefaults: {}
-  # name: not-foo
-applications:
-  foo: {}
-  bar:
-    name: def-bar
+applications: {}
 
 applicationSetDefaults:
   template:
@@ -31,4 +27,6 @@ applicationSetDefaults:
     spec:
       destination: {}
       project: default
-applicationSets: {}
+  namePrefix: prefix
+applicationSets:
+  foo: {}

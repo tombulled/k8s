@@ -1,32 +1,21 @@
-{{- range $applicationSetId, $applicationSetData := .Values.applicationSets -}}
-{{- if eq $applicationSetData nil -}}{{- continue -}}{{- end -}}
-{{- $enabled := ternary $applicationSetData.enabled true (ne $applicationSetData.enabled nil) }}
-{{- if not $enabled }}{{- continue }}{{- end }}
-{{- $applicationSetData = mustMergeOverwrite (deepCopy $.Values.applicationSetDefaults) (deepCopy $applicationSetData) -}}
-{{- $applicationSetData = tpl ($applicationSetData | toYaml) (dict "metadata" $.Values.metadata) | fromYaml -}}
-{{- $name := $applicationSetData.name | default $applicationSetId }}
-{{- if $applicationSetData.namePrefix }}
-{{- $name = printf "%s-%s" $applicationSetData.namePrefix $name }}
-{{- end }}
-{{- with $applicationSetData -}}
+{{- $metadataKeys := (list
+  "annotations"
+  "labels"
+  "name"
+  "namespace"
+) -}}
+
+{{- range $id, $_ := .Values.applicationSets -}}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.applicationSetDefaults) | fromYaml -}}
+{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
+{{- with $data -}}
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
-{{- include "applicationset.patcher.namePrefix" . }}
 {{- include "applicationset.patcher.generatorsObject" . }}
 {{- include "applicationset.patcher.xGitGenerator" . }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
-metadata:
-  name: {{ $name | quote }}
-  {{- with .namespace }}
-  namespace: {{ . }}
-  {{- end }}
-  {{- with .annotations }}
-  annotations: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .labels }}
-  labels: {{- . | toYaml | nindent 4 }}
-  {{- end }}
+metadata: {{ ternary ($metadata | toYaml | nindent 2) "{}" (not (empty $metadata)) }}
 spec:
   {{- if ne .applyNestedSelectors nil }}
   applyNestedSelectors: {{ .applyNestedSelectors }}
