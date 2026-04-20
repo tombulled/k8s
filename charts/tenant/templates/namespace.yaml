@@ -1,20 +1,14 @@
 {{- range $id, $_ := .Values.namespaces -}}
-{{- $data := include "give-me-a-name" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
-{{- with $data }}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- $metadata := include "filter" (dict "data" $data "keys" (list "annotations" "labels" "name")) | fromYaml }}
+{{- $spec := include "filter" (dict "data" $data "keys" (list "finalizers")) | fromYaml }}
 ---
 apiVersion: v1
 kind: Namespace
-metadata:
-  name: {{ .name }}
-  {{- with .annotations }}
-  annotations: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .labels }}
-  labels: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-{{- with .finalizers }}
-spec:
-  finalizers: {{ . | toYaml | nindent 4 }}
-{{- end }}
+{{- with $metadata }}
+metadata: {{ . | toYaml | nindent 2 }}
+{{- end -}}
+{{- with $spec }}
+spec: {{ . | toYaml | nindent 2 }}
 {{- end }}
 {{- end }}

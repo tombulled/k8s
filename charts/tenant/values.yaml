@@ -2,6 +2,8 @@ metadata: {}
 
 ### <TODO> ###
 commonDefaults:
+  annotations:
+  labels:
   metadata: {}
   enabled:
   namePrefix:
@@ -19,7 +21,12 @@ projects:
     description: bob
 
 namespaceDefaults: {}
-namespaces: {}
+namespaces:
+  foo: {}
+  bar:
+    annotations:
+      name: bob
+    # description: bob
 
 applicationDefaults: {}
 applications: {}
