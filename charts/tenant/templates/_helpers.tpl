@@ -105,3 +105,39 @@
     {{- $_ := set $generator $generatorType $generatorData -}}
   {{- end -}}
 {{- end -}}
+
+{{- define "give-me-a-name" -}}
+  {{- /* Extract arguments */ -}}
+  {{- $root := .root -}}
+  {{- $id := .id -}}
+  {{- $data := .data -}}
+  {{- $defaults := .defaults -}}
+
+  {{- /* If the resource data is nil, disable this resource (it is considered unwanted) */ -}}
+  {{- if eq $data nil -}}
+    {{- $data = dict "enabled" false -}}
+  {{- end -}}
+
+  {{- /* Apply defaults */ -}}
+  {{- $data = mustMergeOverwrite (dict "metadata" $root.Values.metadata) (deepCopy $defaults) (deepCopy $data) }}
+
+  {{- /* Only create a resource if it is enabled (defaults to enabled unless told otherwise) */ -}}
+  {{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
+  {{- if $enabled -}}
+    {{- /* If unspecified, default the resource name to the resource's ID */ -}}
+    {{- if eq $data.name nil -}}
+      {{- $_ := set $data "name" $id -}}
+    {{- end -}}
+
+    {{- /* Template the resource's data using itself (inception!) */ -}}
+    {{- $data = tpl ($data | toYaml) $data | fromYaml -}}
+
+    {{- /* If a name prefix was configured, update the name to use the configured prefix */ -}}
+    {{- with $data.namePrefix }}
+      {{- $_ = set $data "name" (printf "%s-%s" . $data.name) }}
+    {{- end }}
+
+    {{- /* Finally, output the new resource data */ -}}
+    {{- $data | toYaml -}}
+  {{- end -}}
+{{- end -}}

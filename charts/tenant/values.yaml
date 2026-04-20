@@ -1,16 +1,30 @@
 metadata: {}
 
+### <TODO> ###
+commonDefaults:
+  metadata: {}
+  enabled:
+  namePrefix:
+  namespace:
+  name:
+  templateSelf:
+### </TODO> ###
+
 projectDefaults: {}
 projects: {}
 
 namespaceDefaults: {}
-namespaces: {}
+# namespaces: {}
+namespaces:
+  foo: {}
+  bar:
+    finalizers:
+      - foo
 
 applicationDefaults: {}
 applications: {}
 
 applicationSetDefaults:
-  generators: []
   template:
     metadata: {}
     spec:

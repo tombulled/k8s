@@ -1,25 +1,20 @@
-{{- range $id, $data := .Values.namespaces -}}
-{{- if eq $data nil -}}{{- continue -}}{{- end -}}
-{{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
-{{- if not $enabled }}{{- continue }}{{- end }}
-{{- $data = mustMergeOverwrite (dict "metadata" $.Values.metadata) (deepCopy $.Values.namespaceDefaults) (deepCopy $data) }}
-{{- if eq $data.name nil -}}
-{{- $_ := set $data "name" $id -}}
-{{- end -}}
-{{- $data = tpl ($data | toYaml) $data | fromYaml -}}
-{{- $name := $data.name }}
-{{- if $data.namePrefix }}
-{{- $name = printf "%s-%s" $data.namePrefix $name }}
-{{- end }}
+{{- range $id, $_ := .Values.namespaces -}}
+{{- $data := include "give-me-a-name" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- with $data -}}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $name }}
-  {{- with $data.annotations }}
+  name: {{ .name }}
+  {{- with .annotations }}
   annotations: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.labels }}
+  {{- with .labels }}
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
+{{- with .finalizers }}
+spec:
+  finalizers: {{ . | toYaml | nindent 4 }}
+{{- end }}
 ---
+{{- end }}
 {{- end -}}
