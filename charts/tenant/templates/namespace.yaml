@@ -1,6 +1,7 @@
 {{- range $id, $_ := .Values.namespaces -}}
 {{- $data := include "give-me-a-name" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
-{{- with $data -}}
+{{- with $data }}
+---
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -15,6 +16,5 @@ metadata:
 spec:
   finalizers: {{ . | toYaml | nindent 4 }}
 {{- end }}
----
 {{- end }}
-{{- end -}}
+{{- end }}

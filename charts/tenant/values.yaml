@@ -11,15 +11,15 @@ commonDefaults:
 ### </TODO> ###
 
 projectDefaults: {}
-projects: {}
-
-namespaceDefaults: {}
-# namespaces: {}
-namespaces:
+projects:
   foo: {}
   bar:
-    finalizers:
-      - foo
+    annotations:
+      name: bob
+    description: bob
+
+namespaceDefaults: {}
+namespaces: {}
 
 applicationDefaults: {}
 applications: {}

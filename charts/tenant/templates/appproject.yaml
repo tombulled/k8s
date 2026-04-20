@@ -1,71 +1,98 @@
-{{- range $id, $data := .Values.projects }}
-{{- if eq $data nil -}}{{- continue -}}{{- end -}}
-{{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
-{{- if not $enabled }}{{- continue }}{{- end }}
-{{- $data = mustMergeOverwrite (dict "metadata" $.Values.metadata) (deepCopy $.Values.projectDefaults) (deepCopy $data) }}
-{{- if eq $data.name nil -}}
-{{- $_ := set $data "name" $id -}}
-{{- end -}}
-{{- $data = tpl ($data | toYaml) $data | fromYaml -}}
-{{- $name := $data.name }}
-{{- if $data.namePrefix }}
-{{- $name = printf "%s-%s" $data.namePrefix $name }}
+{{- range $id, $_ := .Values.projects }}
+{{- $data := include "give-me-a-name" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
+
+{{- $metadata := dict }}
+{{- $metadataKeys := list "annotations" "labels" "name" "namespace" "finalizers" }}
+
+{{- $spec := dict -}}
+{{- $specKeys := (list
+  "permitOnlyProjectScopedClusters"
+  "description"
+  "sourceRepos"
+  "destinations"
+  "clusterResourceWhitelist"
+  "clusterResourceBlacklist"
+  "namespaceResourceBlacklist"
+  "namespaceResourceWhitelist"
+  "orphanedResources"
+  "roles"
+  "syncWindows"
+  "signatureKeys"
+  "sourceNamespaces"
+) }}
+
+{{- range $key := $metadataKeys }}
+  {{- with get $data $key }}
+    {{- $_ := set $metadata $key . }}
+  {{- end }}
 {{- end }}
+
+{{- range $key := $specKeys }}
+  {{- with get $data $key }}
+    {{- $_ := set $spec $key . }}
+  {{- end }}
+{{- end }}
+
+{{- with $data }}
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
+metadata2: {{ ternary ($metadata | toYaml | nindent 2) "{}" (not (empty $metadata)) }}
+spec2: {{ ternary ($spec | toYaml | nindent 2) "{}" (not (empty $spec)) }}
 metadata:
-  {{- with $data.annotations }}
+  {{- with .annotations }}
   annotations: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.labels }}
+  {{- with .labels }}
   labels: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  name: {{ $name }}
-  {{- with $data.namespace }}
+  name: {{ .name }}
+  {{- with .namespace }}
   namespace: {{ . }}
   {{- end }}
-  {{- with $data.finalizers }}
+  {{- with .finalizers }}
   finalizers: {{- . | toYaml | nindent 4 }}
   {{- end }}
 spec:
-  {{- if ne $data.permitOnlyProjectScopedClusters nil }}
-  permitOnlyProjectScopedClusters: {{ $data.permitOnlyProjectScopedClusters }}
+  {{- if ne .permitOnlyProjectScopedClusters nil }}
+  permitOnlyProjectScopedClusters: {{ .permitOnlyProjectScopedClusters }}
   {{- end }}
-  {{- with $data.description }}
+  {{- with .description }}
   description: {{ . | quote }}
   {{- end }}
-  {{- with $data.sourceRepos }}
+  {{- with .sourceRepos }}
   sourceRepos: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.destinations }}
+  {{- with .destinations }}
   destinations: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.clusterResourceWhitelist }}
+  {{- with .clusterResourceWhitelist }}
   clusterResourceWhitelist: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.clusterResourceBlacklist }}
+  {{- with .clusterResourceBlacklist }}
   clusterResourceBlacklist: {{- .| toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.namespaceResourceBlacklist }}
+  {{- with .namespaceResourceBlacklist }}
   namespaceResourceBlacklist: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.namespaceResourceWhitelist }}
+  {{- with .namespaceResourceWhitelist }}
   namespaceResourceWhitelist: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.orphanedResources }}
+  {{- with .orphanedResources }}
   orphanedResources: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.roles }}
+  {{- with .roles }}
   roles: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.syncWindows }}
+  {{- with .syncWindows }}
   syncWindows: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.signatureKeys }}
+  {{- with .signatureKeys }}
   signatureKeys: {{- . | toYaml | nindent 4 }}
   {{- end }}
-  {{- with $data.sourceNamespaces }}
+  {{- with .sourceNamespaces }}
   sourceNamespaces: {{- . | toYaml | nindent 4 }}
   {{- end }}
+{{- end }}
 {{- end }}
