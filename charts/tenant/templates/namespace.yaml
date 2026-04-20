@@ -1,7 +1,16 @@
+{{- $metadataKeys := (list
+  "annotations"
+  "labels"
+  "name"
+) -}}
+{{- $specKeys := (list
+  "finalizers"
+) -}}
+
 {{- range $id, $_ := .Values.namespaces -}}
 {{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
-{{- $metadata := include "filter" (dict "data" $data "keys" (list "annotations" "labels" "name")) | fromYaml }}
-{{- $spec := include "filter" (dict "data" $data "keys" (list "finalizers")) | fromYaml }}
+{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
+{{- $spec := include "filter" (dict "data" $data "keys" $specKeys) | fromYaml }}
 ---
 apiVersion: v1
 kind: Namespace

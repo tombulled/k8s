@@ -1,15 +1,10 @@
-{{- range $id, $_ := .Values.projects }}
-{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
-
 {{- $metadataKeys := (list
   "annotations"
   "labels"
   "name"
   "namespace"
   "finalizers"
-) }}
-{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
-
+) -}}
 {{- $specKeys := (list
   "permitOnlyProjectScopedClusters"
   "description"
@@ -24,7 +19,11 @@
   "syncWindows"
   "signatureKeys"
   "sourceNamespaces"
-) }}
+) -}}
+
+{{- range $id, $_ := .Values.projects }}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
+{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
 {{- $spec := include "filter" (dict "data" $data "keys" $specKeys) | fromYaml }}
 ---
 apiVersion: argoproj.io/v1alpha1
