@@ -30,3 +30,6 @@ applicationSetDefaults:
   namePrefix: prefix
 applicationSets:
   foo: {}
+  # bar:
+  #   applyNestedSelectors: false
+  #   generators: []

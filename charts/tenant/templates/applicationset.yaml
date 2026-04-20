@@ -4,42 +4,31 @@
   "name"
   "namespace"
 ) -}}
+{{- $specKeys := (list
+  "applyNestedSelectors"
+  "generators"
+  "goTemplateOptions"
+  "ignoreApplicationDifferences"
+  "preservedFields"
+  "strategy"
+  "syncPolicy"
+  "template"
+) -}}
 
 {{- range $id, $_ := .Values.applicationSets -}}
 {{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.applicationSetDefaults) | fromYaml -}}
-{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
 {{- with $data -}}
 {{- include "applicationset.patcher.goTemplateOptionsObject" . }}
 {{- include "applicationset.patcher.generatorsObject" . }}
 {{- include "applicationset.patcher.xGitGenerator" . }}
+{{- $metadata := include "filter" (dict "data" . "keys" $metadataKeys) | fromYaml }}
+{{- $spec := include "filter" (dict "data" . "keys" $specKeys) | fromYaml }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata: {{ ternary ($metadata | toYaml | nindent 2) "{}" (not (empty $metadata)) }}
-spec:
-  {{- if ne .applyNestedSelectors nil }}
-  applyNestedSelectors: {{ .applyNestedSelectors }}
-  {{- end }}
-  generators: {{ ternary (.generators | toYaml | nindent 4) "[]" (not (empty .generators)) }}
+spec: {{ ternary ($spec | toYaml | nindent 2) "" (not (empty $spec)) }}
   goTemplate: true
-  {{- with .goTemplateOptions }}
-  goTemplateOptions: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .ignoreApplicationDifferences }}
-  ignoreApplicationDifferences: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .preservedFields }}
-  preservedFields: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .strategy }}
-  strategy: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .syncPolicy }}
-  syncPolicy: {{- . | toYaml | nindent 4 }}
-  {{- end }}
-  {{- with .template }}
-  template: {{- . | toYaml | nindent 4 }}
-  {{- end }}
   templatePatch: |
     {{/* Default the application name to the application's ID (the filename without extension) */ -}}
     {{ "{{- $_ := set . \"id\" .path.basename -}}" }}
