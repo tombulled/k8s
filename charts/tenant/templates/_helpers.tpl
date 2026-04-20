@@ -106,7 +106,7 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "give-me-a-name" -}}
+{{- define "build-resource-data" -}}
   {{- /* Extract arguments */ -}}
   {{- $root := .root -}}
   {{- $id := .id -}}
@@ -140,4 +140,21 @@
     {{- /* Finally, output the new resource data */ -}}
     {{- $data | toYaml -}}
   {{- end -}}
+{{- end -}}
+
+{{- define "filter" -}}
+  {{- $data := .data -}}
+  {{- $keys := .keys -}}
+
+  {{- $filteredData := dict -}}
+
+  {{- range $key := $keys }}
+    {{- $val := index $data $key -}}
+
+    {{- if ne $val nil }}
+      {{- $_ := set $filteredData $key $val }}
+    {{- end }}
+  {{- end }}
+
+  {{- $filteredData | toYaml -}}
 {{- end -}}

@@ -1,10 +1,15 @@
 {{- range $id, $_ := .Values.projects }}
-{{- $data := include "give-me-a-name" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.projectDefaults) | fromYaml }}
 
-{{- $metadata := dict }}
-{{- $metadataKeys := list "annotations" "labels" "name" "namespace" "finalizers" }}
+{{- $metadataKeys := (list
+  "annotations"
+  "labels"
+  "name"
+  "namespace"
+  "finalizers"
+) }}
+{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
 
-{{- $spec := dict -}}
 {{- $specKeys := (list
   "permitOnlyProjectScopedClusters"
   "description"
@@ -20,18 +25,7 @@
   "signatureKeys"
   "sourceNamespaces"
 ) }}
-
-{{- range $key := $metadataKeys }}
-  {{- with get $data $key }}
-    {{- $_ := set $metadata $key . }}
-  {{- end }}
-{{- end }}
-
-{{- range $key := $specKeys }}
-  {{- with get $data $key }}
-    {{- $_ := set $spec $key . }}
-  {{- end }}
-{{- end }}
+{{- $spec := include "filter" (dict "data" $data "keys" $specKeys) | fromYaml }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
