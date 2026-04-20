@@ -10,7 +10,7 @@
 {{ join "" (list "{{- $metadata := `" ($.Values.metadata | toJson) "` | fromJson -}}") }}
 {{ "{{- $_ := set $applicationData \"metadata\" ($metadata | default dict) -}}" }}
 
-{{ $patchers := $.Files.Glob "files/patchers/*.tpl" }}
+{{ $patchers := $.Files.Glob "files/application-patchers/*.tpl" }}
 
 {{- range $path, $_ := $patchers -}}
 {{ join "" (list "{{- /* " $path " */ -}}") }}

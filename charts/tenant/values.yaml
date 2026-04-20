@@ -27,9 +27,4 @@ applicationSetDefaults:
     spec:
       destination: {}
       project: default
-  namePrefix: prefix
-applicationSets:
-  foo: {}
-  # bar:
-  #   applyNestedSelectors: false
-  #   generators: []
+applicationSets: {}
