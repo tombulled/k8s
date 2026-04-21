@@ -14,21 +14,20 @@
 {{- end -}}
 
 {{- define "application-template" -}}
-{{ "{{- /* Apply defaults */ -}}" }}
-{{ join "" (list "{{- $commonDefaults := `" ($.Values.common | toJson) "` | fromJson -}}") }}
-{{ join "" (list "{{- $appDefaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
-{{ "{{- $applicationData := mustMergeOverwrite $commonDefaults $appDefaults (deepCopy .) -}}" }}
+  {{- "{{- /* Apply defaults */ -}}" | nindent 0 }}
+  {{- printf "{{- $commonDefaults := `%s` | fromJson -}}" ($.Values.common | toJson) | nindent 0 }}
+  {{- printf "{{- $appDefaults := `%s` | fromJson -}}" ($.Values.applicationDefaults | toJson) | nindent 0 }}
+  {{- "{{- $applicationData := mustMergeOverwrite $commonDefaults $appDefaults (deepCopy .) -}}" | nindent 0 }}
 
-{{ "{{- /* Set the application name if unspecified */ -}}" }}
-{{ "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}" }}
+  {{- "{{- /* Set the application name if unspecified */ -}}" | nindent 0 }}
+  {{- "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}" | nindent 0 }}
 
-{{ "{{- with $applicationData -}}" }}
+  {{- "{{- with $applicationData -}}" | nindent 0 }}
+    {{- include "build-patchers" (dict "root" $ "path" "files/application-patchers/*.tpl") | trim | nindent 0 }}
+    {{- "" | nindent 0 }}
 
-{{ include "build-patchers" (dict "root" $ "path" "files/application-patchers/*.tpl") | trim }}
-{{- "" }}
-
-{{ $.Files.Get "files/application-template.yaml" }}
-{{ "{{- end -}}" }}
+    {{- $.Files.Get "files/application-template.yaml" | trim | nindent 0 }}
+  {{- "{{- end -}}" | nindent 0 }}
 {{- end -}}
 
 {{- define "build-resource-data" -}}
