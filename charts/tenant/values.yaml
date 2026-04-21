@@ -1,7 +1,7 @@
-metadata: {}
+metadata: {} # move me under common
 
 ### <TODO> ###
-commonDefaults:
+commonDefaults: # just name common?
   annotations:
   labels:
   metadata: {}
