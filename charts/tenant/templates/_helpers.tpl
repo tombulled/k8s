@@ -1,28 +1,31 @@
+{{- define "build-patchers" -}}
+  {{- /* Extract arguments */ -}}
+  {{- $ := .root -}}
+  {{- $path := .path -}}
+
+  {{- range $path, $_ := $.Files.Glob $path -}}
+    {{- $patcherId := $path | base | splitList "." | first }}
+    {{- printf "{{- /* %s */ -}}" $path | nindent 0 }}
+    {{- printf "{{- block \"application.patcher.%s\" . -}}" $patcherId | nindent 0 }}
+    {{- $.Files.Get $path | trim | nindent 2 }}
+    {{- "{{- end -}}" | nindent 0 }}
+    {{- "" | nindent 0 }}
+  {{- end -}}
+{{- end -}}
+
 {{- define "application-template" -}}
 {{ "{{- /* Apply defaults */ -}}" }}
 {{ join "" (list "{{- $commonDefaults := `" ($.Values.common | toJson) "` | fromJson -}}") }}
 {{ join "" (list "{{- $appDefaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
 {{ "{{- $applicationData := mustMergeOverwrite $commonDefaults $appDefaults (deepCopy .) -}}" }}
 
-{{ "{{- /* Set the application name if unspecified */ -}}"}}
-{{ "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}"}}
+{{ "{{- /* Set the application name if unspecified */ -}}" }}
+{{ "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}" }}
 
-{{ $patchers := $.Files.Glob "files/application-patchers/*.tpl" }}
+{{ "{{- with $applicationData -}}" }}
 
-{{- range $path, $_ := $patchers -}}
-{{ $patcherId := $path | base | splitList "." | first }}
-{{ join "" (list "{{- /* " $path " */ -}}") }}
-{{ printf "{{- define \"application.patcher.%s\" -}}" $patcherId }}
-{{ $.Files.Get $path | indent 2 }}
-{{ "{{- end -}}" }}
-{{ end }}
-
-{{- "{{- with $applicationData -}}" }}
-
-{{ range $path, $_ := $patchers }}
-{{- $patcher := (split "." (base $path))._0 }}
-{{- printf "{{- template \"application.patcher.%s\" . -}}" $patcher }}
-{{ end }}
+{{ include "build-patchers" (dict "root" $ "path" "files/application-patchers/*.tpl") | trim }}
+{{- "" }}
 
 {{ $.Files.Get "files/application-template.yaml" }}
 {{ "{{- end -}}" }}
