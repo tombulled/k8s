@@ -28,7 +28,6 @@ namespaces:
     name: "{{.metadata.tenant}}"
 
 applicationDefaults:
-  namePrefix: "{{.metadata.tenant}}"
   namespace: "{{.metadata.tenant}}"
   project: "{{.metadata.tenant}}"
   deletion:
