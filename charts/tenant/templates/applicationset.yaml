@@ -19,9 +19,7 @@
 {{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.applicationSetDefaults) | fromYaml -}}
 {{- if not $data -}}{{- continue -}}{{- end -}}
 {{- with $data -}}
-{{- include "applicationset.patcher.goTemplateOptionsObject" . }}
-{{- include "applicationset.patcher.generatorsObject" . }}
-{{- include "applicationset.patcher.xGitGenerator" . }}
+{{ tpl (include "build-patchers" (dict "root" $ "path" "files/applicationset-patchers/*.tpl")) . }}
 {{- $metadata := include "filter" (dict "data" . "keys" $metadataKeys) | fromYaml }}
 {{- $spec := include "filter" (dict "data" . "keys" $specKeys) | fromYaml }}
 ---
