@@ -1,14 +1,11 @@
 {{- define "application-template" -}}
 {{ "{{- /* Apply defaults */ -}}" }}
-{{ join "" (list "{{- $defaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
-{{ "{{- $applicationData := mustMergeOverwrite $defaults (deepCopy .) -}}" }}
+{{ join "" (list "{{- $commonDefaults := `" ($.Values.common | toJson) "` | fromJson -}}") }}
+{{ join "" (list "{{- $appDefaults := `" ($.Values.applicationDefaults | toJson) "` | fromJson -}}") }}
+{{ "{{- $applicationData := mustMergeOverwrite $commonDefaults $appDefaults (deepCopy .) -}}" }}
 
 {{ "{{- /* Set the application name if unspecified */ -}}"}}
 {{ "{{- $_ := set $applicationData \"name\" ($applicationData.name | default $applicationData.id) -}}"}}
-
-{{ "{{- /* Set metadata */ -}}" }}
-{{ join "" (list "{{- $metadata := `" ($.Values.metadata | toJson) "` | fromJson -}}") }}
-{{ "{{- $_ := set $applicationData \"metadata\" ($metadata | default dict) -}}" }}
 
 {{ $patchers := $.Files.Glob "files/application-patchers/*.tpl" }}
 
@@ -116,7 +113,7 @@
   {{- end -}}
 
   {{- /* Apply defaults */ -}}
-  {{- $data = mustMergeOverwrite (dict "metadata" $root.Values.metadata) (deepCopy $defaults) (deepCopy $data) }}
+  {{- $data = mustMergeOverwrite (deepCopy $root.Values.common) (deepCopy $defaults) (deepCopy $data) }}
 
   {{- /* Only create a resource if it is enabled (defaults to enabled unless told otherwise) */ -}}
   {{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}

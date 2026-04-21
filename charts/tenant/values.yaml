@@ -1,16 +1,4 @@
-metadata: {} # move me under common
-
-### <TODO> ###
-commonDefaults: # just name common?
-  annotations:
-  labels:
-  metadata: {}
-  enabled:
-  namePrefix:
-  namespace:
-  name:
-  templateSelf:
-### </TODO> ###
+common: {}
 
 projectDefaults: {}
 projects: {}
