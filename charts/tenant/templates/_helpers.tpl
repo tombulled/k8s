@@ -10,8 +10,11 @@
 {{ $patchers := $.Files.Glob "files/application-patchers/*.tpl" }}
 
 {{- range $path, $_ := $patchers -}}
+{{ $patcherId := $path | base | splitList "." | first }}
 {{ join "" (list "{{- /* " $path " */ -}}") }}
-{{ $.Files.Get $path }}
+{{ printf "{{- define \"application.patcher.%s\" -}}" $patcherId }}
+{{ $.Files.Get $path | indent 2 }}
+{{ "{{- end -}}" }}
 {{ end }}
 
 {{- "{{- with $applicationData -}}" }}
