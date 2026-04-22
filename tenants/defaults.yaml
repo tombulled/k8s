@@ -1,6 +1,7 @@
 common:
   metadata:
     tenant: ~ # populated by appset
+  namespace: "{{.metadata.tenant}}"
 
 projectDefaults:
   namespace: argocd
