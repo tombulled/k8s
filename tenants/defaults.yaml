@@ -1,7 +1,6 @@
 common:
   metadata:
     tenant: ~ # populated by appset
-  namePrefix: "{{.metadata.tenant}}"
 
 projectDefaults:
   namePrefix: "{{.metadata.tenant}}"
@@ -30,7 +29,6 @@ namespaces:
     name: "{{.metadata.tenant}}"
 
 applicationDefaults:
-  namePrefix: ~
   namespace: "{{.metadata.tenant}}"
   project: "{{.metadata.tenant}}"
   deletion:
@@ -78,7 +76,6 @@ applicationSets:
 
 networkPolicies:
   default-deny-all:
-    namePrefix: ~
     podSelector: {}
     policyTypes:
       - Ingress
