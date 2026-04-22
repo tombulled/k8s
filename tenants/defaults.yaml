@@ -56,7 +56,6 @@ applicationSets:
   main:
     namePrefix: ~
     name: "{{.metadata.tenant}}"
-    namespace: "{{.metadata.tenant}}"
     generatorsObject:
       main:
         x-git:
