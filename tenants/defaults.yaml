@@ -75,3 +75,11 @@ applicationSets:
               operator: NotIn
               values:
                 - "false"
+
+networkPolicies:
+  default-deny-all:
+    namePrefix: ~
+    podSelector: {}
+    policyTypes:
+      - Ingress
+      - Egress
