@@ -1,3 +1,6 @@
+common:
+  namespace: argocd
+
 projectDefaults:
   namePrefix: ~
 
