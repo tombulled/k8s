@@ -80,6 +80,16 @@ networkPolicies:
     policyTypes:
       - Ingress
       - Egress
+  default-allow-all:
+    enabled: false
+    podSelector: {}
+    ingress:
+      - {}
+    egress:
+      - {}
+    policyTypes:
+      - Ingress
+      - Egress
   default-allow-dns:
     podSelector: {}
     policyTypes:
