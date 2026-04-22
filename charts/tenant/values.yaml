@@ -17,11 +17,7 @@ applicationSetDefaults:
       project: default
 applicationSets: {}
 
-extras: [] # TODO: Make this a dict
+extras: {}
 
 networkPolicyDefaults: {}
-networkPolicies:
-  allow-all:
-    enabled: true
-    metadata: {}
-    podSelector: ...
+networkPolicies: {}
