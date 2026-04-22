@@ -30,9 +30,9 @@ namespaces:
   main: ~
   ingress-nginx: {}
 
-applicationSets:
-  main:
-    namespace: ~
+# applicationSets:
+#   main:
+#     namespace: ~
 
 networkPolicies:
   default-deny-all:
