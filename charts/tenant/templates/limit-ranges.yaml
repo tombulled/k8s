@@ -25,8 +25,8 @@ kind: LimitRange
 metadata: {{ . | toYaml | nindent 2 }}
   ownerReferences:
   - apiVersion: v1
-    # blockOwnerDeletion: true
-    # controller: true
+    blockOwnerDeletion: true
+    controller: true
     kind: Namespace
     name: test
     uid: 98476060-32d8-4973-b62f-4b1d287e3aed
