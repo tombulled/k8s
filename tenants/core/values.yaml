@@ -34,6 +34,5 @@ namespaces:
 #   main:
 #     namespace: ~
 
-networkPolicies:
-  default-deny-all:
-    enabled: false
+networkPolicyDefaults:
+  enabled: false

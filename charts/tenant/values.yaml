@@ -1,4 +1,4 @@
-common: {}
+common: {} # rename to defaults?
 
 projectDefaults: {}
 projects: {}
@@ -19,5 +19,5 @@ applicationSets: {}
 
 extraResources: {}
 
-networkPolicyDefaults: {}
-networkPolicies: {}
+# networkPolicyDefaults: {}
+# networkPolicies: {}
