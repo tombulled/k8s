@@ -19,5 +19,5 @@ applicationSets: {}
 
 extraResources: {}
 
-# networkPolicyDefaults: {}
-# networkPolicies: {}
+networkPolicyDefaults: {}
+networkPolicies: {}
