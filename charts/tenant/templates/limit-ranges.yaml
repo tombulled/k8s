@@ -1,0 +1,31 @@
+{{- $metadataKeys := (list
+  "annotations"
+  "finalizers"
+  "labels"
+  "name"
+  "namespace"
+) -}}
+{{- $specKeys := (list
+  "limits"
+) -}}
+
+{{- range $namespaceId, $namespaceData := .Values.namespaces -}}
+{{- $namespaceData = include "build-resource-data" (dict "root" $ "id" $namespaceId "data" $namespaceData "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- if not $namespaceData -}}{{- continue -}}{{- end -}}
+{{- range $limitRangeId, $limitRangeData := $namespaceData.limitRanges -}}
+{{- $limitRangeData := include "build-resource-data" (dict "root" $ "id" $limitRangeId "data" $limitRangeData "defaults" $.Values.limitRangeDefaults) | fromYaml -}}
+{{- if not $limitRangeData -}}{{- continue -}}{{- end -}}
+{{- $_ := set $limitRangeData "namespace" $namespaceData.name -}}
+{{- $metadata := include "filter" (dict "data" $limitRangeData "keys" $metadataKeys) | fromYaml }}
+{{- $spec := include "filter" (dict "data" $limitRangeData "keys" $specKeys) | fromYaml }}
+---
+apiVersion: v1
+kind: LimitRange
+{{- with $metadata }}
+metadata: {{ . | toYaml | nindent 2 }}
+{{- end -}}
+{{- with $spec }}
+spec: {{ . | toYaml | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}

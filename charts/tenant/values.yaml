@@ -21,3 +21,4 @@ extraResources: {}
 
 networkPolicyDefaults: {}
 resourceQuotaDefaults: {}
+limitRangeDefaults: {}
