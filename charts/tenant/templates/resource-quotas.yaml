@@ -1,0 +1,33 @@
+{{- $metadataKeys := (list
+  "annotations"
+  "finalizers"
+  "labels"
+  "name"
+  "namespace"
+) -}}
+{{- $specKeys := (list
+  "hard"
+  "scopeSelector"
+  "scopes"
+) -}}
+
+{{- range $namespaceId, $namespaceData := .Values.namespaces -}}
+{{- $namespaceData = include "build-resource-data" (dict "root" $ "id" $namespaceId "data" $namespaceData "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- if not $namespaceData -}}{{- continue -}}{{- end -}}
+{{- range $resourceQuotaId, $resourceQuotaData := $namespaceData.resourceQuotas -}}
+{{- $resourceQuotaData := include "build-resource-data" (dict "root" $ "id" $resourceQuotaId "data" $resourceQuotaData "defaults" $.Values.resourceQuotaDefaults) | fromYaml -}}
+{{- if not $resourceQuotaData -}}{{- continue -}}{{- end -}}
+{{- $_ := set $resourceQuotaData "namespace" $namespaceData.name -}}
+{{- $metadata := include "filter" (dict "data" $resourceQuotaData "keys" $metadataKeys) | fromYaml }}
+{{- $spec := include "filter" (dict "data" $resourceQuotaData "keys" $specKeys) | fromYaml }}
+---
+apiVersion: v1
+kind: ResourceQuota
+{{- with $metadata }}
+metadata: {{ . | toYaml | nindent 2 }}
+{{- end -}}
+{{- with $spec }}
+spec: {{ . | toYaml | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -20,3 +20,4 @@ applicationSets: {}
 extraResources: {}
 
 networkPolicyDefaults: {}
+resourceQuotaDefaults: {}
