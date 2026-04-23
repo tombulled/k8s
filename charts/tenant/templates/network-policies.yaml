@@ -12,11 +12,15 @@
   "policyTypes"
 ) -}}
 
-{{- range $id, $_ := .Values.networkPolicies -}}
-{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.networkPolicyDefaults) | fromYaml -}}
-{{- if not $data -}}{{- continue -}}{{- end -}}
-{{- $metadata := include "filter" (dict "data" $data "keys" $metadataKeys) | fromYaml }}
-{{- $spec := include "filter" (dict "data" $data "keys" $specKeys) | fromYaml }}
+{{- range $namespaceId, $namespaceData := .Values.namespaces -}}
+{{- $namespaceData = include "build-resource-data" (dict "root" $ "id" $namespaceId "data" $namespaceData "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- if not $namespaceData -}}{{- continue -}}{{- end -}}
+{{- range $networkPolicyId, $networkPolicyData := $namespaceData.networkPolicies -}}
+{{- $networkPolicyData := include "build-resource-data" (dict "root" $ "id" $networkPolicyId "data" $networkPolicyData "defaults" $.Values.networkPolicyDefaults) | fromYaml -}}
+{{- if not $networkPolicyData -}}{{- continue -}}{{- end -}}
+{{- $_ := set $networkPolicyData "namespace" $namespaceData.name -}}
+{{- $metadata := include "filter" (dict "data" $networkPolicyData "keys" $metadataKeys) | fromYaml }}
+{{- $spec := include "filter" (dict "data" $networkPolicyData "keys" $specKeys) | fromYaml }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -25,5 +29,6 @@ metadata: {{ . | toYaml | nindent 2 }}
 {{- end -}}
 {{- with $spec }}
 spec: {{ . | toYaml | nindent 2 }}
+{{- end }}
 {{- end }}
 {{- end }}

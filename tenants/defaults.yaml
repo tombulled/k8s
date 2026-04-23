@@ -25,6 +25,38 @@ projects:
 namespaceDefaults:
   namePrefix: "{{.metadata.tenant}}"
 
+  networkPolicies:
+    default-deny-all:
+      podSelector: {}
+      policyTypes:
+        - Ingress
+        - Egress
+    default-allow-all:
+      enabled: false
+      podSelector: {}
+      ingress:
+        - {}
+      egress:
+        - {}
+      policyTypes:
+        - Ingress
+        - Egress
+    default-allow-dns:
+      podSelector: {}
+      policyTypes:
+        - Egress
+      egress:
+        - to:
+            - namespaceSelector:
+                matchLabels:
+                  kubernetes.io/metadata.name: kube-system
+              podSelector:
+                matchLabels:
+                  k8s-app: kube-dns
+          ports:
+            - protocol: UDP
+              port: 53
+
 namespaces:
   main:
     namePrefix: ~
@@ -73,35 +105,3 @@ applicationSets:
               operator: NotIn
               values:
                 - "false"
-
-networkPolicies:
-  default-deny-all:
-    podSelector: {}
-    policyTypes:
-      - Ingress
-      - Egress
-  default-allow-all:
-    enabled: false
-    podSelector: {}
-    ingress:
-      - {}
-    egress:
-      - {}
-    policyTypes:
-      - Ingress
-      - Egress
-  default-allow-dns:
-    podSelector: {}
-    policyTypes:
-      - Egress
-    egress:
-      - to:
-          - namespaceSelector:
-              matchLabels:
-                kubernetes.io/metadata.name: kube-system
-            podSelector:
-              matchLabels:
-                k8s-app: kube-dns
-        ports:
-          - protocol: UDP
-            port: 53
