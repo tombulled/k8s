@@ -9,7 +9,7 @@ namespaceDefaults:
 
 projects:
   main:
-    destinations: # TODO: Infer me from .namespaces?
+    destinations:
       - namespace: ingress-nginx
         name: in-cluster
       - namespace: argocd
@@ -30,9 +30,9 @@ namespaces:
   main: ~
   ingress-nginx: {}
 
-# applicationSets:
-#   main:
-#     namespace: ~
-
 networkPolicyDefaults:
+  enabled: false
+resourceQuotaDefaults:
+  enabled: false
+limitRangeDefaults:
   enabled: false

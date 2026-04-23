@@ -74,6 +74,17 @@ namespaceDefaults:
         services: "10"
         services.loadbalancers: "2"
 
+  limitRanges:
+    compute-resources:
+      limits:
+      - defaultRequest:
+          cpu: 100m
+          memory: 100Mi
+        default:
+          cpu: 100m
+          memory: 100Mi
+        type: Container
+
 namespaces:
   main:
     namePrefix: ~
