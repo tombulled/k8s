@@ -1,5 +1,5 @@
 applicationDefaults:
-  namePrefix: tenant
+  name: "{{.metadata.tenant}}-{{.id}}"
   sourcesObject:
     main:
       repoURL: git@github.com:tombulled/k8s.git
