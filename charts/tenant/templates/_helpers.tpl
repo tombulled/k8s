@@ -66,23 +66,6 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "filter" -}}
-  {{- $data := .data -}}
-  {{- $keys := .keys -}}
-
-  {{- $filteredData := dict -}}
-
-  {{- range $key := $keys }}
-    {{- $val := index $data $key -}}
-
-    {{- if ne $val nil }}
-      {{- $_ := set $filteredData $key $val }}
-    {{- end }}
-  {{- end }}
-
-  {{- $filteredData | toYaml -}}
-{{- end -}}
-
 {{- define "namespaces" -}}
   {{- $namespaces := list -}}
 
