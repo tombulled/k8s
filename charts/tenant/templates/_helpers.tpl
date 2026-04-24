@@ -47,21 +47,19 @@
   {{- /* Apply defaults */ -}}
   {{- $data = mustMergeOverwrite (deepCopy $root.Values.common) (deepCopy $defaults) (deepCopy $data) }}
 
+  {{- /* Set the resource ID */ -}}
+  {{- $_ := set $data "id" $id }}
+
   {{- /* Only create a resource if it is enabled (defaults to enabled unless told otherwise) */ -}}
   {{- $enabled := ternary $data.enabled true (ne $data.enabled nil) }}
   {{- if $enabled -}}
-    {{- /* If unspecified, default the resource name to the resource's ID */ -}}
+    {{- /* If unspecified, default the resource's name to the resource's ID */ -}}
     {{- if eq $data.name nil -}}
       {{- $_ := set $data "name" $id -}}
     {{- end -}}
 
     {{- /* Template the resource's data using itself (inception!) */ -}}
     {{- $data = tpl ($data | toYaml) $data | fromYaml -}}
-
-    {{- /* If a name prefix was configured, update the name to use the configured prefix */ -}}
-    {{- with $data.namePrefix }}
-      {{- $_ := set $data "name" (printf "%s-%s" . $data.name) }}
-    {{- end }}
 
     {{- /* Finally, output the new resource data */ -}}
     {{- $data | toYaml -}}

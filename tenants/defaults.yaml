@@ -5,7 +5,7 @@ common:
 
 projectDefaults:
   namespace: argocd
-  namePrefix: "{{.metadata.tenant}}"
+  name: "{{.metadata.tenant}}-{{.id}}"
   finalizers:
     # Finalizer that ensures that project is not deleted until it is not referenced by any application
     - resources-finalizer.argocd.argoproj.io
@@ -16,14 +16,13 @@ projectDefaults:
 
 projects:
   main:
-    namePrefix: ~
     name: "{{.metadata.tenant}}"
     destinations:
       - namespace: "{{.metadata.tenant}}"
         name: in-cluster
 
 namespaceDefaults:
-  namePrefix: "{{.metadata.tenant}}"
+  name: "{{.metadata.tenant}}-{{.id}}"
 
   networkPolicies:
     default-deny-all:
@@ -87,7 +86,6 @@ namespaceDefaults:
 
 namespaces:
   main:
-    namePrefix: ~
     name: "{{.metadata.tenant}}"
 
 applicationDefaults:
@@ -108,14 +106,13 @@ applicationDefaults:
       ref: values
 
 applicationSetDefaults:
-  namePrefix: "{{.metadata.tenant}}"
+  name: "{{.metadata.tenant}}-{{.id}}"
   template:
     spec:
       project: "{{.metadata.tenant}}"
 
 applicationSets:
   main:
-    namePrefix: ~
     name: "{{.metadata.tenant}}"
     generatorsObject:
       main:

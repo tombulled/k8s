@@ -2,10 +2,10 @@ common:
   namespace: argocd
 
 projectDefaults:
-  namePrefix: ~
+  name: ~
 
 namespaceDefaults:
-  namePrefix: ~
+  name: ~
 
 projects:
   main:
