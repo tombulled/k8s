@@ -1,0 +1,20 @@
+{{- range $id, $_ := .Values.namespaces -}}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+{{- with $data }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  {{- with .annotations }}
+  annotations: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .labels }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  name: {{ .name }}
+{{- with .finalizers }}
+spec:
+  finalizers: {{ . | toYaml | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}
