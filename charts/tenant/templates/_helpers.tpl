@@ -82,3 +82,17 @@
 
   {{- $filteredData | toYaml -}}
 {{- end -}}
+
+{{- define "namespaces" -}}
+  {{- $namespaces := list -}}
+
+  {{- range $id, $_ := .Values.namespaces -}}
+    {{- $namespace := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
+
+    {{- if $namespace -}}
+      {{- $namespaces = append $namespaces $namespace -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $namespaces | toYaml -}}
+{{- end -}}

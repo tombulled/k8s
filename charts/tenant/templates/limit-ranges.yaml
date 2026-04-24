@@ -1,31 +1,26 @@
-{{- $metadataKeys := (list
-  "annotations"
-  "finalizers"
-  "labels"
-  "name"
-  "namespace"
-) -}}
-{{- $specKeys := (list
-  "limits"
-) -}}
-
-{{- range $namespaceId, $namespaceData := .Values.namespaces -}}
-{{- $namespaceData = include "build-resource-data" (dict "root" $ "id" $namespaceId "data" $namespaceData "defaults" $.Values.namespaceDefaults) | fromYaml -}}
-{{- if not $namespaceData -}}{{- continue -}}{{- end -}}
-{{- range $limitRangeId, $limitRangeData := $namespaceData.limitRanges -}}
-{{- $limitRangeData := include "build-resource-data" (dict "root" $ "id" $limitRangeId "data" $limitRangeData "defaults" $.Values.limitRangeDefaults) | fromYaml -}}
-{{- if not $limitRangeData -}}{{- continue -}}{{- end -}}
-{{- $_ := set $limitRangeData "namespace" $namespaceData.name -}}
-{{- $metadata := include "filter" (dict "data" $limitRangeData "keys" $metadataKeys) | fromYaml }}
-{{- $spec := include "filter" (dict "data" $limitRangeData "keys" $specKeys) | fromYaml }}
+{{- range $namespace := include "namespaces" $ | fromYamlArray -}}
+{{- range $id, $_ := $namespace.limitRanges -}}
+{{- $data := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.limitRangeDefaults) | fromYaml -}}
+{{- with $data }}
 ---
 apiVersion: v1
 kind: LimitRange
-{{- with $metadata }}
-metadata: {{ . | toYaml | nindent 2 }}
-{{- end -}}
-{{- with $spec }}
-spec: {{ . | toYaml | nindent 2 }}
+metadata:
+  {{- with .annotations }}
+  annotations: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .finalizers }}
+  finalizers: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .labels }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  name: {{ .name }}
+  namespace: {{ $namespace.name }}
+spec:
+  {{- with .limits }}
+  limits: {{- . | toYaml | nindent 4 }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
