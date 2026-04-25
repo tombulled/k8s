@@ -40,8 +40,6 @@ spec:
   template: {{- . | toYaml | nindent 4 }}
   {{- end }}
   templatePatch: |
-    {{/* Default the application name to the application's ID (the filename without extension) */ -}}
-    {{ "{{- $_ := set . \"id\" .path.basename -}}" }}
-    {{ include "application-template" $ | trim | nindent 4 }}
+    {{- include "application-template" $ | trim | nindent 4 }}
 {{- end }}
 {{- end }}

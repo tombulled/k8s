@@ -9,6 +9,7 @@
 
   {{- $values := $xGit.values | default dict -}}
   {{- $_ := set $values "mergeKey" (printf "{{ $_ := set . \"mergeKey\" .%s }}" ($xGit.mergeKey | default "path.path")) -}}
+  {{- $_ := set $values "id" (printf "{{ $_ := set . \"id\" .%s }}" ($xGit.idKey | default "path.basename")) -}}
 
   {{- $gitGenerators := list -}}
 
