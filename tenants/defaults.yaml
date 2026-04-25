@@ -8,12 +8,12 @@ projectDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
   sourceRepos:
     - "*"
-  sourceNamespaces:
-    - "{{.metadata.tenant}}"
 
 projects:
   main:
     name: "{{.metadata.tenant}}"
+    sourceNamespaces:
+      - "{{.metadata.tenant}}"
     destinations:
       - namespace: "{{.metadata.tenant}}"
         name: in-cluster

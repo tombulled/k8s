@@ -1,24 +1,22 @@
 common: {} # rename to defaults?
 
+# Defaults
 projectDefaults: {}
-projects: {}
-
 namespaceDefaults: {}
-namespaces: {}
-
 applicationDefaults: {}
-applications: {}
-
 applicationSetDefaults:
   template:
     metadata: {}
     spec:
       destination: {}
       project: default
-applicationSets: {}
-
 networkPolicyDefaults: {}
 resourceQuotaDefaults: {}
 limitRangeDefaults: {}
 
+# Resources
+projects: {}
+namespaces: {}
+applications: {}
+applicationSets: {}
 extraResources: {}
