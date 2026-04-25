@@ -1,4 +1,5 @@
 {{- range $id, $_ := .Values.extraResources }}
+{{- $data := tpl (. | toYaml) $.Values.common | fromYaml }}
 ---
-{{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+{{- $data | toYaml }}
 {{- end }}
