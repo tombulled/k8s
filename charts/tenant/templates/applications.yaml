@@ -1,4 +1,5 @@
 {{- range $id, $_ := .Values.applications -}}
+{{- if eq . nil -}}{{- continue -}}{{- end -}}
 {{- $_ := set . "id" $id }}
 ---
 apiVersion: argoproj.io/v1alpha1
