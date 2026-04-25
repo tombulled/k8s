@@ -17,8 +17,8 @@ applicationSetDefaults:
       project: default
 applicationSets: {}
 
-extraResources: {}
-
 networkPolicyDefaults: {}
 resourceQuotaDefaults: {}
 limitRangeDefaults: {}
+
+extraResources: {}
