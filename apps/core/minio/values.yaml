@@ -3,6 +3,3 @@ sourcesObject:
     repoURL: https://operator.min.io/
     chart: tenant
     targetRevision: 7.1.1
-    helm:
-      valueFiles:
-        - $values/minio/values.yaml
