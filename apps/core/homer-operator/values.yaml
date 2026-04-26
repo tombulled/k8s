@@ -1,4 +1,4 @@
-sources:
+sourcesObject:
   main:
     repoURL: https://github.com/rajsinghtech/homer-operator
     path: charts/homer-operator
