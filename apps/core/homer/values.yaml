@@ -1,0 +1,8 @@
+sourcesObject:
+  main:
+    repoURL: https://github.com/tombulled/charts
+    path: common
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - $values/homer/values.yaml
