@@ -28,6 +28,7 @@ projects:
 
 namespaces:
   main: ~
+  argocd: {}
   ingress-nginx: {}
 
 networkPolicyDefaults:
