@@ -16,6 +16,8 @@ projects:
         name: in-cluster
       - namespace: ingress-nginx
         name: in-cluster
+      - namespace: traefik
+        name: in-cluster
     clusterResourceWhitelist:
       - group: rbac.authorization.k8s.io
         kind: ClusterRole
@@ -33,6 +35,7 @@ namespaces:
   argocd: {}
   cert-manager: {}
   ingress-nginx: {}
+  traefik: {}
 
 networkPolicyDefaults:
   enabled: false
