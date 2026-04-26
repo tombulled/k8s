@@ -8,4 +8,4 @@ sourcesObject:
     chart: ingress-nginx
     helm:
       valueFiles:
-        - $values/values/ingress-nginx/values.yaml
+        - $values/ingress-nginx/values.yaml

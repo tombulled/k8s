@@ -11,7 +11,7 @@ K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
 ```
 
 ```sh
-helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd --create-namespace -f values/argo-cd/values.yaml
+helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd --create-namespace -f ../values/argo-cd/values.yaml
 ```
 
 ```sh
@@ -28,7 +28,7 @@ helm uninstall argo-cd -n argocd
 ```
 
 ```sh
-while :; do kubectl port-forward service/argo-cd-argocd-server -n argocd 8080:443; sleep 1; done
+while :; do kubectl port-forward service/argocd-server -n argocd 8080:443; sleep 1; done
 ```
 
 ```sh
