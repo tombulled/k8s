@@ -20,6 +20,8 @@ projects:
         name: in-cluster
       - namespace: kube-system
         name: in-cluster
+      - namespace: openebs
+        name: in-cluster
       - namespace: traefik
         name: in-cluster
     clusterResourceWhitelist:
@@ -43,6 +45,7 @@ namespaces:
   argocd: {}
   cert-manager: {}
   ingress-nginx: {}
+  openebs: {}
   traefik: {}
 
 applicationDefaults:
