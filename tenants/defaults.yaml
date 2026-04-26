@@ -97,6 +97,11 @@ applicationDefaults:
       prune: true
       selfHeal: true
   sourcesObject:
+    main:
+      helm:
+        ignoreMissingValueFiles: true
+        valueFiles:
+          - $values/{{.id}}/values.yaml
     values:
       repoURL: git@github.com:tombulled/values.git
       targetRevision: main

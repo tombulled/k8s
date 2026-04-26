@@ -3,6 +3,3 @@ sourcesObject:
     repoURL: ghcr.io/rajsinghtech/homer-operator/charts
     chart: homer-operator
     targetRevision: 1.1.0
-    helm:
-      valueFiles:
-        - $values/homer-operator/values.yaml
