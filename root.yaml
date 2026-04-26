@@ -17,7 +17,7 @@ spec:
         valuesObject:
           common:
             metadata:
-              clusterId: t1-dev
+              clusterId: k3s
               clusterType: dev
     - repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
