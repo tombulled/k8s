@@ -1,10 +1,8 @@
 {{- range $id, $_ := .Values.applications -}}
-{{- if eq . nil -}}{{- continue -}}{{- end -}}
-{{- $_ := set . "id" $id }}
-{{- $enabled := ternary .enabled true (ne .enabled nil) }}
-{{- if not $enabled }}{{- continue }}{{- end }}
+{{- with include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.applicationSetDefaults) | fromYaml }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 {{ tpl (include "application-template" $) . }}
+{{- end }}
 {{- end -}}

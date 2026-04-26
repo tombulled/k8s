@@ -37,7 +37,7 @@
   {{- $root := .root -}}
   {{- $id := .id -}}
   {{- $data := .data -}}
-  {{- $defaults := .defaults -}}
+  {{- $defaults := .defaults | default dict -}}
 
   {{- /* If the resource data is nil, disable this resource (it is considered unwanted) */ -}}
   {{- if eq $data nil -}}
