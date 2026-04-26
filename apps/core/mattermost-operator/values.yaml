@@ -1,0 +1,8 @@
+sourcesObject:
+  main:
+    repoURL: https://helm.mattermost.com
+    chart: mattermost-operator
+    targetRevision: 1.0.3
+    helm:
+      valueFiles:
+        - $values/mattermost-operator/values.yaml
