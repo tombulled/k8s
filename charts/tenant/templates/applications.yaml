@@ -1,6 +1,8 @@
 {{- range $id, $_ := .Values.applications -}}
 {{- if eq . nil -}}{{- continue -}}{{- end -}}
 {{- $_ := set . "id" $id }}
+{{- $enabled := ternary .enabled true (ne .enabled nil) }}
+{{- if not $enabled }}{{- continue }}{{- end }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
