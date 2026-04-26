@@ -1,5 +1,0 @@
-sourcesObject:
-  main:
-    repoURL: git@github.com:tombulled/k8s.git
-    targetRevision: main
-    path: charts/test
