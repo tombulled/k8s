@@ -10,9 +10,11 @@ namespaceDefaults:
 projects:
   main:
     destinations:
-      - namespace: ingress-nginx
-        name: in-cluster
       - namespace: argocd
+        name: in-cluster
+      - namespace: cert-manager
+        name: in-cluster
+      - namespace: ingress-nginx
         name: in-cluster
     clusterResourceWhitelist:
       - group: rbac.authorization.k8s.io
@@ -29,6 +31,7 @@ projects:
 namespaces:
   main: ~
   argocd: {}
+  cert-manager: {}
   ingress-nginx: {}
 
 networkPolicyDefaults:

@@ -1,0 +1,11 @@
+destination:
+  namespace: cert-manager
+
+sourcesObject:
+  main:
+    repoURL: quay.io/jetstack/charts
+    chart: cert-manager
+    targetRevision: v1.19.1
+    helm:
+      valueFiles:
+        - $values/cert-manager/values.yaml

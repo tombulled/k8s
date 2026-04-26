@@ -98,7 +98,7 @@ applicationDefaults:
       selfHeal: true
   sourcesObject:
     values:
-      repoURL: git@github.com:tombulled/k8s.git
+      repoURL: git@github.com:tombulled/values.git
       targetRevision: main
       ref: values
 
