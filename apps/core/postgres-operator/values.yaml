@@ -3,10 +3,3 @@ sourcesObject:
     repoURL: https://cloudnative-pg.io/charts/
     chart: cloudnative-pg
     targetRevision: 0.26.1
-    helm:
-      valueFiles:
-        - $values/postgres-operator/values.yaml
-
-syncPolicy:
-  syncOptionsObject:
-    serverSideApply: true

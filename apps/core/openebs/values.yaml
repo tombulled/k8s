@@ -6,13 +6,5 @@ sourcesObject:
     repoURL: https://openebs.github.io/openebs
     chart: openebs
     targetRevision: 4.3.2
-    helm:
-      valueFiles:
-        - $values/openebs/values.yaml
   common:
-    repoURL: https://github.com/tombulled/charts
-    path: common
-    targetRevision: HEAD
-    helm:
-      valueFiles:
-        - $values/openebs/values.yaml
+    enabled: true

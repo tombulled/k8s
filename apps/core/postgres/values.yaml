@@ -3,6 +3,3 @@ sourcesObject:
     repoURL: https://github.com/tombulled/charts
     path: common
     targetRevision: HEAD
-    helm:
-      valueFiles:
-        - $values/postgres/values.yaml

@@ -6,6 +6,3 @@ sourcesObject:
     repoURL: https://traefik.github.io/charts
     targetRevision: 37.4.0
     chart: traefik
-    helm:
-      valueFiles:
-        - $values/traefik/values.yaml

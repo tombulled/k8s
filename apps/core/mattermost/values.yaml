@@ -3,6 +3,3 @@ sourcesObject:
     repoURL: https://github.com/tombulled/charts
     path: mattermost
     targetRevision: HEAD
-    helm:
-      valueFiles:
-        - $values/mattermost/values.yaml

@@ -6,10 +6,3 @@ sourcesObject:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
     targetRevision: 9.5.0
-    helm:
-      valueFiles:
-        - $values/argo-cd/values.yaml
-
-syncPolicy:
-  syncOptionsObject:
-    serverSideApply: true

@@ -96,6 +96,8 @@ applicationDefaults:
     automated:
       prune: true
       selfHeal: true
+    syncOptionsObject:
+      serverSideApply: true
   sourcesObject:
     main:
       helm:
@@ -108,6 +110,17 @@ applicationDefaults:
       repoURL: git@github.com:tombulled/values.git
       targetRevision: main
       ref: values
+    common:
+      enabled: false
+      repoURL: https://github.com/tombulled/charts
+      path: common
+      targetRevision: HEAD
+      helm:
+        ignoreMissingValueFiles: true
+        valueFiles:
+          - $values/{{.id}}/values.yaml
+          - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+          - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
 
 applicationSetDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
