@@ -1,0 +1,8 @@
+sourcesObject:
+  main:
+    repoURL: https://operator.min.io
+    chart: operator
+    targetRevision: 7.1.1
+    helm:
+      valueFiles:
+        - $values/minio-operator/values.yaml
