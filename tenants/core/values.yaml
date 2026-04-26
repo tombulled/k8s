@@ -39,6 +39,12 @@ projects:
         kind: MutatingWebhookConfiguration
       - group: cert-manager.io
         kind: ClusterIssuer
+      - group: storage.k8s.io
+        kind: StorageClass
+      - group: scheduling.k8s.io
+        kind: PriorityClass
+      - group: storage.k8s.io
+        kind: CSIDriver
 
 namespaces:
   main: ~
