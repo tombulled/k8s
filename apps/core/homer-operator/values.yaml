@@ -1,0 +1,8 @@
+sources:
+  main:
+    repoURL: https://github.com/rajsinghtech/homer-operator
+    path: charts/homer-operator
+    targetRevision: v0.0.19
+    helm:
+      valueFiles:
+        - $values/homer-operator/values.yaml

@@ -43,6 +43,10 @@ namespaces:
   ingress-nginx: {}
   traefik: {}
 
+applicationDefaults:
+  destination:
+    namespace: default
+
 networkPolicyDefaults:
   enabled: false
 resourceQuotaDefaults:
