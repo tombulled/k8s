@@ -102,6 +102,8 @@ applicationDefaults:
         ignoreMissingValueFiles: true
         valueFiles:
           - $values/{{.id}}/values.yaml
+          - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+          - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
     values:
       repoURL: git@github.com:tombulled/values.git
       targetRevision: main
