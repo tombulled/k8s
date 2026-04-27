@@ -6,8 +6,9 @@
 ---
 {{ range $namespace := include "namespaces" $ | fromYamlArray }}
 {{ range $id, $_ := $namespace.extraResources }}
-{{- $_ := mustMergeOverwrite . (dict "metadata" (dict "namespace" $namespace.name)) }}
+{{- $data := tpl (. | toYaml) $.Values.common | fromYaml }}
+{{- $_ := mustMergeOverwrite $data (dict "metadata" (dict "namespace" $namespace.name)) }}
 ---
-{{ . | toYaml }}
+{{ $data | toYaml }}
 {{- end }}
 {{- end }}
