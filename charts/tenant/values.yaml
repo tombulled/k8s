@@ -1,4 +1,10 @@
 common: {}
+  # enabled: true
+  # metadata: {}
+  # annotations: {}
+  # labels: {}
+  # name: ""
+  # namespace: {}
 
 # Defaults
 projectDefaults: {}
@@ -16,6 +22,26 @@ limitRangeDefaults: {}
 
 # Resources
 projects: {}
+  # foo:
+  #   enabled: true
+  #   annotations: {}
+  #   labels: {}
+  #   name: ""
+  #   namespace: ""
+  #   finalizers: []
+  #   permitOnlyProjectScopedClusters: false
+  #   description: ""
+  #   sourceRepos: []
+  #   destinations: []
+  #   clusterResourceWhitelist: []
+  #   clusterResourceBlacklist: []
+  #   namespaceResourceBlacklist: []
+  #   namespaceResourceWhitelist: []
+  #   orphanedResources: {}
+  #   roles: []
+  #   syncWindows: []
+  #   signatureKeys: []
+  #   sourceNamespaces: []
 namespaces: {}
   # foo:
   #   enabled: true
@@ -61,7 +87,51 @@ namespaces: {}
   #       provisioner: rancher.io/local-path
   #       reclaimPolicy: Delete
   #       volumeBindingMode: WaitForFirstConsumer
-
 applications: {}
+  # foo:
+  #   enabled: true
+  #   name: ""
+  #   namespace: ""
+  #   finalizers: []
+  #   annotations: {}
+  #   labels: {}
+  #   destination: {}
+  #   ignoreDifferences: {}
+  #   info: {}
+  #   project: ""
+  #   revisionHistoryLimit: ~
+  #   source: {}
+  #   sourceHydrator: {}
+  #   sources: {}
+  #   syncPolicy: {}
+  #   deletion:
+  #     cascade: true
+  #     propagationPolicy: foreground
+  #   infoObject:
+  #     artifactHub: https://artifacthub.io/
+  #   sourcesObject:
+  #     <sourceId>: {}
 applicationSets: {}
+  # foo:
+  #   enabled: true
+  #   annotations: {}
+  #   labels: {}
+  #   name: ""
+  #   namespace: ""
+  #   applyNestedSelectors: true
+  #   generators: []
+  #   goTemplateOptions: []
+  #   ignoreApplicationDifferences: []
+  #   preservedFields: {}
+  #   strategy: {}
+  #   syncPolicy: {}
+  #   template: {}
+  #   generatorsObject:
+  #     <generatorId>: {}
+  #   goTemplateOptionsObject: {}
 extraResources: {}
+  # foo:
+  #   apiVersion: networking.k8s.io/v1
+  #   kind: IngressClass
+  #   metadata:
+  #     name: ingress-nginx
