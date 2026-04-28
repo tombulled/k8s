@@ -96,8 +96,6 @@ applicationDefaults:
     automated:
       prune: true
       selfHeal: true
-    syncOptionsObject:
-      serverSideApply: true
   sourcesObject:
     main:
       helm:

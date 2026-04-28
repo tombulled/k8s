@@ -6,3 +6,6 @@ sourcesObject:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
     targetRevision: 9.5.0
+
+syncOptionsObject:
+  serverSideApply: true
