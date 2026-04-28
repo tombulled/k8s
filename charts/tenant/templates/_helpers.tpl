@@ -3,8 +3,12 @@
   {{- $ := .root -}}
   {{- $path := .path -}}
 
+  {{- /* For each file in the path (globbed) */ -}}
   {{- range $path, $_ := $.Files.Glob $path -}}
+    {{- /* Generate an extension ID by stripping the file extension (e.g. foo.yaml -> foo) */ -}}
     {{- $extensionId := $path | base | splitList "." | first }}
+
+    {{- /* Output a template block including the application extension's contents */ -}}
     {{- printf "{{- /* %s */ -}}" $path | nindent 0 }}
     {{- printf "{{- block \"application.extension.%s\" . -}}" $extensionId | nindent 0 }}
     {{- $.Files.Get $path | trim | nindent 2 }}
@@ -69,13 +73,17 @@
 {{- define "namespaces" -}}
   {{- $namespaces := list -}}
 
+  {{- /* Iterate over each configured namespace */ -}}
   {{- range $id, $_ := .Values.namespaces -}}
+    {{- /* Build the namespace's resource data */ -}}
     {{- $namespace := include "build-resource-data" (dict "root" $ "id" $id "data" . "defaults" $.Values.namespaceDefaults) | fromYaml -}}
 
+    {{- /* If the namespace is enabled, append it to the list of enabled namespaces */ -}}
     {{- if $namespace -}}
       {{- $namespaces = append $namespaces $namespace -}}
     {{- end -}}
   {{- end -}}
 
+  {{- /* Output the resource data of the enabled namespaces as a YAML list */ -}}
   {{- $namespaces | toYaml -}}
 {{- end -}}
