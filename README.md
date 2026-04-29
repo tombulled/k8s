@@ -90,3 +90,9 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```sh
 helm upgrade --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd -f values/argo-cd/values.yaml
 ```
+
+# Sealed Secrets
+## Encrypt
+```sh
+kubeseal --cert secrets/sealed-secrets/tls.crt -f secrets/argocd/argocd-secret.yaml -o yaml
+```
