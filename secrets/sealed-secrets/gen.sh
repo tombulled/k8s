@@ -16,7 +16,6 @@ kubectl create \
     secret \
     tls \
     sealed-secrets-key \
-    -n sealed-secrets \
     --cert=tls.crt \
     --key=tls.key \
     --dry-run=client \

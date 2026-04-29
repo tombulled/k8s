@@ -46,8 +46,20 @@ To install:
 Other:
 * kro / crossplane
 
+# Bootstrap
+## 1. Create Cluster
 ```sh
 K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
+```
+
+## 2. Create Required Namespaces
+```sh
+kubectl create namespace sealed-secrets
+```
+
+## 3. Install Sealed Secrets Key
+```sh
+kubectl apply -f secrets/sealed-secrets/secret.yaml -n sealed-secrets
 ```
 
 ```sh
