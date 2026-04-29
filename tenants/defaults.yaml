@@ -104,21 +104,30 @@ applicationDefaults:
           - $values/{{.id}}/values.yaml
           - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
           - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
-    values:
-      repoURL: git@github.com:tombulled/values.git
+    extras:
+      repoURL: git@github.com:tombulled/k8s.git
+      path: charts/extras
       targetRevision: main
-      ref: values
-    common:
-      enabled: false
-      repoURL: https://github.com/tombulled/charts
-      path: common
-      targetRevision: HEAD
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
           - $values/{{.id}}/values.yaml
           - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
           - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+    # common:
+    #   enabled: false
+    #   repoURL: https://github.com/tombulled/charts
+    #   path: common
+    #   targetRevision: HEAD
+    #   helm:
+    #     ignoreMissingValueFiles: true
+    #     valueFiles:
+    #       - $values/{{.id}}/values.yaml
+    #       - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+    #       - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+    values:
+      repoURL: git@github.com:tombulled/values.git
+      targetRevision: main
 
 applicationSetDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
