@@ -1,3 +1,4 @@
 extras:
   rawResources: {}
+  secrets: {}
   sealedSecrets: {}
