@@ -2,9 +2,49 @@
 
 To install:
 * argo
+    * argo-cd
+    * argo rollouts
+    * argo events
+    * argo workflows
 * harbor
-* ingress-nginx vs traefik
-* 
+    * harbor
+    * harbor satellite
+* CNI
+    * cilium
+* ingress
+    * traefik
+* monitoring
+    * prometheus
+    * grafana
+    * thanos?
+    * loki
+* auth
+    * keycloak
+    * dex?
+* certs
+    * cert-manager
+    * trust-manager
+    * self-signed issuer
+    * ca issuer
+* secrets
+    * sealed-secrets
+    * sealed-secrets-web
+* mattermost
+    * mattermost
+    * mattermost-operator
+    * minio
+    * minio-operator
+    * postgres
+    * postgres-operator
+* storage
+    * openebs
+    * ceph
+    * local-path-provisioner / local-volume-provisioner
+* ci/cd
+    * jenkins
+
+Other:
+* kro / crossplane
 
 ```sh
 K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
