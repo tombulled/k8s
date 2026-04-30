@@ -62,6 +62,11 @@ kubectl create namespace sealed-secrets
 kubectl apply -f secrets/sealed-secrets/secret.yaml -n sealed-secrets
 ```
 
+## 4. Install Sealed Secrets Controller
+```sh
+helm install --repo https://bitnami-labs.github.io/sealed-secrets/ sealed-secrets sealed-secrets --version 2.18.5 -n sealed-secrets --create-namespace -f ../values/sealed-secrets/values.yaml
+```
+
 ```sh
 helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd --create-namespace -f ../values/argo-cd/values.yaml
 ```

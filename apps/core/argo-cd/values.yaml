@@ -7,5 +7,6 @@ sourcesObject:
     chart: argo-cd
     targetRevision: 9.5.0
 
-syncOptionsObject:
-  serverSideApply: true
+syncPolicy:
+  syncOptionsObject:
+    serverSideApply: true
