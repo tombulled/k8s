@@ -1,0 +1,8 @@
+destination:
+  namespace: sealed-secrets
+
+sourcesObject:
+  main:
+    repoURL: ghcr.io/bakito/helm-charts
+    chart: sealed-secrets-web
+    targetRevision: 3.3.0
