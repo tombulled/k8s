@@ -105,6 +105,7 @@ applicationDefaults:
           - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
           - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
     extras:
+      enabled: false
       repoURL: git@github.com:tombulled/k8s.git
       path: charts/extras
       targetRevision: main
