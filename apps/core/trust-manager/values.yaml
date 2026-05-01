@@ -1,0 +1,8 @@
+destination:
+  namespace: cert-manager
+
+sourcesObject:
+  main:
+    repoURL: quay.io/jetstack/charts/trust-manager
+    chart: trust-manager
+    targetRevision: 0.22.1
