@@ -6,3 +6,7 @@ sourcesObject:
     repoURL: ghcr.io/prometheus-community/charts
     chart: kube-prometheus-stack
     targetRevision: 84.4.0
+
+syncPolicy:
+  syncOptionsObject:
+    serverSideApply: true
