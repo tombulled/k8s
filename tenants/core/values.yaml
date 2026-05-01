@@ -55,6 +55,7 @@ namespaces:
   argocd: {}
   cert-manager: {}
   ingress-nginx: {}
+  monitoring: {}
   openebs: {}
   sealed-secrets: {}
   traefik: {}

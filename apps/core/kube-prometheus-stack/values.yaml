@@ -1,0 +1,8 @@
+destination:
+  namespace: monitoring
+
+sourcesObject:
+  main:
+    repoURL: ghcr.io/prometheus-community/charts
+    chart: kube-prometheus-stack
+    targetRevision: 84.4.0

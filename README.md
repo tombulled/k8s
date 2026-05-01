@@ -1,47 +1,57 @@
 # k8s
 
+Building blocks:
+    * CA trust (will use real-world for now)
+    * Ingress - available via traefik + gateway api
+    * Storage - available via k3d local-path for now
+    * DNS - going to use localhost + subpaths for now
+    * Server certs - not use TLS for now?
+
 To install:
 * argo
-    * argo-cd
+    * argo-cd --done
     * argo rollouts
     * argo events
     * argo workflows
+* management
+    * rancher
+    * headlamp?
 * harbor
     * harbor
-    * harbor satellite
 * CNI
     * cilium
-* ingress
-    * traefik
 * monitoring
+    * kube-prometheus-stack
     * prometheus
     * grafana
     * thanos?
     * loki
 * auth
-    * keycloak
+    * keycloak (incl. keycloak operator)
     * dex?
 * certs
-    * cert-manager
-    * trust-manager
+    * cert-manager --done
+    * trust-manager --done
     * self-signed issuer
     * ca issuer
-* secrets
-    * sealed-secrets
-    * sealed-secrets-web
-* mattermost
-    * mattermost
-    * mattermost-operator
-    * minio
-    * minio-operator
-    * postgres
-    * postgres-operator
 * storage
     * openebs
     * ceph
     * local-path-provisioner / local-volume-provisioner
 * ci/cd
     * jenkins
+* ingress
+    * traefik --done
+* secrets
+    * sealed-secrets --done
+    * sealed-secrets-web --done
+* mattermost
+    * mattermost --done
+    * mattermost-operator --done
+    * minio --done
+    * minio-operator --done
+    * postgres --done
+    * postgres-operator --done
 
 Other:
 * kro / crossplane
