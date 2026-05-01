@@ -23,6 +23,7 @@ namespaceDefaults:
 
   networkPolicies:
     default-deny-all:
+      enabled: false
       podSelector: {}
       policyTypes:
         - Ingress
@@ -38,6 +39,7 @@ namespaceDefaults:
         - Ingress
         - Egress
     default-allow-dns:
+      enabled: false
       podSelector: {}
       policyTypes:
         - Egress
@@ -55,12 +57,14 @@ namespaceDefaults:
 
   resourceQuotas:
     compute-resources:
+      enabled: false
       hard:
         requests.cpu: "1"
         requests.memory: "1Gi"
         limits.cpu: "2"
         limits.memory: "2Gi"
     object-counts:
+      enabled: false
       hard:
         configmaps: "10"
         persistentvolumeclaims: "4"
@@ -72,6 +76,7 @@ namespaceDefaults:
 
   limitRanges:
     compute-resources:
+      enabled: false
       limits:
       - defaultRequest:
           cpu: 100m
