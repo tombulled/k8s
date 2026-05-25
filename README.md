@@ -1,5 +1,8 @@
 # k8s
 
+TODO:
+    * Delete 'default' ArgoCD Project
+
 Building blocks:
     * CA trust (will use real-world for now)
     * Ingress - available via traefik + gateway api
@@ -13,6 +16,13 @@ To install:
     * argo rollouts
     * argo events
     * argo workflows
+* charts
+    * chart-syncer
+    * artifact hub
+* other
+    * gitea?
+    * external-dns
+    * node-feature-discovery
 * management
     * rancher
     * headlamp?

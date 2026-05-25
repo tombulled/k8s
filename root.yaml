@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: git@github.com:tombulled/k8s.git
+    - repoURL: https://github.com/tombulled/k8s.git
       targetRevision: main
       path: charts/tenant
       helm:
@@ -19,7 +19,7 @@ spec:
             metadata:
               clusterId: k3s
               clusterType: dev
-    - repoURL: git@github.com:tombulled/k8s.git
+    - repoURL: https://github.com/tombulled/k8s.git
       targetRevision: main
       ref: k8s
   destination:
