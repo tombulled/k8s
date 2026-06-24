@@ -24,7 +24,7 @@ helm install \
 helm install \
     argo-cd \
     argo-cd \
-    --version 9.5.0 \
+    --version 9.7.0 \
     --repo https://argoproj.github.io/argo-helm \
     -n argocd \
     -f ../values/argo-cd/values.yaml \

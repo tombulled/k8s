@@ -88,7 +88,7 @@ helm install --repo https://bitnami.github.io/sealed-secrets/ sealed-secrets sea
 ```
 
 ```sh
-helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd --create-namespace -f ../values/argo-cd/values.yaml
+helm install --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.7.0 -n argocd --create-namespace -f ../values/argo-cd/values.yaml
 ```
 
 ```sh
@@ -113,7 +113,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 
 ```sh
-helm upgrade --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.5.0 -n argocd -f values/argo-cd/values.yaml
+helm upgrade --repo https://argoproj.github.io/argo-helm argo-cd argo-cd --version 9.7.0 -n argocd -f values/argo-cd/values.yaml
 ```
 
 # Sealed Secrets
