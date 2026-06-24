@@ -7,6 +7,6 @@ sourcesObject:
     path: charts/gateway-api-crds
     targetRevision: main
 
-# syncPolicy:
-#   syncOptionsObject:
-#     serverSideApply: true
+syncPolicy:
+  syncOptionsObject:
+    serverSideApply: true
