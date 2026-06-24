@@ -4,7 +4,10 @@
 K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
 
 # 2. Install Gateway API CRDs
-helm install gateway-api-crds charts/gateway-api-crds
+helm install \
+    gateway-api-crds \
+    charts/gateway-api-crds \
+    -f ../values/gateway-api-crds/values.yaml
 
 # 3. Install Sealed Secrets
 kubectl create namespace sealed-secrets

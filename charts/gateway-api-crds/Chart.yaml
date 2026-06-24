@@ -3,3 +3,4 @@ name: gateway-api-crds
 description: Gateway API CRDs
 type: application
 version: 1.5.1
+appVersion: "1.5.1"
