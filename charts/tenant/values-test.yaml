@@ -1,0 +1,14 @@
+applicationDefaults:
+  project: default
+  destination:
+    name: in-cluster
+
+applications:
+  gateway-api-crds-2:
+    sourcesObject:
+      foo:
+        repoURL: git@github.com:tombulled/k8s.git
+        path: charts/gateway-api-crds
+
+# applicationSets:
+#   foo: {}

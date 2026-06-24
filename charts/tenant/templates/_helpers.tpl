@@ -1,22 +1,3 @@
-{{- define "build-extensions" -}}
-  {{- /* Extract arguments */ -}}
-  {{- $ := .root -}}
-  {{- $path := .path -}}
-
-  {{- /* For each file in the path (globbed) */ -}}
-  {{- range $path, $_ := $.Files.Glob $path -}}
-    {{- /* Generate an extension ID by stripping the file extension (e.g. foo.yaml -> foo) */ -}}
-    {{- $extensionId := $path | base | splitList "." | first }}
-
-    {{- /* Output a template block including the application extension's contents */ -}}
-    {{- printf "{{- /* %s */ -}}" $path | nindent 0 }}
-    {{- printf "{{- block \"application.extension.%s\" . -}}" $extensionId | nindent 0 }}
-    {{- $.Files.Get $path | trim | nindent 2 }}
-    {{- "{{- end -}}" | nindent 0 }}
-    {{- "" | nindent 0 }}
-  {{- end -}}
-{{- end -}}
-
 {{- define "application-template" -}}
   {{- "{{- /* Apply defaults */ -}}" | nindent 0 }}
   {{- printf "{{- $commonDefaults := `%s` | fromJson -}}" ($.Values.common | toJson) | nindent 0 }}
@@ -29,9 +10,6 @@
   {{- "" | nindent 0 }}
 
   {{- "{{- with $applicationData -}}" | nindent 0 }}
-    {{- include "build-extensions" (dict "root" $ "path" "files/application-extensions/*.tpl") | trim | nindent 0 }}
-    {{- "" | nindent 0 }}
-
     {{- $.Files.Get "files/application-template.yaml" | trim | nindent 0 }}
   {{- "{{- end -}}" | nindent 0 }}
 {{- end -}}

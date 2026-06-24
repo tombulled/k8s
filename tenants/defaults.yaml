@@ -95,8 +95,10 @@ namespaces:
 
 applicationDefaults:
   project: "{{.metadata.tenant}}"
-  deletion:
-    cascade: true
+  # deletion:
+  #   cascade: true
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # sourcesObject, syncOptionsObject, self-templating
   destination:
     name: in-cluster
     namespace: "{{.metadata.tenant}}"
