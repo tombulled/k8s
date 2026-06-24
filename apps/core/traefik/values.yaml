@@ -4,5 +4,5 @@ destination:
 sourcesObject:
   main:
     repoURL: https://traefik.github.io/charts
-    targetRevision: 37.4.0
+    targetRevision: 41.0.0
     chart: traefik
