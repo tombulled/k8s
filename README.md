@@ -84,7 +84,7 @@ kubectl apply -f secrets/sealed-secrets/secret.yaml -n sealed-secrets
 
 ## 4. Install Sealed Secrets Controller
 ```sh
-helm install --repo https://bitnami-labs.github.io/sealed-secrets/ sealed-secrets sealed-secrets --version 2.18.5 -n sealed-secrets --create-namespace -f ../values/sealed-secrets/values.yaml
+helm install --repo https://bitnami.github.io/sealed-secrets/ sealed-secrets sealed-secrets --version 2.18.5 -n sealed-secrets --create-namespace -f ../values/sealed-secrets/values.yaml
 ```
 
 ```sh

@@ -1,0 +1,2 @@
+{{- $releaseChannel := ternary "experimental" "standard" .Values.experimental -}}
+{{- .Files.Get (printf "files/%s-install.yaml" $releaseChannel) -}}

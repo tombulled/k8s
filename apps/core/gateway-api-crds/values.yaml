@@ -1,0 +1,12 @@
+destination:
+  namespace: argocd
+
+sourcesObject:
+  main:
+    repoURL: git@github.com:tombulled/k8s.git
+    path: charts/gateway-api-crds
+    targetRevision: main
+
+# syncPolicy:
+#   syncOptionsObject:
+#     serverSideApply: true
