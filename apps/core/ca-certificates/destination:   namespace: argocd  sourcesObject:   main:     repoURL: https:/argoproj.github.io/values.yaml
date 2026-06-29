@@ -1,0 +1,8 @@
+destination:
+  namespace: cert-manager
+
+sourcesObject:
+  main:
+    repoURL: git@github.com:tombulled/k8s.git
+    path: charts/ca-certificates
+    targetRevision: main
