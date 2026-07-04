@@ -1,5 +1,5 @@
 destination:
-  namespace: ironic
+  namespace: "{{.metadata.tenant}}-ironic"
 
 sourcesObject:
   main:
