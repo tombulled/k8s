@@ -3,6 +3,8 @@ projects:
     clusterResourceWhitelist:
       - group: rbac.authorization.k8s.io
         kind: ClusterRole
+      - group: rbac.authorization.k8s.io
+        kind: ClusterRoleBinding
 
 namespaces:
   ironic: {}
