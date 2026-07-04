@@ -2,27 +2,43 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/component: manager
-    app.kubernetes.io/created-by: ironic-standalone-operator
-    app.kubernetes.io/instance: controller-manager
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/name: deployment
-    app.kubernetes.io/part-of: ironic-standalone-operator
-    control-plane: controller-manager
-  name: ironic-standalone-operator-controller-manager
-  namespace: ironic-standalone-operator-system
+    # app.kubernetes.io/component: manager
+    # app.kubernetes.io/created-by: ironic-standalone-operator
+    # app.kubernetes.io/instance: controller-manager
+    # app.kubernetes.io/managed-by: kustomize
+    # app.kubernetes.io/name: deployment
+    # app.kubernetes.io/part-of: ironic-standalone-operator
+    # control-plane: controller-manager
+    {{- include "ironic-standalone-operator.labels" . | nindent 4 }}
+  name: {{ include "ironic-standalone-operator.fullname" . }}-controller-manager
+  # namespace: ironic-standalone-operator-system
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      control-plane: controller-manager
+      # control-plane: controller-manager
+      {{- include "ironic-standalone-operator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
         kubectl.kubernetes.io/default-container: manager
+        {{- .Values.podAnnotations | toYaml | nindent 8 }}
       labels:
-        control-plane: controller-manager
+        # control-plane: controller-manager
+        {{- include "ironic-standalone-operator.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ironic-standalone-operator.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - args:
         - --leader-elect
@@ -30,52 +46,68 @@ spec:
         - /manager
         envFrom:
         - configMapRef:
-            name: ironic-standalone-operator-ironic-standalone-operator-config
-        image: quay.io/metal3-io/ironic-standalone-operator:v0.10.0
+            name: {{ include "ironic-standalone-operator.fullname" . }}-ironic-standalone-operator-config
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- with .Values.livenessProbe }}
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8081
-          initialDelaySeconds: 15
-          periodSeconds: 20
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
         name: manager
         ports:
         - containerPort: 9443
           name: webhook-server
           protocol: TCP
+        {{- with .Values.readinessProbe }}
         readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readyz
+        #     port: 8081
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        {{- with .Values.resources }}
         resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        # resources:
+        #   limits:
+        #     cpu: 500m
+        #     memory: 128Mi
+        #   requests:
+        #     cpu: 10m
+        #     memory: 64Mi
+        {{- with .Values.securityContext }}
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          privileged: false
-          runAsGroup: 65532
-          runAsUser: 65532
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
         volumeMounts:
         - mountPath: /tmp/k8s-webhook-server/serving-certs
           name: cert
           readOnly: true
-      securityContext:
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-      serviceAccountName: ironic-standalone-operator-controller-manager
+        {{- with .Values.volumeMounts }}
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
       terminationGracePeriodSeconds: 10
       volumes:
       - name: cert
         secret:
           defaultMode: 420
           secretName: irso-webhook-server-cert
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

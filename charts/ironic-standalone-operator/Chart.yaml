@@ -3,4 +3,4 @@ name: ironic-standalone-operator
 description: Ironic Standalone Operator
 type: application
 version: 0.10.0
-appVersion: ""
+appVersion: "v0.10.0"

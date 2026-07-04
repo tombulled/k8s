@@ -14,9 +14,9 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: 9443 # http
+      targetPort: webhook-server
       protocol: TCP
-      name: http
+      name: webhook-server
   selector:
     {{- include "ironic-standalone-operator.selectorLabels" . | nindent 4 }}
     # control-plane: controller-manager
