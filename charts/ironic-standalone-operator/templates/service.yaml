@@ -16,7 +16,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: 9443 # http
       protocol: TCP
-      name: 9443 # http
+      name: http
   selector:
     {{- include "ironic-standalone-operator.selectorLabels" . | nindent 4 }}
     # control-plane: controller-manager
