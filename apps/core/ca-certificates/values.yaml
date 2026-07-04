@@ -6,3 +6,4 @@ sourcesObject:
     repoURL: git@github.com:tombulled/k8s.git
     path: charts/ca-certificates
     targetRevision: main
+    helm: ~
