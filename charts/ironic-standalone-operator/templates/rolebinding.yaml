@@ -2,19 +2,20 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    app.kubernetes.io/component: rbac
-    app.kubernetes.io/created-by: ironic-standalone-operator
-    app.kubernetes.io/instance: leader-election-rolebinding
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/name: rolebinding
-    app.kubernetes.io/part-of: ironic-standalone-operator
-  name: ironic-standalone-operator-leader-election-rolebinding
-  namespace: ironic-standalone-operator-system
+    {{- include "ironic-standalone-operator.labels" . | nindent 4 }}
+    # app.kubernetes.io/component: rbac
+    # app.kubernetes.io/created-by: ironic-standalone-operator
+    # app.kubernetes.io/instance: leader-election-rolebinding
+    # app.kubernetes.io/managed-by: kustomize
+    # app.kubernetes.io/name: rolebinding
+    # app.kubernetes.io/part-of: ironic-standalone-operator
+  name: {{ include "ironic-standalone-operator.fullname" . }}-leader-election-rolebinding
+  # namespace: ironic-standalone-operator-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: ironic-standalone-operator-leader-election-role
+  name: {{ include "ironic-standalone-operator.fullname" . }}-leader-election-role
 subjects:
 - kind: ServiceAccount
-  name: ironic-standalone-operator-controller-manager
-  namespace: ironic-standalone-operator-system
+  name: {{ include "ironic-standalone-operator.fullname" . }}-controller-manager
+  namespace: {{ .Release.Namespace }}
