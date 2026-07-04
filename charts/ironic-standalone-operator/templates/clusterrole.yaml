@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: ironic-standalone-operator-manager-role
+  name: {{ include "ironic-standalone-operator.fullname" . }}-manager-role
 rules:
 - apiGroups:
   - ""
