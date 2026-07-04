@@ -1,0 +1,9 @@
+destination:
+  namespace: ironic
+
+sourcesObject:
+  main:
+    repoURL: git@github.com:tombulled/k8s.git
+    path: charts/ironic-standalone-operator
+    targetRevision: main
+    helm: ~
