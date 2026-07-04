@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: {{ include "ironic-standalone-operator.fullname" . }}-selfsigned-issuer
+  name: {{ include "ironic-standalone-operator.fullname" . }}
   labels:
     {{- include "ironic-standalone-operator.labels" . | nindent 4 }}
 spec:

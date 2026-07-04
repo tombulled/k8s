@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ include "ironic-standalone-operator.fullname" . }}-serving-cert
+  name: {{ include "ironic-standalone-operator.fullname" . }}
   labels:
     {{- include "ironic-standalone-operator.labels" . | nindent 4 }}
 spec:
@@ -10,5 +10,5 @@ spec:
   - ironic-standalone-operator-webhook-service.ironic-standalone-operator-system.svc.cluster.local
   issuerRef:
     kind: Issuer
-    name: {{ include "ironic-standalone-operator.fullname" . }}-selfsigned-issuer
+    name: {{ include "ironic-standalone-operator.fullname" . }}
   secretName: irso-webhook-server-cert
