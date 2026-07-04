@@ -1,2 +1,8 @@
+projects:
+  main:
+    clusterResourceWhitelist:
+      - group: rbac.authorization.k8s.io
+        kind: ClusterRole
+
 namespaces:
   ironic: {}
