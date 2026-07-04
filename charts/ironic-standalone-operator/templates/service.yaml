@@ -1,15 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "ironic-standalone-operator.fullname" . }}
+  name: {{ include "ironic-standalone-operator.fullname" . }}-webhook-service
   labels:
     {{- include "ironic-standalone-operator.labels" . | nindent 4 }}
+    # app.kubernetes.io/component: webhook
+    # app.kubernetes.io/created-by: ironic-standalone-operator
+    # app.kubernetes.io/instance: webhook-service
+    # app.kubernetes.io/managed-by: kustomize
+    # app.kubernetes.io/name: service
+    # app.kubernetes.io/part-of: ironic-standalone-operator
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: 9443 # http
       protocol: TCP
-      name: http
+      name: 9443 # http
   selector:
     {{- include "ironic-standalone-operator.selectorLabels" . | nindent 4 }}
+    # control-plane: controller-manager
