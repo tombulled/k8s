@@ -55,7 +55,7 @@ Create the name of the service account to use
 */}}
 {{- define "ironic-standalone-operator.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "ironic-standalone-operator.fullname" .) .Values.serviceAccount.name }}
+{{- default (printf "%s-%s" (include "ironic-standalone-operator.fullname" .) "controller-manager") .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
