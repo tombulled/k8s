@@ -24,6 +24,8 @@ projects:
     destinations:
       - namespace: "{{.metadata.tenant}}"
         name: in-cluster
+      - namespace: "{{.metadata.tenant}}-*"
+        name: in-cluster
 
 namespaceDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
