@@ -22,7 +22,9 @@ spec:
     metadata:
       annotations:
         kubectl.kubernetes.io/default-container: manager
-        {{- .Values.podAnnotations | toYaml | nindent 8 }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         # control-plane: controller-manager
         {{- include "ironic-standalone-operator.labels" . | nindent 8 }}
