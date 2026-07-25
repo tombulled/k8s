@@ -1,0 +1,8 @@
+destination:
+  namespace: capi-operator-system
+
+sourcesObject:
+  main:
+    repoURL: https://kubernetes-sigs.github.io/cluster-api-operator
+    chart: cluster-api-operator
+    targetRevision: 0.28.0
