@@ -13,3 +13,4 @@ projects:
         kind: MutatingWebhookConfiguration
 namespaces:
   ironic: {}
+  capi-operator-system: {}
