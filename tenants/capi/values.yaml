@@ -11,6 +11,10 @@ projects:
         kind: CustomResourceDefinition
       - group: admissionregistration.k8s.io
         kind: MutatingWebhookConfiguration
+
+namespaceDefaults:
+  name: ~
+
 namespaces:
   ironic: {}
   capi-operator-system: {}
