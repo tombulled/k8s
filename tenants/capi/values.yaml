@@ -9,5 +9,7 @@ projects:
         kind: ValidatingWebhookConfiguration
       - group: apiextensions.k8s.io
         kind: CustomResourceDefinition
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
 namespaces:
   ironic: {}
