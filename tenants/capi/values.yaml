@@ -20,3 +20,4 @@ namespaces:
   capi-operator-system: {} # cluster-api-operator
   capi-system: {} # cluster-api core provider
   capi-kubeadm-bootstrap-system: {} # cluster-api kubeadm bootstrap provider
+  capi-kubeadm-control-plane-system: {} # cluster-api kubeadm control-plane provider
