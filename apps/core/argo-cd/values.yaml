@@ -6,6 +6,11 @@ sourcesObject:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
     targetRevision: 10.2.1
+    helm:
+      valuesObject:
+        global:
+          image:
+            tag: v3.5.0-rc2
 
 syncPolicy:
   syncOptionsObject:
