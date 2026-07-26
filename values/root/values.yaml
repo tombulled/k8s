@@ -2,9 +2,9 @@ applicationDefaults:
   name: "tenant-{{.id}}"
   sourcesObject:
     main:
-      repoURL: git@github.com:tombulled/k8s.git
+      repoURL: git@github.com:tombulled/tenant.git
       targetRevision: main
-      path: charts/tenant
+      path: tenant
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
@@ -17,7 +17,7 @@ applicationDefaults:
         valuesObject:
           common:
             metadata:
-              tenant: "{{.values.tenant}}"
+              tenant: "{{.id}}"
               clusterId: "{{.metadata.clusterId}}"
               clusterType: "{{.metadata.clusterType}}"
     k8s:
@@ -43,11 +43,3 @@ applicationSets:
             - values.yaml
             - values-type-{{.metadata.clusterType}}.yaml
             - values-{{.metadata.clusterId}}.yaml
-          values:
-            tenant: '{{ "{{.path.basename}}" }}'
-        selector:
-          matchExpressions:
-            - key: enabled
-              operator: NotIn
-              values:
-                - "false"
