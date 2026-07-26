@@ -20,6 +20,7 @@ namespaceDefaults:
   name: ~
 
 namespaces:
+  # ironic-standalone-operator-system: {}
   ironic: {}
   capi-operator-system: {} # cluster-api-operator
   capi-system: {} # cluster-api core provider
