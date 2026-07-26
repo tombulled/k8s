@@ -21,3 +21,4 @@ namespaces:
   capi-system: {} # cluster-api core provider
   capi-kubeadm-bootstrap-system: {} # cluster-api kubeadm bootstrap provider
   capi-kubeadm-control-plane-system: {} # cluster-api kubeadm control-plane provider
+  capm3-system: {} # cluster-api metal3 infrastructure provider
