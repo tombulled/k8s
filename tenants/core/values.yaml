@@ -1,6 +1,11 @@
-common:
-  name: ~
+defaults:
   namespace: argocd
+
+projectDefaults:
+  name: ~
+
+namespaceDefaults:
+  name: ~
 
 projects:
   main:
