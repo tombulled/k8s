@@ -14,6 +14,7 @@ projects:
     destinationsObject:
       ironic: {}
       capm3-system: {}
+      metal3-ipam-system: {}
 
 namespaceDefaults:
   name: ~
@@ -25,3 +26,4 @@ namespaces:
   capi-kubeadm-bootstrap-system: {} # cluster-api kubeadm bootstrap provider
   capi-kubeadm-control-plane-system: {} # cluster-api kubeadm control-plane provider
   capm3-system: {} # cluster-api metal3 infrastructure provider
+  metal3-ipam-system: {} # cluster-api metal3 ipam provider
