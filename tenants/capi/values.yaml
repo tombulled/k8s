@@ -11,6 +11,9 @@ projects:
         kind: CustomResourceDefinition
       - group: admissionregistration.k8s.io
         kind: MutatingWebhookConfiguration
+    destinationsObject:
+      ironic: {}
+      capm3-system: {}
 
 namespaceDefaults:
   name: ~
