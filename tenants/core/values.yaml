@@ -1,54 +1,16 @@
 common:
+  name: ~
   namespace: argocd
-
-projectDefaults:
-  name: ~
-
-namespaceDefaults:
-  name: ~
 
 projects:
   main:
-    destinations:
-      - namespace: "*"
+    destinationsObject:
+      all:
+        namespace: "*"
         name: in-cluster
-      # - namespace: argocd
-      #   name: in-cluster
-      # - namespace: cert-manager
-      #   name: in-cluster
-      # - namespace: default
-      #   name: in-cluster
-      # - namespace: ingress-nginx
-      #   name: in-cluster
-      # - namespace: kube-system
-      #   name: in-cluster
-      # - namespace: openebs
-      #   name: in-cluster
-      # - namespace: traefik
-      #   name: in-cluster
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
-      # - group: rbac.authorization.k8s.io
-      #   kind: ClusterRole
-      # - group: rbac.authorization.k8s.io
-      #   kind: ClusterRoleBinding
-      # - group: admissionregistration.k8s.io
-      #   kind: ValidatingWebhookConfiguration
-      # - group: networking.k8s.io
-      #   kind: IngressClass
-      # - group: apiextensions.k8s.io
-      #   kind: CustomResourceDefinition
-      # - group: admissionregistration.k8s.io
-      #   kind: MutatingWebhookConfiguration
-      # - group: cert-manager.io
-      #   kind: ClusterIssuer
-      # - group: storage.k8s.io
-      #   kind: StorageClass
-      # - group: scheduling.k8s.io
-      #   kind: PriorityClass
-      # - group: storage.k8s.io
-      #   kind: CSIDriver
 
 namespaces:
   main: ~
@@ -62,7 +24,7 @@ namespaces:
 
 applicationDefaults:
   destination:
-    namespace: default
+    namespace: "{{.id}}"
 
 networkPolicyDefaults:
   enabled: false

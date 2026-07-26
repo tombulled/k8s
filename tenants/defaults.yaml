@@ -1,6 +1,6 @@
 defaults:
   metadata:
-    tenant: ~ # populated by appset
+    tenant: "" # populated by tenants appset
   namespace: "{{.metadata.tenant}}"
 
 projectDefaults:
@@ -21,10 +21,12 @@ projects:
     name: "{{.metadata.tenant}}"
     sourceNamespaces:
       - "{{.metadata.tenant}}"
-    destinations:
-      - namespace: "{{.metadata.tenant}}"
+    destinationsObject:
+      main:
+        namespace: "{{.metadata.tenant}}"
         name: in-cluster
-      - namespace: "{{.metadata.tenant}}-*"
+      prefixed:
+        namespace: "{{.metadata.tenant}}-*"
         name: in-cluster
 
 namespaceDefaults:

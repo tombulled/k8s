@@ -25,7 +25,6 @@ applicationDefaults:
       targetRevision: main
   destination:
     name: in-cluster
-    # namespace: "{{.values.tenant}}"
   syncPolicy:
     automated:
       prune: false
