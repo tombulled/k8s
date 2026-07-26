@@ -17,4 +17,5 @@ namespaceDefaults:
 
 namespaces:
   ironic: {}
-  capi-operator-system: {}
+  capi-operator-system: {} # cluster-api-operator
+  capi-system: {} # cluster-api core provider
