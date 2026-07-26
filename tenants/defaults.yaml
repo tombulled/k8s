@@ -1,4 +1,4 @@
-common:
+defaults:
   metadata:
     tenant: ~ # populated by appset
   namespace: "{{.metadata.tenant}}"
@@ -101,8 +101,8 @@ namespaces:
 
 applicationDefaults:
   project: "{{.metadata.tenant}}"
-  deletion:
-    cascade: true
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   destination:
     name: in-cluster
     namespace: "{{.metadata.tenant}}"
@@ -163,9 +163,3 @@ applicationSets:
             - values.yaml
             - values-type-{{.metadata.clusterType}}.yaml
             - values-{{.metadata.clusterId}}.yaml
-        selector:
-          matchExpressions:
-            - key: enabled
-              operator: NotIn
-              values:
-                - "false"
