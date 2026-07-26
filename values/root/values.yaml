@@ -15,7 +15,7 @@ applicationDefaults:
           - "$k8s/{{.path.path}}/values-type-{{.metadata.clusterType}}.yaml"
           - "$k8s/{{.path.path}}/values-{{.metadata.clusterId}}.yaml"
         valuesObject:
-          common:
+          defaults:
             metadata:
               tenant: "{{.id}}"
               clusterId: "{{.metadata.clusterId}}"

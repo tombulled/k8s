@@ -15,7 +15,7 @@ spec:
         valueFiles:
           - $k8s/values/root/values.yaml
         valuesObject:
-          common:
+          defaults:
             metadata:
               clusterId: k3s
               clusterType: dev
