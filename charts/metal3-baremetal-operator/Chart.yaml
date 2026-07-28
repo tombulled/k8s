@@ -1,0 +1,9 @@
+apiVersion: v2
+name: metal3-baremetal-operator
+description: Wrapper chart for suse-edge/metal3/baremetal-operator so it can be deployed standalone
+type: application
+version: 0.1.0
+dependencies:
+  - name: baremetal-operator
+    version: 0.12.3
+    

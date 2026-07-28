@@ -1,0 +1,5 @@
+sourcesObject:
+  main:
+    repoURL: https://github.com/suse-edge/charts
+    targetRevision: main
+    path: charts/metal3/0.15.1/charts/baremetal-operator

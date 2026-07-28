@@ -1,6 +1,0 @@
-sourcesObject:
-  main:
-    repoURL: https://github.com/metal3-io/baremetal-operator/
-    targetRevision: v0.13.2
-    path: config
-    helm: ~

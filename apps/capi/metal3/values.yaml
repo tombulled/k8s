@@ -2,6 +2,10 @@ enabled: false # disabled as only want BMO
 
 sourcesObject:
   main:
-    repoURL: https://github.com/suse-edge/charts
-    targetRevision: main
-    path: charts/metal3/0.15.1
+    # repoURL: https://github.com/suse-edge/charts
+    # targetRevision: main
+    # path: charts/metal3/0.15.1
+
+    repoURL: registry.suse.com/edge/charts
+    chart: metal3
+    targetRevision: 306.0.29+up0.15.0

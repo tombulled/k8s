@@ -1,8 +1,6 @@
-annotations:
-  test: ${ARGOCD_APP_REVISION}
-
 sourcesObject:
   main:
-    repoURL: https://github.com/suse-edge/charts
-    targetRevision: main
-    path: charts/metal3/0.15.1/charts/baremetal-operator
+    repoURL: https://github.com/metal3-io/baremetal-operator/
+    targetRevision: v0.13.2
+    path: config
+    helm: ~
