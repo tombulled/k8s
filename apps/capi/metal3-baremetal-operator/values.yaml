@@ -1,3 +1,6 @@
+annotations:
+  test: ${ARGOCD_APP_REVISION}
+
 sourcesObject:
   main:
     repoURL: https://github.com/suse-edge/charts
