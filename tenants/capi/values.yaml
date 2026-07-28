@@ -15,6 +15,7 @@ projects:
       ironic: {}
       capm3-system: {}
       metal3-ipam-system: {}
+      baremetal-operator-system: {}
 
 namespaceDefaults:
   name: ~
@@ -28,3 +29,4 @@ namespaces:
   capi-kubeadm-control-plane-system: {} # cluster-api kubeadm control-plane provider
   capm3-system: {} # cluster-api metal3 infrastructure provider
   metal3-ipam-system: {} # cluster-api metal3 ipam provider
+  baremetal-operator-system: {} # metal3 BMO (kustomize)
