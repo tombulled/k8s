@@ -5,3 +5,5 @@ sourcesObject:
     # path: config
     path: config/base
     helm: ~
+    kustomize:
+      namespace: capi
