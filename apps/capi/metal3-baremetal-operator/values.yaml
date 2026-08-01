@@ -6,4 +6,5 @@ sourcesObject:
     path: config/base
     helm: ~
     kustomize:
-      namespace: capi
+      namespace: capi # baremetal-operator-system
+      namePrefix: metal3-baremetal-operator # baremetal-operator-
