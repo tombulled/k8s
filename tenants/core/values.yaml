@@ -1,3 +1,5 @@
+enabled: true
+
 defaults:
   namespace: argocd
 
