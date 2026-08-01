@@ -21,7 +21,9 @@ projects:
 
 namespaces:
   main: ~
-  argocd: {}
+  argocd:
+    annotations:
+      argocd.argoproj.io/sync-options: Delete=false,Prune=false
   cert-manager: {}
   ingress-nginx: {}
   monitoring: {}

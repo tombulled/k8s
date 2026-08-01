@@ -151,6 +151,8 @@ applicationSetDefaults:
   template:
     spec:
       project: "{{.metadata.tenant}}"
+  syncPolicy:
+    preserveResourcesOnDeletion: false
 
 applicationSets:
   main:

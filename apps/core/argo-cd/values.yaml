@@ -1,3 +1,5 @@
+finalizers: []
+
 destination:
   namespace: argocd
 
