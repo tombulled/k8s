@@ -30,6 +30,8 @@ applicationDefaults:
     automated:
       prune: false
       selfHeal: true
+    syncOptionsObject:
+      serverSideApply: true
 
 applicationSets:
   tenants:
