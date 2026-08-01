@@ -1,5 +1,3 @@
-enabled: false
-
 destination:
   namespace: cert-manager
 
