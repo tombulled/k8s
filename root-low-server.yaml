@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/tombulled/tenant.git
+      targetRevision: main
+      path: tenant
+      helm:
+        valueFiles:
+          - $k8s/values/root/values.yaml
+        valuesObject:
+          defaults:
+            metadata:
+              clusterId: low
+    - repoURL: https://github.com/tombulled/k8s.git
+      targetRevision: main
+      ref: k8s
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

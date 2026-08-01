@@ -1,4 +1,5 @@
 applicationDefaults:
+  enabled: false
   name: "tenant-{{.id}}"
   sourcesObject:
     main:
