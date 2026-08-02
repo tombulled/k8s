@@ -16,8 +16,9 @@ applicationDefaults:
 
 applications:
   root:
-    sources:
-      - repoURL: https://github.com/tombulled/tenant.git
+    sourcesObject:
+      main:
+        repoURL: https://github.com/tombulled/tenant.git
         targetRevision: main
         path: tenant
         helm:
@@ -28,7 +29,8 @@ applications:
               metadata:
                 clusterId: low
                 clusterType: ops
-      - repoURL: https://github.com/tombulled/k8s.git
+      k8s:
+        repoURL: https://github.com/tombulled/k8s.git
         targetRevision: main
         ref: k8s
 
