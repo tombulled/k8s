@@ -1,0 +1,4 @@
+defaults:
+  metadata:
+    clusterId: low
+    clusterType: ops

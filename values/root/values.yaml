@@ -1,5 +1,10 @@
+# TODO: Fix ordering of app sources (alphabetical?)
+
 defaults:
   namespace: argocd
+  metadata:
+    clusterId: ""
+    clusterType: ""
 
 applicationDefaults:
   finalizers:
@@ -27,8 +32,8 @@ applications:
           valuesObject:
             defaults:
               metadata:
-                clusterId: low
-                clusterType: ops
+                clusterId: "{{.metadata.clusterId}}"
+                clusterType: "{{.metadata.clusterType}}"
       k8s:
         repoURL: https://github.com/tombulled/k8s.git
         targetRevision: main
