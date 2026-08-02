@@ -1,3 +1,37 @@
+applicationDefaults:
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  project: default
+  destination:
+    name: in-cluster
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptionsObject:
+      serverSideApply: true
+
+applications:
+  root:
+    sources:
+      - repoURL: https://github.com/tombulled/tenant.git
+        targetRevision: main
+        path: tenant
+        helm:
+          valueFiles:
+            - $k8s/values/root/values.yaml
+          valuesObject:
+            defaults:
+              metadata:
+                clusterId: low
+                clusterType: ops
+      - repoURL: https://github.com/tombulled/k8s.git
+        targetRevision: main
+        ref: k8s
+#     destination:
+#       namespace: argocd
+
 applicationSets:
   tenants:
     generatorsObject:
@@ -36,11 +70,3 @@ applicationSets:
         k8s:
           repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
-      destination:
-        name: in-cluster
-      syncPolicy:
-        automated:
-          prune: false
-          selfHeal: true
-        syncOptionsObject:
-          serverSideApply: true

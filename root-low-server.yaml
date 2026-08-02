@@ -18,6 +18,7 @@ spec:
           defaults:
             metadata:
               clusterId: low
+              clusterType: ops
     - repoURL: https://github.com/tombulled/k8s.git
       targetRevision: main
       ref: k8s
