@@ -1,5 +1,7 @@
-applicationDefaults:
+defaults:
   namespace: argocd
+
+applicationDefaults:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   project: default
@@ -29,8 +31,6 @@ applications:
       - repoURL: https://github.com/tombulled/k8s.git
         targetRevision: main
         ref: k8s
-#     destination:
-#       namespace: argocd
 
 applicationSets:
   tenants:
