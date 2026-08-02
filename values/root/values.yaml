@@ -24,9 +24,9 @@ applicationSets:
               - "$k8s/tenants/defaults.yaml"
               - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
               - "$k8s/tenants/defaults-{{.metadata.clusterId}}.yaml"
-#               - "$k8s/{{.path.path}}/values.yaml"
-#               - "$k8s/{{.path.path}}/values-type-{{.metadata.clusterType}}.yaml"
-#               - "$k8s/{{.path.path}}/values-{{.metadata.clusterId}}.yaml"
+              - "$k8s/tenants/{{ `{{.id}}` }}/values.yaml"
+              - "$k8s/tenants/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml"
+              - "$k8s/tenants/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml"
             valuesObject:
               defaults:
                 metadata:
