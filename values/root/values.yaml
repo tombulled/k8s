@@ -12,7 +12,7 @@ applicationSets:
             - values-{{.metadata.clusterId}}.yaml
     defaults:
       enabled: false
-      # name: "tenant-{{.id}}"
+      name: "tenant-{{ `{{.id}}` }}"
       # sourcesObject:
       #   main:
       #     repoURL: git@github.com:tombulled/tenant.git
