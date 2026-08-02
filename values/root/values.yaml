@@ -18,6 +18,10 @@ applicationDefaults:
       selfHeal: true
     syncOptionsObject:
       serverSideApply: true
+    sourcesObject:
+      main:
+        helm:
+          ignoreMissingValueFiles: true
 
 applications:
   root:
@@ -62,7 +66,6 @@ applicationSets:
           targetRevision: main
           path: tenant
           helm:
-            ignoreMissingValueFiles: true
             valueFiles:
               - "$k8s/tenants/defaults.yaml"
               - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
