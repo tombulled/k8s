@@ -18,10 +18,10 @@ applicationDefaults:
       selfHeal: true
     syncOptionsObject:
       serverSideApply: true
-    sourcesObject:
-      main:
-        helm:
-          ignoreMissingValueFiles: true
+  sourcesObject:
+    main:
+      helm:
+        ignoreMissingValueFiles: true
 
 applications:
   root:
