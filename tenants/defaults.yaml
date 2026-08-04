@@ -15,7 +15,7 @@ projectDefaults:
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
     - "*"
-  description: "Project owned by tenant: {{.id}}"
+  description: "Project owned by tenant: {{.metadata.tenant}}"
 
 projects:
   main:
