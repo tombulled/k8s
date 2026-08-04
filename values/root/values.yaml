@@ -1,10 +1,25 @@
-# TODO: Fix ordering of app sources (alphabetical?)
-
 defaults:
   namespace: argocd
   metadata:
     clusterId: ""
     clusterType: ""
+
+projects:
+  tenants:
+    annotations:
+      argocd.argoproj.io/sync-wave: "-1"
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    sourceRepos:
+      - git@github.com:tombulled/k8s.git
+      - git@github.com:tombulled/tenant.git
+    clusterResourceWhitelist:
+      - group: ""
+        kind: Namespace
+    description: "Tenants Project"
+    destinations:
+      - name: in-cluster
+        namespace: "*"
 
 applicationDefaults:
   finalizers:
@@ -47,6 +62,9 @@ applications:
 
 applicationSets:
   tenants:
+    template:
+      spec:
+        project: tenants
     generatorsObject:
       main:
         x-git:
