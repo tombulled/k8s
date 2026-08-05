@@ -8,6 +8,8 @@ sourcesObject:
     repoURL: ghcr.io/bakito/helm-charts
     chart: sealed-secrets-web
     targetRevision: 3.3.0
+    helm:
+      valueFiles: ~
   extras:
     enabled: false # true
   values:
