@@ -43,6 +43,8 @@ projects:
     sourceNamespaces:
       - "{{.metadata.tenant}}"
     destinationsObject:
+      in-cluster:
+        name: in-cluster
       main:
         namespace: "{{.metadata.tenant}}"
         name: in-cluster
