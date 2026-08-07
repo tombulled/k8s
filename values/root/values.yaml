@@ -18,6 +18,7 @@ projects:
     description: "Root Project"
     destinations:
       - name: in-cluster
+      - name: in-cluster
         namespace: argocd
   tenants:
     sourceRepos:
