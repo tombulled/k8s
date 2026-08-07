@@ -4,12 +4,22 @@ defaults:
     clusterId: ""
     clusterType: ""
 
+projectDefaults:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
 projects:
+  root:
+    sourceRepos:
+      - git@github.com:tombulled/k8s.git
+      - git@github.com:tombulled/tenant.git
+    description: "Root Project"
+    destinations:
+      - name: in-cluster
+        namespace: argocd
   tenants:
-    annotations:
-      argocd.argoproj.io/sync-wave: "-1"
-    finalizers:
-      - resources-finalizer.argocd.argoproj.io
     sourceRepos:
       - git@github.com:tombulled/k8s.git
       - git@github.com:tombulled/tenant.git
@@ -24,7 +34,6 @@ projects:
 applicationDefaults:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  project: default
   destination:
     name: in-cluster
   syncPolicy:
@@ -40,6 +49,7 @@ applicationDefaults:
 
 applications:
   root:
+    project: root
     sourcesObject:
       main:
         repoURL: https://github.com/tombulled/tenant.git
