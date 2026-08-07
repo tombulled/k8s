@@ -17,7 +17,7 @@ projects:
       - git@github.com:tombulled/tenant.git
     description: "Root Project"
     destinations:
-      - name: in-cluster
+      # - name: in-cluster
       - name: in-cluster
         namespace: argocd
   tenants:
