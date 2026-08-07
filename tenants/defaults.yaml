@@ -51,11 +51,6 @@ projects:
       prefixed:
         namespace: "{{.metadata.tenant}}-*"
         name: in-cluster
-    rolesObject: ############# test #############
-      read-apps:
-        enabled: true
-        groups:
-          - MY_GROUP
 
 namespaceDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
