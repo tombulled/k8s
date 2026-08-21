@@ -16,6 +16,14 @@ projectDefaults:
   sourceRepos:
     - "*"
   description: "Project owned by tenant: {{.metadata.tenant}}"
+  clusterResourceWhitelistObject: {}
+  namespaceResourceBlacklistObject:
+    resource-quota:
+      group: ""
+      kind: ResourceQuota
+    limit-range:
+      group: ""
+      kind: LimitRange
   rolesObject:
     read-apps:
       enabled: false
