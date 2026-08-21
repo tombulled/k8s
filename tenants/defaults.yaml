@@ -16,7 +16,11 @@ projectDefaults:
   sourceRepos:
     - "*"
   description: "Project owned by tenant: {{.metadata.tenant}}"
-  clusterResourceWhitelistObject: {}
+  clusterResourceWhitelistObject:
+    all:
+      enabled: false
+      group: "*"
+      kind: "*"
   namespaceResourceBlacklistObject:
     resource-quota:
       group: ""

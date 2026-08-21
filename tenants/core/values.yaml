@@ -15,9 +15,9 @@ projects:
       all:
         namespace: "*"
         name: in-cluster
-    clusterResourceWhitelist:
-      - group: "*"
-        kind: "*"
+    clusterResourceWhitelistObject:
+      all:
+        enabled: true
 
 namespaces:
   main: ~
