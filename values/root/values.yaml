@@ -70,6 +70,9 @@ applications:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
         ref: k8s
+    syncPolicy:
+      automated:
+        enabled: false
 
 applicationSets:
   tenants:
