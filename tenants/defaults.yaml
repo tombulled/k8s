@@ -66,6 +66,8 @@ projects:
 
 namespaceDefaults:
   name: "{{.metadata.tenant}}-{{.id}}"
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=confirm,Prune=confirm
 
   networkPolicies:
     default-deny-all:

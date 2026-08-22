@@ -1,5 +1,9 @@
 enabled: true
 
+sourcesObject:
+  main:
+    targetRevision: chore/code-comments # TEMP FOR TESTING
+
 defaults:
   namespace: argocd
 
