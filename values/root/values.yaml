@@ -84,7 +84,8 @@ applicationSets:
         x-git:
           repoURL: git@github.com:tombulled/k8s.git
           revision: HEAD
-          path: "tenants/*"
+          directories:
+            - path: "tenants/*"
           valueFiles:
             - values.yaml
             - values-type-{{.metadata.clusterType}}.yaml
