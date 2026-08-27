@@ -38,9 +38,6 @@ applicationDefaults:
   destination:
     name: in-cluster
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
     syncOptionsObject:
       serverSideApply: true
   sourcesObject:
@@ -115,3 +112,7 @@ applicationSets:
         k8s:
           repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true

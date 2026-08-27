@@ -41,6 +41,3 @@ resourceQuotaDefaults:
   enabled: false
 limitRangeDefaults:
   enabled: false
-
-roles:
-  test: {}
