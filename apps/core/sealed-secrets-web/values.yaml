@@ -1,4 +1,4 @@
-enabled: false
+$enabled: false
 
 destination:
   namespace: sealed-secrets
@@ -9,4 +9,4 @@ sourcesObject:
     chart: sealed-secrets-web
     targetRevision: 3.3.0
   extras:
-    enabled: true
+    $enabled: true
