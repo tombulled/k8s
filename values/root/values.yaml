@@ -58,16 +58,16 @@ applications:
             - $k8s/values/root/values.yaml
             - $k8s/values/root/values-type-{{$metadata.clusterType}}.yaml
             - $k8s/values/root/values-{{$metadata.clusterId}}.yaml
-          values: |
-            {{- with dig "defaults" "$metadata" (dict) . -}}
-            defaults:
-              metadata: {{- . | toYaml | nindent 4 }}
-            {{- end -}}
-#           valuesObject:
+#           values: |
+#             {{- with dig "defaults" "$metadata" (dict) . -}}
 #             defaults:
-#               metadata:
-#                 clusterId: "{{$metadata.clusterId}}"
-#                 clusterType: "{{$metadata.clusterType}}"
+#               metadata: {{- . | toYaml | nindent 4 }}
+#             {{- end -}}
+          valuesObject:
+            defaults:
+              metadata:
+                clusterId: "{{$metadata.clusterId}}"
+                clusterType: "{{$metadata.clusterType}}"
       k8s:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
