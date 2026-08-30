@@ -1,0 +1,4 @@
+defaults:
+  $metadata:
+    clusterId: k3s
+    clusterType: dev
