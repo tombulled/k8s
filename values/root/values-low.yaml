@@ -1,4 +1,4 @@
 defaults:
-  metadata:
+  $metadata:
     clusterId: low
     clusterType: ops
