@@ -1,6 +1,6 @@
 defaults:
   namespace: argocd
-  metadata:
+  $metadata:
     clusterId: ""
     clusterType: ""
 
@@ -56,13 +56,18 @@ applications:
         helm:
           valueFiles:
             - $k8s/values/root/values.yaml
-            - $k8s/values/root/values-type-{{.metadata.clusterType}}.yaml
-            - $k8s/values/root/values-{{.metadata.clusterId}}.yaml
-          valuesObject:
+            - $k8s/values/root/values-type-{{$metadata.clusterType}}.yaml
+            - $k8s/values/root/values-{{$metadata.clusterId}}.yaml
+          values: |
+            {{- with dig "defaults" "$metadata" (dict) . -}}
             defaults:
-              metadata:
-                clusterId: "{{.metadata.clusterId}}"
-                clusterType: "{{.metadata.clusterType}}"
+              metadata: {{- . | toYaml | nindent 4 }}
+            {{- end -}}
+#           valuesObject:
+#             defaults:
+#               metadata:
+#                 clusterId: "{{$metadata.clusterId}}"
+#                 clusterType: "{{$metadata.clusterType}}"
       k8s:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
@@ -85,8 +90,8 @@ applicationSets:
             - path: "tenants/*"
           valueFiles:
             - values.yaml
-            - values-type-{{.metadata.clusterType}}.yaml
-            - values-{{.metadata.clusterId}}.yaml
+            - values-type-{{$metadata.clusterType}}.yaml
+            - values-{{$metadata.clusterId}}.yaml
     defaults:
       enabled: false
       name: "tenant-{{ `{{.id}}` }}"
@@ -98,17 +103,17 @@ applicationSets:
           helm:
             valueFiles:
               - "$k8s/tenants/defaults.yaml"
-              - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
-              - "$k8s/tenants/defaults-{{.metadata.clusterId}}.yaml"
+              - "$k8s/tenants/defaults-type-{{$metadata.clusterType}}.yaml"
+              - "$k8s/tenants/defaults-{{$metadata.clusterId}}.yaml"
               - "$k8s/tenants/{{ `{{.id}}` }}/values.yaml"
               - "$k8s/tenants/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml"
-              - "$k8s/tenants/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml"
+              - "$k8s/tenants/{{ `{{.id}}` }}/values-{{$metadata.clusterId}}.yaml"
             valuesObject:
               defaults:
                 metadata:
                   tenant: "{{ `{{.id}}` }}"
-                  clusterId: "{{.metadata.clusterId}}"
-                  clusterType: "{{.metadata.clusterType}}"
+                  clusterId: "{{$metadata.clusterId}}"
+                  clusterType: "{{$metadata.clusterType}}"
         k8s:
           repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
