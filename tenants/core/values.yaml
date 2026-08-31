@@ -36,8 +36,8 @@ applicationDefaults:
     namespace: "{{$id}}"
 
 networkPolicyDefaults:
-  enabled: false
+  $enabled: false
 resourceQuotaDefaults:
-  enabled: false
+  $enabled: false
 limitRangeDefaults:
-  enabled: false
+  $enabled: false
