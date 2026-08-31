@@ -1,11 +1,11 @@
 defaults:
   $metadata:
-    tenant: "" # populated by tenants appset
-  namespace: "{{.metadata.tenant}}"
+    tenant: ""
+  namespace: "{{$metadata.tenant}}"
 
 projectDefaults:
   namespace: argocd
-  name: "{{.metadata.tenant}}-{{.id}}"
+  name: "{{$metadata.tenant}}-{{.id}}"
   annotations:
     # Ensure the AppProject gets created before Applications and AppSets
     # Reference: https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/
@@ -15,7 +15,7 @@ projectDefaults:
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
     - "*"
-  description: "Project owned by tenant: {{.metadata.tenant}}"
+  description: "Project owned by tenant: {{$metadata.tenant}}"
   clusterResourceWhitelistObject:
     all:
       enabled: false
@@ -51,21 +51,21 @@ projectDefaults:
 
 projects:
   main:
-    name: "{{.metadata.tenant}}"
+    name: "{{$metadata.tenant}}"
     sourceNamespaces:
-      - "{{.metadata.tenant}}"
+      - "{{$metadata.tenant}}"
     destinationsObject:
       in-cluster:
         name: in-cluster
       main:
-        namespace: "{{.metadata.tenant}}"
+        namespace: "{{$metadata.tenant}}"
         name: in-cluster
       prefixed:
-        namespace: "{{.metadata.tenant}}-*"
+        namespace: "{{$metadata.tenant}}-*"
         name: in-cluster
 
 namespaceDefaults:
-  name: "{{.metadata.tenant}}-{{.id}}"
+  name: "{{$metadata.tenant}}-{{.id}}"
   annotations:
     argocd.argoproj.io/sync-options: Delete=confirm,Prune=confirm
 
@@ -136,15 +136,15 @@ namespaceDefaults:
 
 namespaces:
   main:
-    name: "{{.metadata.tenant}}"
+    name: "{{$metadata.tenant}}"
 
 applicationDefaults:
-  project: "{{.metadata.tenant}}"
+  project: "{{$metadata.tenant}}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   destination:
     name: in-cluster
-    namespace: "{{.metadata.tenant}}"
+    namespace: "{{$metadata.tenant}}"
   syncPolicy:
     automated:
       prune: true
@@ -155,8 +155,8 @@ applicationDefaults:
         ignoreMissingValueFiles: true
         valueFiles:
           - $values/{{.id}}/values.yaml
-          - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
-          - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+          - $values/{{.id}}/values-type-{{$metadata.clusterType}}.yaml
+          - $values/{{.id}}/values-{{$metadata.clusterId}}.yaml
     extras:
       enabled: false
       repoURL: git@github.com:tombulled/k8s.git
@@ -166,8 +166,8 @@ applicationDefaults:
         ignoreMissingValueFiles: true
         valueFiles:
           - $values/{{.id}}/values.yaml
-          - $values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
-          - $values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+          - $values/{{.id}}/values-type-{{$metadata.clusterType}}.yaml
+          - $values/{{.id}}/values-{{$metadata.clusterId}}.yaml
     values:
       repoURL: git@github.com:tombulled/values.git
       targetRevision: main
@@ -175,21 +175,21 @@ applicationDefaults:
 applicationSetDefaults:
   template:
     spec:
-      project: "{{.metadata.tenant}}"
+      project: "{{$metadata.tenant}}"
   syncPolicy:
     preserveResourcesOnDeletion: false
 
 applicationSets:
   main:
-    name: "{{.metadata.tenant}}"
+    name: "{{$metadata.tenant}}"
     generatorsObject:
       main:
         x-git:
           repoURL: git@github.com:tombulled/k8s.git
           revision: HEAD
           directories:
-            - path: "apps/{{.metadata.tenant}}/*"
+            - path: "apps/{{$metadata.tenant}}/*"
           valueFiles:
             - values.yaml
-            - values-type-{{.metadata.clusterType}}.yaml
-            - values-{{.metadata.clusterId}}.yaml
+            - values-type-{{$metadata.clusterType}}.yaml
+            - values-{{$metadata.clusterId}}.yaml

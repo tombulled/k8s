@@ -1,8 +1,8 @@
 defaults:
-  namespace: argocd
   $metadata:
     clusterId: ""
     clusterType: ""
+  namespace: argocd
 
 projectDefaults:
   annotations:
