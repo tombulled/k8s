@@ -18,7 +18,7 @@ projectDefaults:
   description: "Project owned by tenant: {{$metadata.tenant}}"
   clusterResourceWhitelistObject:
     all:
-      enabled: false
+      $enabled: false
       group: "*"
       kind: "*"
   namespaceResourceBlacklistObject:
@@ -30,20 +30,20 @@ projectDefaults:
       kind: LimitRange
   rolesObject:
     read-apps:
-      enabled: false
+      $enabled: false
       description: Read-apps privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:read-apps, applications, get, {{.name}}/*, allow
         - p, proj:{{.name}}:read-apps, applicationsets, get, {{.name}}/*, allow
       groups: []
     read-all:
-      enabled: false
+      $enabled: false
       description: Read-all privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:read-all, *, get, {{.name}}/*, allow
       groups: []
     admin:
-      enabled: false
+      $enabled: false
       description: Admin privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:admin, *, *, {{.name}}/*, allow
