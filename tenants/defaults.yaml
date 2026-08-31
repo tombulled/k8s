@@ -69,70 +69,71 @@ namespaceDefaults:
   annotations:
     argocd.argoproj.io/sync-options: Delete=confirm,Prune=confirm
 
-  networkPolicies:
-    default-deny-all:
-      enabled: false
-      podSelector: {}
-      policyTypes:
-        - Ingress
-        - Egress
-    default-allow-all:
-      enabled: false
-      podSelector: {}
-      ingress:
-        - {}
-      egress:
-        - {}
-      policyTypes:
-        - Ingress
-        - Egress
-    default-allow-dns:
-      enabled: false
-      podSelector: {}
-      policyTypes:
-        - Egress
-      egress:
-        - to:
-            - namespaceSelector:
-                matchLabels:
-                  kubernetes.io/metadata.name: kube-system
-              podSelector:
-                matchLabels:
-                  k8s-app: kube-dns
-          ports:
-            - protocol: UDP
-              port: 53
+  resources:
+    networkPolicies:
+      default-deny-all:
+        enabled: false
+        podSelector: {}
+        policyTypes:
+          - Ingress
+          - Egress
+      default-allow-all:
+        enabled: false
+        podSelector: {}
+        ingress:
+          - {}
+        egress:
+          - {}
+        policyTypes:
+          - Ingress
+          - Egress
+      default-allow-dns:
+        enabled: false
+        podSelector: {}
+        policyTypes:
+          - Egress
+        egress:
+          - to:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: kube-system
+                podSelector:
+                  matchLabels:
+                    k8s-app: kube-dns
+            ports:
+              - protocol: UDP
+                port: 53
 
-  resourceQuotas:
-    compute-resources:
-      enabled: false
-      hard:
-        requests.cpu: "1"
-        requests.memory: "1Gi"
-        limits.cpu: "2"
-        limits.memory: "2Gi"
-    object-counts:
-      enabled: false
-      hard:
-        configmaps: "10"
-        persistentvolumeclaims: "4"
-        pods: "4"
-        replicationcontrollers: "20"
-        secrets: "10"
-        services: "10"
-        services.loadbalancers: "2"
+    resourceQuotas:
+      compute-resources:
+        enabled: false
+        hard:
+          requests.cpu: "1"
+          requests.memory: "1Gi"
+          limits.cpu: "2"
+          limits.memory: "2Gi"
+      object-counts:
+        enabled: false
+        hard:
+          configmaps: "10"
+          persistentvolumeclaims: "4"
+          pods: "4"
+          replicationcontrollers: "20"
+          secrets: "10"
+          services: "10"
+          services.loadbalancers: "2"
 
-  limitRanges:
-    compute-resources:
-      enabled: false
-      limits:
-      - defaultRequest:
-          cpu: 100m
-          memory: 100Mi
-        default:
-          cpu: 100m
-          memory: 100Mi
-        type: Container
+    limitRanges:
+      compute-resources:
+        enabled: false
+        limits:
+        - defaultRequest:
+            cpu: 100m
+            memory: 100Mi
+          default:
+            cpu: 100m
+            memory: 100Mi
+          type: Container
 
 namespaces:
   main:

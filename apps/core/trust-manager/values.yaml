@@ -1,4 +1,4 @@
-enabled: false
+$enabled: false
 
 destination:
   namespace: cert-manager
