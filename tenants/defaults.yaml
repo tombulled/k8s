@@ -172,14 +172,14 @@ applicationDefaults:
       repoURL: git@github.com:tombulled/values.git
       targetRevision: main
 
-applicationSetDefaults:
+xApplicationSetDefaults:
   template:
     spec:
       project: "{{$metadata.tenant}}"
   syncPolicy:
     preserveResourcesOnDeletion: false
 
-applicationSets:
+xApplicationSets:
   main:
     name: "{{$metadata.tenant}}"
     generatorsObject:
