@@ -1,4 +1,4 @@
-enabled: true
+$enabled: true
 
 defaults:
   namespace: argocd
@@ -17,7 +17,7 @@ projects:
         name: in-cluster
     clusterResourceWhitelistObject:
       all:
-        enabled: true
+        $enabled: true
 
 namespaces:
   main: ~
@@ -33,7 +33,7 @@ namespaces:
 
 applicationDefaults:
   destination:
-    namespace: "{{.id}}"
+    namespace: "{{$id}}"
 
 networkPolicyDefaults:
   enabled: false
