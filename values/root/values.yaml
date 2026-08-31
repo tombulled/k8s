@@ -69,7 +69,7 @@ applications:
       automated:
         enabled: false
 
-applicationSets:
+xApplicationSets:
   tenants:
     template:
       spec:
