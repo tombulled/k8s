@@ -49,7 +49,6 @@ applications:
     project: root
     namespace: argocd
     destination:
-      name: in-cluster
       namespace: argocd
     sourcesObject:
       main:
