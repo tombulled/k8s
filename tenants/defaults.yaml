@@ -4,13 +4,10 @@ defaults:
   namespace: "{{$metadata.tenant}}"
 
 projectDefaults:
-  namespace: argocd
   name: "{{$metadata.tenant}}-{{$id}}"
+  namespace: argocd
   annotations:
-    # Ensure the AppProject gets created before Applications and AppSets
-    # Reference: https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/
     argocd.argoproj.io/sync-wave: "-1"
-  # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
@@ -72,13 +69,12 @@ namespaceDefaults:
   resources:
     networkPolicies:
       default-deny-all:
-        enabled: false
+        $enabled: false
         podSelector: {}
         policyTypes:
           - Ingress
           - Egress
       default-allow-all:
-        enabled: false
         podSelector: {}
         ingress:
           - {}
@@ -88,7 +84,7 @@ namespaceDefaults:
           - Ingress
           - Egress
       default-allow-dns:
-        enabled: false
+        $enabled: false
         podSelector: {}
         policyTypes:
           - Egress
@@ -106,14 +102,14 @@ namespaceDefaults:
 
     resourceQuotas:
       compute-resources:
-        enabled: false
+        $enabled: false
         hard:
           requests.cpu: "1"
           requests.memory: "1Gi"
           limits.cpu: "2"
           limits.memory: "2Gi"
       object-counts:
-        enabled: false
+        $enabled: false
         hard:
           configmaps: "10"
           persistentvolumeclaims: "4"
@@ -125,7 +121,7 @@ namespaceDefaults:
 
     limitRanges:
       compute-resources:
-        enabled: false
+        $enabled: false
         limits:
         - defaultRequest:
             cpu: 100m
