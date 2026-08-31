@@ -103,7 +103,7 @@ xApplicationSets:
               - "$k8s/tenants/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml"
             valuesObject:
               defaults:
-                metadata:
+                $metadata:
                   tenant: "{{ `{{$id}}` }}"
                   clusterId: "{{$metadata.clusterId}}"
                   clusterType: "{{$metadata.clusterType}}"
