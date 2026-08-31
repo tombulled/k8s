@@ -4,10 +4,10 @@ defaults:
   namespace: argocd
 
 projectDefaults:
-  name: ~
+  name: "{{$id}}"
 
 namespaceDefaults:
-  name: ~
+  name: "{{$id}}"
 
 projects:
   main:
