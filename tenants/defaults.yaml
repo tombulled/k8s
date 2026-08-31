@@ -1,5 +1,5 @@
 defaults:
-  metadata:
+  $metadata:
     tenant: "" # populated by tenants appset
   namespace: "{{.metadata.tenant}}"
 

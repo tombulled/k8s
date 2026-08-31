@@ -44,6 +44,9 @@ applicationDefaults:
     main:
       helm:
         ignoreMissingValueFiles: true
+        values: |
+          defaults:
+            $metadata: {{ $metadata | toJson }}
 
 applications:
   root:
@@ -58,9 +61,6 @@ applications:
             - $k8s/values/root/values.yaml
             - $k8s/values/root/values-type-{{$metadata.clusterType}}.yaml
             - $k8s/values/root/values-{{$metadata.clusterId}}.yaml
-          values: |
-            defaults:
-              $metadata: {{ $metadata | toJson }}
       k8s:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
@@ -105,8 +105,6 @@ xApplicationSets:
               defaults:
                 metadata:
                   tenant: "{{ `{{$id}}` }}"
-                  clusterId: "{{$metadata.clusterId}}"
-                  clusterType: "{{$metadata.clusterType}}"
         k8s:
           repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
