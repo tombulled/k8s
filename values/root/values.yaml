@@ -2,7 +2,6 @@ defaults:
   $metadata:
     clusterId: ""
     clusterType: ""
-  namespace: argocd
 
 projectDefaults:
   annotations:
@@ -12,22 +11,22 @@ projectDefaults:
 
 projects:
   root:
+    description: "Root Project"
     sourceRepos:
       - git@github.com:tombulled/k8s.git
       - git@github.com:tombulled/tenant.git
-    description: "Root Project"
+    clusterResourceWhitelist: []
     destinations:
-      - name: in-cluster
       - name: in-cluster
         namespace: argocd
   tenants:
+    description: "Tenants Project"
     sourceRepos:
       - git@github.com:tombulled/k8s.git
       - git@github.com:tombulled/tenant.git
     clusterResourceWhitelist:
       - group: ""
         kind: Namespace
-    description: "Tenants Project"
     destinations:
       - name: in-cluster
         namespace: "*"
@@ -48,6 +47,10 @@ applicationDefaults:
 applications:
   root:
     project: root
+    namespace: argocd
+    destination:
+      name: in-cluster
+      namespace: argocd
     sourcesObject:
       main:
         repoURL: git@github.com:tombulled/tenant.git

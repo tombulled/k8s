@@ -5,4 +5,4 @@ helm template \
 	-f values/root/values.yaml \
 	-f values/root/values-low.yaml \
 	| yq \
-		'select(.metadata.name == "root")'
+		'select(.metadata.name == "root") | .metadata.namespace = "argocd"'
