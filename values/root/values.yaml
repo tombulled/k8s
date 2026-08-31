@@ -51,7 +51,7 @@ applications:
     sourcesObject:
       main:
         repoURL: git@github.com:tombulled/tenant.git
-        targetRevision: feature/use-dollar-prefix-for-variable-fields # main
+        targetRevision: main
         path: tenant
         helm:
           valueFiles:
