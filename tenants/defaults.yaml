@@ -12,7 +12,7 @@ projectDefaults:
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
     - "*"
-  description: "Project owned by tenant: {{$metadata.tenant}}"
+  description: "Project owned by tenant \"{{$metadata.tenant}}\""
   clusterResourceWhitelist: []
   namespaceResourceBlacklist:
     - group: ""
