@@ -94,7 +94,9 @@ xApplicationSets:
       name: "tenant-{{ `{{$id}}` }}"
       annotations:
         # directory: "{{ `{{.values.directory}}` }}"
-        directory: "{{ `{{.path.path}}` }}"
+        path: "{{ `{{.path | toJson}}` }}"
+#         segments: "{{ `{{.path.segments}}` }}"
+
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
