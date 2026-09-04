@@ -28,14 +28,14 @@ xApplicationSets:
             - values.yaml
             - values-type-{{$metadata.clusterType}}.yaml
             - values-{{$metadata.clusterId}}.yaml
-#     defaults:
-#       $enabled: false
-#       name: "tenant-{{ `{{$id}}` }}"
-#       sourcesObject:
-#         main:
-#           repoURL: git@github.com:tombulled/tenant.git
-#           targetRevision: main
-#           path: tenant
+    defaults:
+      $enabled: false
+      name: "tenant-{{$metadata.tenant}}-{{ `{{$id}}` }}"
+      sourcesObject:
+        main:
+          repoURL: git@github.com:tombulled/tenant.git
+          targetRevision: main
+          path: tenant
 #           helm:
 #             valueFiles:
 #               - "$k8s/tenants/defaults.yaml"
@@ -50,10 +50,10 @@ xApplicationSets:
 #                   tenant: "{{ `{{$id}}` }}"
 #                   clusterId: "{{$metadata.clusterId}}"
 #                   clusterType: "{{$metadata.clusterType}}"
-#         k8s:
-#           repoURL: git@github.com:tombulled/k8s.git
-#           targetRevision: main
-#       syncPolicy:
-#         automated:
-#           prune: false
-#           selfHeal: true
+        k8s:
+          repoURL: git@github.com:tombulled/k8s.git
+          targetRevision: main
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
