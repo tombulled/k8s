@@ -98,6 +98,9 @@ xApplicationSets:
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
+      annotations:
+        dir: "{{ `{{ .values.dir }}` }}"
+        path: "{{ `{{ .values.path }}` }}"
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
