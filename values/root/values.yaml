@@ -87,13 +87,14 @@ xApplicationSets:
             - values.yaml
             - values-type-{{$metadata.clusterType}}.yaml
             - values-{{$metadata.clusterId}}.yaml
-          values:
-            directory: "{{ `{{.path.path}}` }}"
+#           values:
+#             directory: "{{ `{{.path.path}}` }}"
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
       annotations:
-        directory: "{{ `{{.values.directory}}` }}"
+        # directory: "{{ `{{.values.directory}}` }}"
+        directory: "{{ `{{.path.path}}` }}"
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
