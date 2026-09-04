@@ -17,3 +17,9 @@ httpRoute:
         - path:
             type: PathPrefix
             value: /rabbitmq
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: ""
