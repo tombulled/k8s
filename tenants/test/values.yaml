@@ -2,9 +2,6 @@ $enabled: true
 
 projects:
   main:
-    annotations:
-      message: "{{.message}}"
-      food: "{{$food}}"
     destinations:
       - namespace: "*"
         name: in-cluster
