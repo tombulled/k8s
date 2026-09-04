@@ -74,6 +74,9 @@ applications:
 xApplicationSets:
   tenants:
     template:
+      template:
+        annotations:
+          path: "{{ `{{.path | toJson}}` }}"
       spec:
         project: tenants
     generatorsObject:
@@ -92,9 +95,9 @@ xApplicationSets:
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
-      annotations:
+#       annotations:
         # directory: "{{ `{{.values.directory}}` }}"
-        path: "{{ `{{.path | toJson}}` }}"
+#         path: "{{ `{{.path | toJson}}` }}"
 #         segments: "{{ `{{.path.segments}}` }}"
 
       sourcesObject:
