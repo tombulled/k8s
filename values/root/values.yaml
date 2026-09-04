@@ -77,11 +77,11 @@ xApplicationSets:
       metadata:
         annotations:
 #           path-json: "{{ `{{.path | toJson}}` }}"
-          root-dir: "{{ `{{ index .path.segments 1 }}` }}"
+          dir: "{{ `{{ index .path.segments 1 }}` }}"
 #           nested-dir: "{{ `{{ index .path.basename }}` }}"
 #           id: '{{ `{{ .path.segments | rest | join "-" }}` }}'
           path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
-          base-path: '{{ `{{ slice .path.segments 0 2 | join "/" }}` }}'
+#           base-path: '{{ `{{ slice .path.segments 0 2 | join "/" }}` }}'
       spec:
         project: tenants
     generatorsObject:
