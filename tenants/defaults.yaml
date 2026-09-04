@@ -213,12 +213,12 @@ xApplicationSets:
         main:
           helm:
             valueFiles:
-              - $values/{{$id}}/values.yaml
-              - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+              - $values/{{ `{{$id}}` }}/values.yaml
+              - $values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+              - $values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
         extras:
           helm:
             valueFiles:
-              - $values/{{$id}}/values.yaml
-              - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+              - $values/{{ `{{$id}}` }}/values.yaml
+              - $values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+              - $values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
