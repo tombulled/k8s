@@ -1,5 +1,8 @@
 $enabled: true
 
+defaults:
+  $role: some-role
+
 projects:
   main:
     destinations:
@@ -9,3 +12,7 @@ projects:
       - group: "*"
         kind: "*"
     namespaceResourceBlacklist: []
+
+
+role:
+  name: oidc:{{$role}}
