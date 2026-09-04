@@ -7,9 +7,6 @@ namespaces:
   rabbitmq-system: {}
 
 applicationDefaults:
-  destination:
-    namespace: rabbitmq-system
-
   sourcesObject:
     main:
       repoURL: git@github.com:tombulled/k8s.git
