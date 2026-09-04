@@ -15,4 +15,4 @@ projects:
 
 
 role:
-  name: oidc:{{$role}}
+  name: {{ print "oidc:" $role }}
