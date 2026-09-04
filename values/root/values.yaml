@@ -76,12 +76,8 @@ xApplicationSets:
     template:
       metadata:
         annotations:
-#           path-json: "{{ `{{.path | toJson}}` }}"
           dir: "{{ `{{ index .path.segments 1 }}` }}"
-#           nested-dir: "{{ `{{ index .path.basename }}` }}"
-#           id: '{{ `{{ .path.segments | rest | join "-" }}` }}'
           path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
-#           base-path: '{{ `{{ slice .path.segments 0 2 | join "/" }}` }}'
       spec:
         project: tenants
     generatorsObject:
@@ -95,17 +91,13 @@ xApplicationSets:
             - values.yaml
             - values-type-{{$metadata.clusterType}}.yaml
             - values-{{$metadata.clusterId}}.yaml
-#           values:
-#             directory: "{{ `{{.path.path}}` }}"
+          values:
+            dir: "{{ `{{ index .path.segments 1 }}` }}"
+            path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
           id: '.path.segments | rest | join "-"'
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
-#       annotations:
-        # directory: "{{ `{{.values.directory}}` }}"
-#         path: "{{ `{{.path | toJson}}` }}"
-#         segments: "{{ `{{.path.segments}}` }}"
-
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
