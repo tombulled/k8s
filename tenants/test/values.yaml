@@ -11,7 +11,7 @@ projects:
     namespaceResourceBlacklist: []
 
 xApplicationSets:
-  sub-tenants:
+  tenants:
     name: "{{$metadata.tenant}}-{{$id}}"
     namespace: argocd
     template:
