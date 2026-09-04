@@ -19,8 +19,6 @@ projectDefaults:
       kind: ResourceQuota
     - group: ""
       kind: LimitRange
-    - group: "argoproj.io"
-      kind: ApplicationSet
   rolesObject:
     read-apps:
       $enabled: false
