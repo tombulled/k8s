@@ -1,0 +1,29 @@
+# See: https://github.com/mattermost/mattermost-operator/blob/master/docs/examples/mattermost_full.yaml
+mattermost:
+  enabled: true
+  name: mattermost
+  spec:
+    # See: https://github.com/mattermost/mattermost/issues/33799#issuecomment-3448733273
+    image: tombulled/mattermost-enterprise-edition
+    version: 10.6.1
+    replicas: 1
+    ingress:
+      enabled: true
+      # host: mattermost.tom.lan
+      host: server.tailbc039.ts.net
+    database:
+      external:
+        secret: mattermost-database
+    fileStore:
+      external:
+        url: minio
+        bucket: mattermost
+        secret: mattermost-filestore
+    # See: https://docs.mattermost.com/administration-guide/configure/environment-configuration-settings.html
+    mattermostEnv:
+      - name: MM_FILESETTINGS_AMAZONS3SSL
+        value: "false"
+      - name: MM_SERVICESETTINGS_ENABLESECURITYFIXALERT
+        value: "false"
+      - name: MM_LOGSETTINGS_ENABLEDIAGNOSTICS
+        value: "false"

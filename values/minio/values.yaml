@@ -1,0 +1,54 @@
+# See: https://github.com/minio/operator/blob/master/helm/tenant/values.yaml
+tenant:
+  name: minio
+
+  configSecret:
+    name: minio-env-configuration
+    accessKey: minio
+    # WARN: Secret key length should be between 8 and 40 characters
+    secretKey: gFQlPp17Kx5WoJywlF9a
+
+  pools:
+    - name: pool-0
+      servers: 1
+      volumesPerServer: 1
+      size: 10Gi
+      storageClassName: openebs-zfs
+
+  metrics:
+    enabled: true
+
+  certificate:
+    # Disable TLS
+    requestAutoCert: false
+
+  buckets:
+    - name: test
+    - name: mattermost
+  users:
+    - name: minio-user-mattermost
+
+  logging:
+    json: true
+    anonymous: false
+    quiet: false
+
+ingress:
+  api:
+    enabled: true
+    ingressClassName: nginx
+    host: minio.tom.lan
+  console:
+    enabled: true
+    ingressClassName: nginx
+    host: minio-console.tom.lan
+
+extraResources:
+  - |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: minio-user-mattermost
+    stringData:
+      CONSOLE_ACCESS_KEY: mattermost
+      CONSOLE_SECRET_KEY: mattermost

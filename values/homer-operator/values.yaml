@@ -1,0 +1,7 @@
+### <FIX>: gcr.io/kubebuilder/kube-rbac-proxy yielding not found errors ###
+operator:
+  metrics:
+    rbacProxy:
+      image:
+        repository: kubebuilder/kube-rbac-proxy
+### </FIX> ###

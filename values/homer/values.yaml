@@ -1,0 +1,37 @@
+extraResources:
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: homer
+      annotations:
+        cert-manager.io/cluster-issuer: hawk-acme
+    spec:
+      ingressClassName: nginx
+      rules:
+        - host: homer.tom.lan
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: main-homer
+                    port:
+                      number: 80
+      tls:
+        - hosts:
+            - homer.tom.lan
+          secretName: homer.tom.lan-tls
+  - apiVersion: homer.rajsingh.info/v1alpha1
+    kind: Dashboard
+    metadata:
+      name: main
+      namespace: default
+    spec:
+      replicas: 1
+      homerConfig:
+        title: "TOM.LAN"
+        subtitle: "Dashboard"
+        header: true
+        footer: false
+        logo: "logo.png"

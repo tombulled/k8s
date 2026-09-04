@@ -1,0 +1,32 @@
+engines:
+  local:
+    zfs:
+      enabled: true
+    lvm:
+      enabled: false
+    rawfile:
+      enabled: false
+  replicated:
+    mayastor:
+      enabled: false
+loki:
+  enabled: false
+alloy:
+  enabled: false
+
+localpv-provisioner:
+  hostpathClass:
+    enabled: false
+
+# Extras (Common)
+storageClasses:
+  openebs-zfs:
+    enabled: true
+    allowVolumeExpansion: true
+    parameters:
+      recordsize: "128k"
+      compression: "off"
+      dedup: "off"
+      fstype: "zfs"
+      poolname: "zfspv-pool"
+    provisioner: zfs.csi.openebs.io

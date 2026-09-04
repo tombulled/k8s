@@ -1,0 +1,85 @@
+# ports:
+#   web:
+#     hostPort: 80
+#     # redirections:
+#     #   entryPoint:
+#     #     to: websecure
+#     #     scheme: https
+#     #     permanent: true
+#   websecure:
+#     hostPort: 443
+
+api:
+  dashboard: true
+  insecure: false
+
+# ingressRoute:
+#   dashboard:
+#     enabled: true
+#     matchRule: Host(`traefik.tom.lan`)
+#     entryPoints:
+#       - websecure
+
+deployment:
+  # kind: DaemonSet
+  revisionHistoryLimit: 0
+
+# ingressClass:
+#   isDefaultClass: false
+
+providers:
+  kubernetesCRD:
+    enabled: false # TODO: Disable me?
+  kubernetesIngress:
+    enabled: false
+  kubernetesGateway:
+    enabled: true
+    experimentalChannel: true
+  # kubernetesIngressNginx:
+  #   enabled: true
+  #   watchIngressWithoutClass: true
+  #   publishService:
+  #     enabled: true
+
+# service:
+#   spec:
+#     type: ClusterIP
+
+updateStrategy:
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: ~
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+log:
+  level: INFO
+
+accessLog:
+  enabled: true
+
+metrics:
+  prometheus:
+    enabled: true
+
+gateway:
+  defaultScope: All
+  listeners:
+    web:
+      port: 8000
+      hostname: localhost
+      protocol: HTTP
+      namespacePolicy:
+        from: All
+
+# extraObjects:
+#   - apiVersion: networking.k8s.io/v1
+#     kind: IngressClass
+#     metadata:
+#       name: nginx
+#       annotations:
+#         ingressclass.kubernetes.io/is-default-class: "true"
+#     spec:
+#       controller: k8s.io/ingress-nginx

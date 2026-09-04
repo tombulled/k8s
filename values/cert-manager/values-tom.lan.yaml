@@ -1,0 +1,21 @@
+ingressShim:
+  defaultIssuerName: hawk-acme
+  defaultIssuerKind: ClusterIssuer
+  defaultIssuerGroup: "cert-manager.io"
+
+extraObjects:
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: hawk-acme
+    spec:
+      acme:
+        server: https://ca.tom.lan/acme/acme/directory
+        caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJjekNDQVJtZ0F3SUJBZ0lRTVdaWjg2YSt5dm1Rb2VMUzRnTS80akFLQmdncWhrak9QUVFEQWpBWE1SVXcKRXdZRFZRUURFd3hJWVhkcklGSnZiM1FnUTBFd0lCY05NalV4TWpBM01qRXhOREUwV2hnUE1qRXlOVEV4TVRNeQpNVEUwTVRSYU1CY3hGVEFUQmdOVkJBTVRERWhoZDJzZ1VtOXZkQ0JEUVRCWk1CTUdCeXFHU000OUFnRUdDQ3FHClNNNDlBd0VIQTBJQUJLQlMxNE9nRGI3S0hMV2ppTXJJRkM3eUtJMVdBV245Tyt6OTBmOUZzQ2ZUUTZtYXIzZ2EKNE9reEtaZUszVTN4M1RHOUdSL1gza3FOc3BaUlhCTmI1UytqUlRCRE1BNEdBMVVkRHdFQi93UUVBd0lCQmpBUwpCZ05WSFJNQkFmOEVDREFHQVFIL0FnRUJNQjBHQTFVZERnUVdCQlRwdWZGN0RRVG1hakIwZHVmUFdKMDlKTmhOCkZEQUtCZ2dxaGtqT1BRUURBZ05JQURCRkFpRUFrUXBIRzljZDB0alJveXBKZ3ZOdThDbXN2UGFLMTY2VkJYWksKSEN0OUIySUNJQ0pGL2cvU0Qva0wwTENKMGc3WmxIMHJkVEZZQzIxVXhERWM4cjRkek1YZwotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+        privateKeySecretRef:
+          name: hawk-acme-account-key
+        solvers:
+          - http01:
+              ingress:
+                ingressClassName: nginx

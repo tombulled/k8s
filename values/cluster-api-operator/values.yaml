@@ -1,0 +1,31 @@
+core:
+  cluster-api:
+    namespace: capi-system
+    createNamespace: false
+
+bootstrap:
+  kubeadm:
+    namespace: capi-kubeadm-bootstrap-system
+    createNamespace: false
+
+controlPlane:
+  kubeadm:
+    namespace: capi-kubeadm-control-plane-system
+    createNamespace: false
+
+infrastructure:
+  metal3:
+    namespace: capm3-system
+    createNamespace: false
+
+addon: {}
+  # helm:
+  #   namespace: caaph-system
+  #   createNamespace: false
+
+ipam:
+  metal3:
+    namespace: metal3-ipam-system
+    createNamespace: false
+
+enableHelmHook: false

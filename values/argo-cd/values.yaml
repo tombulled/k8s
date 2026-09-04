@@ -1,0 +1,74 @@
+fullnameOverride: argocd
+
+dex:
+  enabled: false
+
+configs:
+  secret:
+    # Whether to create the argocd-secret
+    createSecret: false
+
+  params:
+    server.insecure: true
+    server.rootpath: "/argo-cd"
+    server.basehref: "/argo-cd"
+
+    application.namespaces: "*"
+    applicationsetcontroller.namespaces: "*"
+    applicationsetcontroller.allowed.scm.providers: git@github.com:tombulled/k8s.git
+    applicationsetcontroller.tokenref.strict.mode: "true"
+
+    # ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git-File-Globbing/
+    applicationsetcontroller.enable.new.git.file.globbing: "true"
+
+  cm:
+    url: http://localhost/argo-cd/
+    globalProjects: |-
+      - labelSelector: {}
+        projectName: global
+
+server:
+  httproute:
+    enabled: true
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: traefik-gateway
+        namespace: traefik
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /argo-cd
+
+applicationSet:
+  allowAnyNamespace: true
+
+extraObjects:
+  - apiVersion: bitnami.com/v1alpha1
+    kind: SealedSecret
+    metadata:
+      name: argocd-secret
+      namespace: argocd
+    spec:
+      encryptedData:
+        admin.password: AgBkXztXnL+1bIRPWoHDDAibgsqN1wWON8sjEZnUDxs0nirN0CXbhtuyLMYB/CEDnVx/ALqL2CIvqrZT4d7ZuqjNZPKSpXxlNew9YYStM/cOGF/7uFfbXVi6JYCL3HJ+gbtaQ1+3CvrPP91logCcOE4Hrdd45fSYPN0FrDeIeZSx2DGZOyzsDDl/gwtFWXrBYkElYPLoepV5i51O2hZFDhcqAtVkE5c112tGPCR30m7x3rXV+pG3sGusiugxNPQWNZP+QbDMmiO8uk2Tjfux5+O32h4CCNEKFNt+hwiQZahh87GbshHi517xMJ4e4sfmlYBthZDeVYD/U342Sy/2h0yW34lmyFA3P4zYZyOCaVj5Q1BZjMmJ+iGcFcUostQNDKDKfCOKv0t8j426be7T008IWZkTFDbA4NORVn5m+1YE1C+cyQ2Yv3MIJaSt+qXnJ3OW8ksswkMkj4O1W8cPZ4IGaCnpxktNVYQ1A+BwUWMxUTnPKoOnEduar0pTa/0fGyPVR/NIqvD9s6HaJZeTQN23BfIYd8Rn6TdUxX2yhv7d6fDKv4K845VjMWoBOuHDg6i8EKdDsM43KWKX3aCsxOl5trQznIRqo45uXC1QopUp0+IGEICL1ooutHCk9OVM/Qkc8P2MA3oTkP4UiEjIHdrMXTDPNfxClW1ev4dDptdbIqDDP5H99GLHHiF9jvt3EqUUAYxZVKFGIsT3KpEdbQXJR/n2Y0XnWZQgjB7QZDAB46MbMzBj/Jcj8GDNjslN3WUa4yhqMSIcjOi2hpw=
+  # Remove all permissions from the `default` project.
+  # Reference: https://argo-cd.readthedocs.io/en/stable/user-guide/projects/#the-default-project
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: default
+    spec:
+      description: "Default Project"
+      sourceRepos: []
+      sourceNamespaces: []
+      destinations: []
+      clusterResourceWhitelist: []
+      clusterResourceBlacklist:
+        - group: '*'
+          kind: '*'
+      namespaceResourceWhitelist: []
+      namespaceResourceBlacklist:
+        - group: '*'
+          kind: '*'

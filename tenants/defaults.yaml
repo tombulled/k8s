@@ -142,9 +142,9 @@ applicationDefaults:
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
-          - $values/{{$id}}/values.yaml
-          - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-          - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+          - $values/values/{{$id}}/values.yaml
+          - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
+          - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
     extras:
       $enabled: false
       repoURL: git@github.com:tombulled/k8s.git
@@ -153,11 +153,11 @@ applicationDefaults:
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
-          - $values/{{$id}}/values.yaml
-          - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-          - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+          - $values/values/{{$id}}/values.yaml
+          - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
+          - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
     values:
-      repoURL: git@github.com:tombulled/values.git
+      repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
 
 xApplicationSetDefaults:
@@ -183,21 +183,21 @@ xApplicationSetDefaults:
       main:
         helm:
           valueFiles:
-            - $values/{{$id}}/values.yaml
-            - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{$id}}/values.yaml
+            - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
       extras:
         helm:
           valueFiles:
-            - $values/{{$id}}/values.yaml
-            - $values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/{{$id}}/values-{{$metadata.clusterId}}.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{$id}}/values.yaml
+            - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
 
 xApplicationSets:
   main:
@@ -213,12 +213,12 @@ xApplicationSets:
         main:
           helm:
             valueFiles:
-              - $values/{{ `{{$id}}` }}/values.yaml
-              - $values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+              - $values/values/{{ `{{$id}}` }}/values.yaml
+              - $values/values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+              - $values/values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
         extras:
           helm:
             valueFiles:
-              - $values/{{ `{{$id}}` }}/values.yaml
-              - $values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+              - $values/values/{{ `{{$id}}` }}/values.yaml
+              - $values/values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+              - $values/values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
