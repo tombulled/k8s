@@ -30,6 +30,18 @@ projects:
     destinations:
       - name: in-cluster
         namespace: "*"
+  global:
+    description: "Global Project"
+    syncWindows: []
+#     syncWindows:
+#     - andOperator: true
+#       applications:
+#       - '*'
+#       duration: 1h
+#       kind: deny
+#       manualSync: true
+#       schedule: '* * * * *'
+#       timeZone: UTC
 
 applicationDefaults:
   finalizers:
