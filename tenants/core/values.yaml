@@ -11,13 +11,13 @@ namespaceDefaults:
 
 projects:
   main:
-    destinationsObject:
-      all:
-        namespace: "*"
+    destinations:
+      - namespace: "*"
         name: in-cluster
-    clusterResourceWhitelistObject:
-      all:
-        $enabled: true
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    namespaceResourceBlacklist: []
 
 namespaces:
   main: ~

@@ -13,20 +13,13 @@ projectDefaults:
   sourceRepos:
     - "*"
   description: "Project owned by tenant: {{$metadata.tenant}}"
-  clusterResourceWhitelistObject:
-    all:
-      $enabled: false
-      group: "*"
-      kind: "*"
-  namespaceResourceBlacklistObject:
-    resource-quota:
-      group: ""
+  clusterResourceWhitelist: []
+  namespaceResourceBlacklist:
+    - group: ""
       kind: ResourceQuota
-    limit-range:
-      group: ""
+    - group: ""
       kind: LimitRange
-    application-set:
-      group: "argoproj.io"
+    - group: "argoproj.io"
       kind: ApplicationSet
   rolesObject:
     read-apps:
@@ -54,14 +47,11 @@ projects:
     name: "{{$metadata.tenant}}"
     sourceNamespaces:
       - "{{$metadata.tenant}}"
-    destinationsObject:
-      in-cluster:
+    destinations:
+      - name: in-cluster
+      - namespace: "{{$metadata.tenant}}"
         name: in-cluster
-      main:
-        namespace: "{{$metadata.tenant}}"
-        name: in-cluster
-      prefixed:
-        namespace: "{{$metadata.tenant}}-*"
+      - namespace: "{{$metadata.tenant}}-*"
         name: in-cluster
 
 namespaceDefaults:

@@ -8,3 +8,4 @@ projects:
     clusterResourceWhitelist:
       - group: "*"
         kind: "*"
+    namespaceResourceBlacklist: []
