@@ -32,16 +32,16 @@ projects:
         namespace: "*"
   global:
     description: "Global Project"
-    syncWindows: []
-#     syncWindows:
-#     - andOperator: true
-#       applications:
-#       - '*'
-#       duration: 1h
-#       kind: deny
-#       manualSync: true
-#       schedule: '* * * * *'
-#       timeZone: UTC
+    # syncWindows: []
+    syncWindows:
+      - kind: deny
+        schedule: "* * * * *"
+        timeZone: UTC
+        duration: 1h
+        manualSync: true
+        description: "some desc"
+        applications:
+          - "*"
 
 applicationDefaults:
   finalizers:
