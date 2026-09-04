@@ -95,6 +95,7 @@ xApplicationSets:
             - values-{{$metadata.clusterId}}.yaml
 #           values:
 #             directory: "{{ `{{.path.path}}` }}"
+          id: '.path.segments | rest | join "-"'
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
