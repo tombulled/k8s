@@ -1,8 +1,5 @@
 $enabled: true
 
-defaults:
-  $role: some-role
-
 projects:
   main:
     destinations:
@@ -13,6 +10,51 @@ projects:
         kind: "*"
     namespaceResourceBlacklist: []
 
-
-role:
-  name: '{{ print "oidc:" $role }}'
+xApplicationSets:
+  sub-tenants:
+    name: "{{$metadata.tenant}}-{{$id}}"
+    namespace: argocd
+    template:
+      spec:
+        project: tenants
+    generators: []
+#     generatorsObject:
+#       main:
+#         x-git:
+#           repoURL: git@github.com:tombulled/k8s.git
+#           revision: HEAD
+#           directories:
+#             - path: "tenants/*"
+#           valueFiles:
+#             - values.yaml
+#             - values-type-{{$metadata.clusterType}}.yaml
+#             - values-{{$metadata.clusterId}}.yaml
+#     defaults:
+#       $enabled: false
+#       name: "tenant-{{ `{{$id}}` }}"
+#       sourcesObject:
+#         main:
+#           repoURL: git@github.com:tombulled/tenant.git
+#           targetRevision: main
+#           path: tenant
+#           helm:
+#             valueFiles:
+#               - "$k8s/tenants/defaults.yaml"
+#               - "$k8s/tenants/defaults-type-{{$metadata.clusterType}}.yaml"
+#               - "$k8s/tenants/defaults-{{$metadata.clusterId}}.yaml"
+#               - "$k8s/tenants/{{ `{{$id}}` }}/values.yaml"
+#               - "$k8s/tenants/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml"
+#               - "$k8s/tenants/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml"
+#             valuesObject:
+#               defaults:
+#                 $metadata:
+#                   tenant: "{{ `{{$id}}` }}"
+#                   clusterId: "{{$metadata.clusterId}}"
+#                   clusterType: "{{$metadata.clusterType}}"
+#         k8s:
+#           repoURL: git@github.com:tombulled/k8s.git
+#           targetRevision: main
+#       syncPolicy:
+#         automated:
+#           prune: false
+#           selfHeal: true
