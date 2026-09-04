@@ -1,0 +1,3 @@
+args:
+  - --uri
+  - amqp://default_user_tmH3KkzSJ1ppGCeJb-Z:F8z056QTE2A0-DVnujFXx5BGg-4D70WN@rabbitmq-cluster.test-rabbitmq
