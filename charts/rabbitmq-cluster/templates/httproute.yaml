@@ -1,6 +1,6 @@
 {{- if .Values.httpRoute.enabled -}}
 {{- $fullName := include "rabbitmq-cluster.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $svcPort := 15672 -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
