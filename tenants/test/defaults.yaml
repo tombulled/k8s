@@ -1,0 +1,9 @@
+projects:
+  main:
+    destinations:
+      - namespace: "*"
+        name: in-cluster
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    namespaceResourceBlacklist: []
