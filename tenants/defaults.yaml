@@ -166,6 +166,17 @@ xApplicationSetDefaults:
       project: "{{$metadata.tenant}}"
   syncPolicy:
     preserveResourcesOnDeletion: false
+  generatorsObject:
+    main:
+      x-git:
+        repoURL: git@github.com:tombulled/k8s.git
+        revision: HEAD
+        directories:
+          - path: "apps/{{$metadata.tenant}}/{{$id}}/*"
+        valueFiles:
+          - values.yaml
+          - values-type-{{$metadata.clusterType}}.yaml
+          - values-{{$metadata.clusterId}}.yaml
 
 xApplicationSets:
   main:
@@ -173,11 +184,9 @@ xApplicationSets:
     generatorsObject:
       main:
         x-git:
-          repoURL: git@github.com:tombulled/k8s.git
-          revision: HEAD
           directories:
             - path: "apps/{{$metadata.tenant}}/*"
-          valueFiles:
-            - values.yaml
-            - values-type-{{$metadata.clusterType}}.yaml
-            - values-{{$metadata.clusterId}}.yaml
+#           valueFiles:
+#             - values.yaml
+#             - values-type-{{$metadata.clusterType}}.yaml
+#             - values-{{$metadata.clusterId}}.yaml
