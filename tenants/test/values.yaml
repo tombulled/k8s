@@ -17,18 +17,17 @@ xApplicationSets:
     template:
       spec:
         project: tenants
-    generators: []
-#     generatorsObject:
-#       main:
-#         x-git:
-#           repoURL: git@github.com:tombulled/k8s.git
-#           revision: HEAD
-#           directories:
-#             - path: "tenants/*"
-#           valueFiles:
-#             - values.yaml
-#             - values-type-{{$metadata.clusterType}}.yaml
-#             - values-{{$metadata.clusterId}}.yaml
+    generatorsObject:
+      main:
+        x-git:
+          repoURL: git@github.com:tombulled/k8s.git
+          revision: HEAD
+          directories:
+            - path: "tenants/{{$metadata.tenant}}/*"
+          valueFiles:
+            - values.yaml
+            - values-type-{{$metadata.clusterType}}.yaml
+            - values-{{$metadata.clusterId}}.yaml
 #     defaults:
 #       $enabled: false
 #       name: "tenant-{{ `{{$id}}` }}"
