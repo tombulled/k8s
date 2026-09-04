@@ -1,5 +1,11 @@
 $enabled: true
 
+namespaceDefaults:
+  name: "{{$id}}"
+
+namespaces:
+  rabbitmq-system: {}
+
 applicationDefaults:
   destination:
     namespace: rabbitmq-system
