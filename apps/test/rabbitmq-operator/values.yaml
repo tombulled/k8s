@@ -1,9 +1,8 @@
-# destination:
-#   namespace: "{{$metadata.tenant}}-ironic"
+destination:
+  namespace: rabbitmq-system
 
 sourcesObject:
   main:
     repoURL: git@github.com:tombulled/k8s.git
     path: charts/rabbitmq-operator
     targetRevision: main
-#     helm: ~
