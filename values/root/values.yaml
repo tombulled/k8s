@@ -85,10 +85,6 @@ applications:
 xApplicationSets:
   tenants:
     template:
-      metadata:
-        annotations:
-          dir: "{{ `{{ index .path.segments 1 }}` }}"
-          path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
       spec:
         project: tenants
     generatorsObject:
@@ -110,9 +106,6 @@ xApplicationSets:
     defaults:
       $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
-      annotations:
-        dir: "{{ `{{ .values.dir }}` }}"
-        path: "{{ `{{ .values.path }}` }}"
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
