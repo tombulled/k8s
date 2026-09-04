@@ -25,6 +25,9 @@ projectDefaults:
     limit-range:
       group: ""
       kind: LimitRange
+    application-set:
+      group: "argoproj.io"
+      kind: ApplicationSet
   rolesObject:
     read-apps:
       $enabled: false
