@@ -77,6 +77,8 @@ xApplicationSets:
       metadata:
         annotations:
           path: "{{ `{{.path | toJson}}` }}"
+          root-dir: "{{ `{{ index .path.segments 1 }}` }}"
+          nested-dir: "{{ `{{ index .path.basename }}` }}"
       spec:
         project: tenants
     generatorsObject:
