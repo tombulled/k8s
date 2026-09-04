@@ -179,6 +179,19 @@ xApplicationSetDefaults:
           - values-{{$metadata.clusterId}}.yaml
   defaults:
     name: "{{$id}}-{{ `{{$id}}` }}"
+    sourcesObject:
+      main:
+        helm:
+          valueFiles:
+            - $values/{{$id}}/{{ `{{$id}}` }}/values.yaml
+            - $values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+      extras:
+        helm:
+          valueFiles:
+            - $values/{{$id}}/{{ `{{$id}}` }}/values.yaml
+            - $values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
+            - $values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
 
 xApplicationSets:
   main:
