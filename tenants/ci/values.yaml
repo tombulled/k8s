@@ -1,4 +1,10 @@
 $enabled: true
 
 xApplicationSets:
-  gitlab-runners: {}
+  gitlab-runners:
+    defaults:
+      sourcesObject:
+        main:
+          repoURL: http://charts.gitlab.io/
+          chart: gitlab-runner
+          targetRevision: 0.92.1
