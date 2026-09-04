@@ -81,7 +81,7 @@ xApplicationSets:
 #           nested-dir: "{{ `{{ index .path.basename }}` }}"
 #           id: '{{ `{{ .path.segments | rest | join "-" }}` }}'
           path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
-          base-path: '{{ `{{ .path.segments | slice 0 2 | join "/" }}` }}'
+          base-path: '{{ `{{ slice .path.segments 0 2 | join "/" }}` }}'
       spec:
         project: tenants
     generatorsObject:
