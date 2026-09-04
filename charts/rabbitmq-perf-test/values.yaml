@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: pivotalrabbitmq/perf-test
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
