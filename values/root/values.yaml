@@ -104,7 +104,6 @@ xApplicationSets:
             path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
           id: '.path.segments | rest | join "-"'
     defaults:
-      $enabled: false
       name: "tenant-{{ `{{$id}}` }}"
       sourcesObject:
         main:
