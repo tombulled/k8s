@@ -79,6 +79,7 @@ xApplicationSets:
           path: "{{ `{{.path | toJson}}` }}"
           root-dir: "{{ `{{ index .path.segments 1 }}` }}"
           nested-dir: "{{ `{{ index .path.basename }}` }}"
+          id: '{{ `{{ .path.segments | rest | join "-" }}` }}'
       spec:
         project: tenants
     generatorsObject:
