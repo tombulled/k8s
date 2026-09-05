@@ -3,13 +3,13 @@ defaults:
     clusterId: ""
     clusterType: ""
 
-projectDefaults:
+appProjectDefaults:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 
-projects:
+appProjects:
   root:
     description: "Root Project"
     sourceRepos:
