@@ -32,15 +32,15 @@ projects:
         namespace: "*"
   global:
     description: "Global Project"
-    # syncWindows:
-    #   - kind: deny
-    #     schedule: "* * * * *"
-    #     timeZone: UTC
-    #     duration: 1h
-    #     manualSync: true
-    #     description: "All apps sync windowed for cluster maintenance."
-    #     applications:
-    #       - "*"
+    syncWindows:
+      - kind: deny
+        schedule: "* * * * *"
+        timeZone: UTC
+        duration: 1h
+        manualSync: true
+        description: "All apps sync windowed for cluster maintenance."
+        applications:
+          - "*"
 
 applicationDefaults:
   finalizers:
