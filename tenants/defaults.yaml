@@ -48,8 +48,7 @@ projects:
     sourceNamespaces:
       - "{{$metadata.tenant}}"
     destinations:
-      - namespace: null
-        name: in-cluster
+      - name: in-cluster
       - namespace: "{{$metadata.tenant}}"
         name: in-cluster
       - namespace: "{{$metadata.tenant}}-*"
