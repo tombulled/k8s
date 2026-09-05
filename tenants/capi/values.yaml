@@ -1,4 +1,4 @@
-projects:
+appProjects:
   main:
     clusterResourceWhitelist:
       - group: rbac.authorization.k8s.io

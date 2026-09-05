@@ -3,13 +3,13 @@ $enabled: true
 defaults:
   namespace: argocd
 
-projectDefaults:
+appProjectDefaults:
   name: "{{$id}}"
 
 namespaceDefaults:
   name: "{{$id}}"
 
-projects:
+appProjects:
   main:
     destinations:
       - namespace: "*"

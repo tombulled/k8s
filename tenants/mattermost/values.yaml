@@ -1,6 +1,6 @@
 $enabled: false
 
-projects:
+appProjects:
   main:
     destinations:
       - namespace: "*"

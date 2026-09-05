@@ -3,7 +3,7 @@ defaults:
     tenant: ""
   namespace: "{{$metadata.tenant}}"
 
-projectDefaults:
+appProjectDefaults:
   name: "{{$metadata.tenant}}-{{$id}}"
   namespace: argocd
   annotations:
@@ -40,7 +40,7 @@ projectDefaults:
         - p, proj:{{.name}}:admin, *, *, {{.name}}/*, allow
       groups: []
 
-projects:
+appProjects:
   main:
     name: "{{$metadata.tenant}}"
     sourceNamespaces:
