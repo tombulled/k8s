@@ -166,7 +166,7 @@ xApplicationSetDefaults:
       project: "{{$metadata.tenant}}"
   syncPolicy:
     preserveResourcesOnDeletion: false
-  generatorsObject:
+  generators:
     main:
       x-git:
         repoURL: git@github.com:tombulled/k8s.git
