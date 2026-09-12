@@ -202,7 +202,7 @@ xApplicationSetDefaults:
 xApplicationSets:
   main:
     name: "{{$metadata.tenant}}"
-    generatorsObject:
+    generators:
       main:
         x-git:
           directories:
