@@ -87,7 +87,7 @@ xApplicationSets:
     template:
       spec:
         project: tenants
-    generatorsObject:
+    generators:
       main:
         x-git:
           repoURL: git@github.com:tombulled/k8s.git
