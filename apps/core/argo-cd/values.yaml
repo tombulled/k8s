@@ -7,7 +7,7 @@ sourcesObject:
   main:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
-    targetRevision: 10.7.2
+    targetRevision: 10.9.2
 
 syncPolicy:
   syncOptionsObject:
