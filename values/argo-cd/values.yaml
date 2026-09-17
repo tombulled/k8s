@@ -14,8 +14,8 @@ configs:
 
   params:
     server.insecure: true
-    server.rootpath: "/argo-cd"
-    server.basehref: "/argo-cd"
+#     server.rootpath: "/argo-cd"
+#     server.basehref: "/argo-cd"
 
     application.namespaces: "*"
     applicationsetcontroller.namespaces: "*"
@@ -26,7 +26,7 @@ configs:
     applicationsetcontroller.enable.new.git.file.globbing: "true"
 
   cm:
-    url: http://localhost/argo-cd/
+#     url: http://localhost/argo-cd/
     globalProjects: |-
       - labelSelector: {}
         projectName: global
