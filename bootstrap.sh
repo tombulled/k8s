@@ -7,7 +7,7 @@ K3D_FIX_DNS=1 k3d cluster create --config cluster.yaml
 helm install \
     gateway-api-crds \
     charts/gateway-api-crds \
-    -f ../values/gateway-api-crds/values.yaml
+    -f values/gateway-api-crds/values.yaml
 
 # 3. Install Sealed Secrets
 kubectl create namespace sealed-secrets
@@ -18,16 +18,16 @@ helm install \
     --version 2.18.5 \
     --repo https://bitnami.github.io/sealed-secrets/ \
     -n sealed-secrets \
-    -f ../values/sealed-secrets/values.yaml
+    -f values/sealed-secrets/values.yaml
 
 # 4. Install ArgoCD
 helm install \
     argo-cd \
     argo-cd \
-    --version 9.7.0 \
+    --version 10.9.2 \
     --repo https://argoproj.github.io/argo-helm \
     -n argocd \
-    -f ../values/argo-cd/values.yaml \
+    -f values/argo-cd/values.yaml \
     --create-namespace
 
 # 5. Install ArgoCD Repo Credential (Not managed via Sealed Secrets for now as the keys are public)
@@ -35,4 +35,4 @@ kubectl -n argocd create secret generic github-ssh --from-literal=url=git@github
 kubectl -n argocd label secret github-ssh argocd.argoproj.io/secret-type=repo-creds
 
 # 6. Install Root App
-kubectl apply -f root.yaml
+./create-root.sh | kubectl apply -f -
