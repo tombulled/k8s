@@ -1,10 +1,10 @@
 defaults:
-  $metadata:
+  metadata:
     tenant: ""
-  namespace: "{{$metadata.tenant}}"
+  namespace: "{{.metadata.tenant}}"
 
 appProjectDefaults:
-  name: "{{$metadata.tenant}}-{{$id}}"
+  name: "{{.metadata.tenant}}-{{.id}}"
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
@@ -12,7 +12,7 @@ appProjectDefaults:
     - resources-finalizer.argocd.argoproj.io
   sourceRepos:
     - "*"
-  description: "Project owned by tenant \"{{$metadata.tenant}}\""
+  description: "Project owned by tenant \"{{.metadata.tenant}}\""
   clusterResourceWhitelist: []
   namespaceResourceBlacklist:
     - group: ""
@@ -21,20 +21,20 @@ appProjectDefaults:
       kind: LimitRange
   rolesObject:
     read-apps:
-      $enabled: false
+      enabled: false
       description: Read-apps privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:read-apps, applications, get, {{.name}}/*, allow
         - p, proj:{{.name}}:read-apps, applicationsets, get, {{.name}}/*, allow
       groups: []
     read-all:
-      $enabled: false
+      enabled: false
       description: Read-all privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:read-all, *, get, {{.name}}/*, allow
       groups: []
     admin:
-      $enabled: false
+      enabled: false
       description: Admin privileges for {{.name}}
       policies:
         - p, proj:{{.name}}:admin, *, *, {{.name}}/*, allow
@@ -42,25 +42,25 @@ appProjectDefaults:
 
 appProjects:
   main:
-    name: "{{$metadata.tenant}}"
+    name: "{{.metadata.tenant}}"
     sourceNamespaces:
-      - "{{$metadata.tenant}}"
+      - "{{.metadata.tenant}}"
     destinations:
       - name: in-cluster
-      - namespace: "{{$metadata.tenant}}"
+      - namespace: "{{.metadata.tenant}}"
         name: in-cluster
-      - namespace: "{{$metadata.tenant}}-*"
+      - namespace: "{{.metadata.tenant}}-*"
         name: in-cluster
 
 namespaceDefaults:
-  name: "{{$metadata.tenant}}-{{$id}}"
+  name: "{{.metadata.tenant}}-{{.id}}"
   annotations:
     argocd.argoproj.io/sync-options: Delete=confirm,Prune=confirm
 
   resources:
     networkPolicies:
       default-deny-all:
-        $enabled: false
+        enabled: false
         podSelector: {}
         policyTypes:
           - Ingress
@@ -75,7 +75,7 @@ namespaceDefaults:
           - Ingress
           - Egress
       default-allow-dns:
-        $enabled: false
+        enabled: false
         podSelector: {}
         policyTypes:
           - Egress
@@ -93,14 +93,14 @@ namespaceDefaults:
 
     resourceQuotas:
       compute-resources:
-        $enabled: false
+        enabled: false
         hard:
           requests.cpu: "1"
           requests.memory: "1Gi"
           limits.cpu: "2"
           limits.memory: "2Gi"
       object-counts:
-        $enabled: false
+        enabled: false
         hard:
           configmaps: "10"
           persistentvolumeclaims: "4"
@@ -112,7 +112,7 @@ namespaceDefaults:
 
     limitRanges:
       compute-resources:
-        $enabled: false
+        enabled: false
         limits:
         - defaultRequest:
             cpu: 100m
@@ -124,15 +124,15 @@ namespaceDefaults:
 
 namespaces:
   main:
-    name: "{{$metadata.tenant}}"
+    name: "{{.metadata.tenant}}"
 
 applicationDefaults:
-  project: "{{$metadata.tenant}}"
+  project: "{{.metadata.tenant}}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   destination:
     name: in-cluster
-    namespace: "{{$metadata.tenant}}"
+    namespace: "{{.metadata.tenant}}"
   syncPolicy:
     automated:
       prune: true
@@ -142,20 +142,20 @@ applicationDefaults:
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
-          - $values/values/{{$id}}/values.yaml
-          - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-          - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+          - $values/values/{{.id}}/values.yaml
+          - $values/values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+          - $values/values/{{.id}}/values-{{.metadata.clusterId}}.yaml
     extras:
-      $enabled: false
+      enabled: false
       repoURL: git@github.com:tombulled/k8s.git
       path: charts/extras
       targetRevision: main
       helm:
         ignoreMissingValueFiles: true
         valueFiles:
-          - $values/values/{{$id}}/values.yaml
-          - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-          - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
+          - $values/values/{{.id}}/values.yaml
+          - $values/values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+          - $values/values/{{.id}}/values-{{.metadata.clusterId}}.yaml
     values:
       repoURL: git@github.com:tombulled/k8s.git
       targetRevision: main
@@ -163,7 +163,7 @@ applicationDefaults:
 xApplicationSetDefaults:
   template:
     spec:
-      project: "{{$metadata.tenant}}"
+      project: "{{.metadata.tenant}}"
   syncPolicy:
     preserveResourcesOnDeletion: false
   generators:
@@ -172,53 +172,53 @@ xApplicationSetDefaults:
         repoURL: git@github.com:tombulled/k8s.git
         revision: HEAD
         directories:
-          - path: "apps/{{$metadata.tenant}}/{{$id}}/*"
+          - path: "apps/{{.metadata.tenant}}/{{.id}}/*"
         valueFiles:
           - values.yaml
-          - values-type-{{$metadata.clusterType}}.yaml
-          - values-{{$metadata.clusterId}}.yaml
+          - values-type-{{.metadata.clusterType}}.yaml
+          - values-{{.metadata.clusterId}}.yaml
   defaults:
-    name: "{{$id}}-{{ `{{$id}}` }}"
+    name: "{{.id}}-{{ `{{.id}}` }}"
     sourcesObject:
       main:
         helm:
           valueFiles:
-            - $values/values/{{$id}}/values.yaml
-            - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{.id}}/values.yaml
+            - $values/values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+            - $values/values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml
       extras:
         helm:
           valueFiles:
-            - $values/values/{{$id}}/values.yaml
-            - $values/values/{{$id}}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/values/{{$id}}/values-{{$metadata.clusterId}}.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-            - $values/values/{{$id}}/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+            - $values/values/{{.id}}/values.yaml
+            - $values/values/{{.id}}/values-type-{{.metadata.clusterType}}.yaml
+            - $values/values/{{.id}}/values-{{.metadata.clusterId}}.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml
+            - $values/values/{{.id}}/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml
 
 xApplicationSets:
   main:
-    name: "{{$metadata.tenant}}"
+    name: "{{.metadata.tenant}}"
     generators:
       main:
         x-git:
           directories:
-            - path: "apps/{{$metadata.tenant}}/*"
+            - path: "apps/{{.metadata.tenant}}/*"
     defaults:
-      name: "{{ `{{$id}}` }}"
+      name: "{{ `{{.id}}` }}"
       sourcesObject:
         main:
           helm:
             valueFiles:
-              - $values/values/{{ `{{$id}}` }}/values.yaml
-              - $values/values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+              - $values/values/{{ `{{.id}}` }}/values.yaml
+              - $values/values/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml
+              - $values/values/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml
         extras:
           helm:
             valueFiles:
-              - $values/values/{{ `{{$id}}` }}/values.yaml
-              - $values/values/{{ `{{$id}}` }}/values-type-{{$metadata.clusterType}}.yaml
-              - $values/values/{{ `{{$id}}` }}/values-{{$metadata.clusterId}}.yaml
+              - $values/values/{{ `{{.id}}` }}/values.yaml
+              - $values/values/{{ `{{.id}}` }}/values-type-{{.metadata.clusterType}}.yaml
+              - $values/values/{{ `{{.id}}` }}/values-{{.metadata.clusterId}}.yaml

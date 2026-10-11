@@ -1,13 +1,13 @@
-$enabled: true
+enabled: true
 
 defaults:
   namespace: argocd
 
 appProjectDefaults:
-  name: "{{$id}}"
+  name: "{{.id}}"
 
 namespaceDefaults:
-  name: "{{$id}}"
+  name: "{{.id}}"
 
 appProjects:
   main:
@@ -33,11 +33,11 @@ namespaces:
 
 applicationDefaults:
   destination:
-    namespace: "{{$id}}"
+    namespace: "{{.id}}"
 
 networkPolicyDefaults:
-  $enabled: false
+  enabled: false
 resourceQuotaDefaults:
-  $enabled: false
+  enabled: false
 limitRangeDefaults:
-  $enabled: false
+  enabled: false
