@@ -1,5 +1,5 @@
 defaults:
-  $metadata:
+  metadata:
     clusterId: ""
     clusterType: ""
 
@@ -69,11 +69,11 @@ applications:
         helm:
           valueFiles:
             - $k8s/values/root/values.yaml
-            - $k8s/values/root/values-type-{{$metadata.clusterType}}.yaml
-            - $k8s/values/root/values-{{$metadata.clusterId}}.yaml
+            - $k8s/values/root/values-type-{{.metadata.clusterType}}.yaml
+            - $k8s/values/root/values-{{.metadata.clusterId}}.yaml
           values: |
             defaults:
-              $metadata: {{ $metadata | toJson }}
+              metadata: {{ .metadata | toJson }}
       k8s:
         repoURL: git@github.com:tombulled/k8s.git
         targetRevision: main
@@ -97,15 +97,15 @@ xApplicationSets:
             - path: "tenants/*/*"
           valueFiles:
             - values.yaml
-            - values-type-{{$metadata.clusterType}}.yaml
-            - values-{{$metadata.clusterId}}.yaml
+            - values-type-{{.metadata.clusterType}}.yaml
+            - values-{{.metadata.clusterId}}.yaml
           values:
             dir: "{{ `{{ index .path.segments 1 }}` }}"
             path: '{{ `{{ .path.segments | rest | join "/" }}` }}'
           id: '.path.segments | rest | join "-"'
     defaults:
-      $enabled: false
-      name: "tenant-{{ `{{$id}}` }}"
+      enabled: false
+      name: "tenant-{{ `{{.id}}` }}"
       sourcesObject:
         main:
           repoURL: git@github.com:tombulled/tenant.git
@@ -114,20 +114,20 @@ xApplicationSets:
           helm:
             valueFiles:
               - "$k8s/tenants/defaults.yaml"
-              - "$k8s/tenants/defaults-type-{{$metadata.clusterType}}.yaml"
-              - "$k8s/tenants/defaults-{{$metadata.clusterId}}.yaml"
+              - "$k8s/tenants/defaults-type-{{.metadata.clusterType}}.yaml"
+              - "$k8s/tenants/defaults-{{.metadata.clusterId}}.yaml"
               - "$k8s/tenants/{{ `{{.values.dir}}` }}/defaults.yaml"
-              - "$k8s/tenants/{{ `{{.values.dir}}` }}/defaults-type-{{$metadata.clusterType}}.yaml"
-              - "$k8s/tenants/{{ `{{.values.dir}}` }}/defaults-{{$metadata.clusterId}}.yaml"
+              - "$k8s/tenants/{{ `{{.values.dir}}` }}/defaults-type-{{.metadata.clusterType}}.yaml"
+              - "$k8s/tenants/{{ `{{.values.dir}}` }}/defaults-{{.metadata.clusterId}}.yaml"
               - "$k8s/tenants/{{ `{{.values.path}}` }}/values.yaml"
-              - "$k8s/tenants/{{ `{{.values.path}}` }}/values-type-{{$metadata.clusterType}}.yaml"
-              - "$k8s/tenants/{{ `{{.values.path}}` }}/values-{{$metadata.clusterId}}.yaml"
+              - "$k8s/tenants/{{ `{{.values.path}}` }}/values-type-{{.metadata.clusterType}}.yaml"
+              - "$k8s/tenants/{{ `{{.values.path}}` }}/values-{{.metadata.clusterId}}.yaml"
             valuesObject:
               defaults:
-                $metadata:
-                  tenant: "{{ `{{$id}}` }}"
-                  clusterId: "{{$metadata.clusterId}}"
-                  clusterType: "{{$metadata.clusterType}}"
+                metadata:
+                  tenant: "{{ `{{.id}}` }}"
+                  clusterId: "{{.metadata.clusterId}}"
+                  clusterType: "{{.metadata.clusterType}}"
         k8s:
           repoURL: git@github.com:tombulled/k8s.git
           targetRevision: main
@@ -136,56 +136,56 @@ xApplicationSets:
           prune: false
           selfHeal: true
 
-applicationSet:
-  name: tenants2
-  goTemplate: true
-  generators:
-    - matrix:
-        generators:
-          - matrix:
-              generators:
-                - list:
-                    elements:
-                      - VALUES: {}
-                - list:
-                    elements:
-                      - app:
-                          name: foo
-                      - app:
-                          name: bar
-                      - app:
-                          name: baz
-          - list:
-              elements:
-                - INDEX: "{{ `{{ len .VALUES | toString }}` }}"
-                  VALUES: "{{ `{{ set .VALUES (uuidv4) (omit . \"VALUES\") }}` }}"
-      selector:
-        matchLabels:
-          INDEX: "1"
-  template:
-    metadata:
-      name: tenants2
-    spec:
-      project: tenants
-      destination:
-        name: in-cluster
-        namespace: argocd
-      source:
-        repoURL: git@github.com:tombulled/tenant.git
-        path: tenant
-        targetRevision: main
-        helm:
-          values: |
-            applicationDefaults:
-              source:
-                repoURL: git@github.com:tombulled/tenant.git
-                path: tenant
-                targetRevision: main
-              destination:
-                name: in-cluster
-                namespace: argocd
-              project: tenants
-            applications:
-              {{ `{{- range .VALUES }}` }}
-              {{ `{{ .app.name }}` }}: {{ `{{- omit . "app" | toYaml | nindent 4 }}` }}
-              {{ `{{- end }}` }}
+# applicationSet:
+#   name: tenants2
+#   goTemplate: true
+#   generators:
+#     - matrix:
+#         generators:
+#           - matrix:
+#               generators:
+#                 - list:
+#                     elements:
+#                       - VALUES: {}
+#                 - list:
+#                     elements:
+#                       - app:
+#                           name: foo
+#                       - app:
+#                           name: bar
+#                       - app:
+#                           name: baz
+#           - list:
+#               elements:
+#                 - INDEX: "{{ `{{ len .VALUES | toString }}` }}"
+#                   VALUES: "{{ `{{ set .VALUES (uuidv4) (omit . \"VALUES\") }}` }}"
+#       selector:
+#         matchLabels:
+#           INDEX: "1"
+#   template:
+#     metadata:
+#       name: tenants2
+#     spec:
+#       project: tenants
+#       destination:
+#         name: in-cluster
+#         namespace: argocd
+#       source:
+#         repoURL: git@github.com:tombulled/tenant.git
+#         path: tenant
+#         targetRevision: main
+#         helm:
+#           values: |
+#             applicationDefaults:
+#               source:
+#                 repoURL: git@github.com:tombulled/tenant.git
+#                 path: tenant
+#                 targetRevision: main
+#               destination:
+#                 name: in-cluster
+#                 namespace: argocd
+#               project: tenants
+#             applications:
+#               {{ `{{- range .VALUES }}` }}
+#               {{ `{{ .app.name }}` }}: {}
+#               {{ `{{- end }}` }}
